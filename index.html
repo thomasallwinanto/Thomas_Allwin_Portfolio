@@ -196,6 +196,12 @@
     body.dark-mode .love-list-item {
       color: #fff !important;
     }
+    body.dark-mode .project-desc {
+      color: #fff !important;
+    }
+    .project-desc {
+      color: #111 !important;
+    }
   </style>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -203,7 +209,27 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <button id="theme-toggle" aria-label="Toggle dark/light mode" style="position:fixed; top:18px; right:18px; z-index:9999; background:#222; color:#fff; border:none; border-radius:50%; width:44px; height:44px; font-size:1.5rem; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.12); transition:background 0.3s, color 0.3s; display:flex; align-items:center; justify-content:center;">🌙</button>
+  <button id="theme-toggle" aria-label="Toggle dark/light mode" style="position:fixed; top:18px; right:18px; z-index:9999; background:none; color:#111; border:none; border-radius:50%; width:36px; height:36px; font-size:1.3rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:color 0.3s;">
+    <svg id="theme-icon" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+      <circle id="outer-circle" cx="30" cy="30" r="24" stroke="currentColor" stroke-width="6.4" fill="none"/>
+      <g id="icon-group">
+        <path id="moon-shape" d="M38 30a8 8 0 1 1-16 0a8 8 0 0 1 16 0zm-4.5-8a7.5 7.5 0 1 0 0 16a6.5 6.5 0 1 1 0-16z" fill="#fff" stroke="#fff" style="display:none;"/>
+        <g id="sun-shape" style="display:block;">
+          <circle cx="30" cy="30" r="15" fill="#111" stroke="#111"/>
+          <g>
+            <line x1="30" y1="5" x2="30" y2="15" stroke="#111" stroke-width="3"/>
+            <line x1="30" y1="45" x2="30" y2="55" stroke="#111" stroke-width="3"/>
+            <line x1="5" y1="30" x2="15" y2="30" stroke="#111" stroke-width="3"/>
+            <line x1="45" y1="30" x2="55" y2="30" stroke="#111" stroke-width="3"/>
+            <line x1="13" y1="13" x2="20" y2="20" stroke="#111" stroke-width="3"/>
+            <line x1="47" y1="13" x2="40" y2="20" stroke="#111" stroke-width="3"/>
+            <line x1="13" y1="47" x2="20" y2="40" stroke="#111" stroke-width="3"/>
+            <line x1="47" y1="47" x2="40" y2="40" stroke="#111" stroke-width="3"/>
+          </g>
+        </g>
+      </g>
+    </svg>
+  </button>
   <audio id="site-music" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12b6b9b7b7.mp3" loop preload="none"></audio>
   <nav class="navbar">
     <div class="container">
@@ -268,26 +294,26 @@
         <div class="project-block" style="background:none; border:none; padding:0;">
           <strong>Project 1: Two Wire AC Distribution System <span style="font-weight:normal; color:#888; font-size:0.98rem;">01/2021 – 07/2021</span></strong>
           <ul style="font-size:1rem; color:#555; margin:0.6rem 0 0 0; padding-left:1.2rem; text-align:left;">
-            <li>Designed a low-cost two-wire AC distribution system enabling isolated power extension for domestic households.</li>
-            <li>Addressed excessive energy losses and high billing caused by conventional distribution methods.</li>
-            <li>Implemented solutions for overheating and cooling inefficiencies to enhance reliability and energy efficiency by 20%.</li>
+            <li class="project-desc">Designed a low-cost two-wire AC distribution system enabling isolated power extension for domestic households.</li>
+            <li class="project-desc">Addressed excessive energy losses and high billing caused by conventional distribution methods.</li>
+            <li class="project-desc">Implemented solutions for overheating and cooling inefficiencies to enhance reliability and energy efficiency by 20%.</li>
           </ul>
         </div>
         <!-- Reduce extra space between project 2 and 3 -->
         <div class="project-block" style="background:none; border:none; padding:0;">
           <strong>Project 2: Transformer Failure Notifier <span style="font-weight:normal; color:#888; font-size:0.98rem;">01/2020 – 06/2020</span></strong>
           <ul style="font-size:1rem; color:#555; margin:0.6rem 0 0 0; padding-left:1.2rem; text-align:left;">
-            <li>Developed a GSM-based wireless notification system using Arduino Uno to alert grid authorities of transformer failures.</li>
-            <li>Enabled real-time fault location detection with transformer ID tagging, significantly reducing downtime by 30% and manual fault tracing.</li>
-            <li>Proposed future scope for fault-type classification using extended sensor modules.</li>
+            <li class="project-desc">Developed a GSM-based wireless notification system using Arduino Uno to alert grid authorities of transformer failures.</li>
+            <li class="project-desc">Enabled real-time fault location detection with transformer ID tagging, significantly reducing downtime by 30% and manual fault tracing.</li>
+            <li class="project-desc">Proposed future scope for fault-type classification using extended sensor modules.</li>
           </ul>
         </div>
         <div class="project-block" style="background:none; border:none; padding:0;">
           <strong>Project 3: Isolated Extension Supply <span style="font-weight:normal; color:#888; font-size:0.98rem;">01/2019 – 06/2019</span></strong>
           <ul style="font-size:1rem; color:#555; margin:0.6rem 0 0 0; padding-left:1.2rem; text-align:left;">
-            <li>Engineered a novel device for safe handling of live AC wires by converting Phase/Neutral to 2-phase input.</li>
-            <li>Eliminated risk of electrocution by isolating ground paths and redesigning current flow through phase-phase methodology.</li>
-            <li>Enabled live testing and operation of appliances without traditional neutral connections.</li>
+            <li class="project-desc">Engineered a novel device for safe handling of live AC wires by converting Phase/Neutral to 2-phase input.</li>
+            <li class="project-desc">Eliminated risk of electrocution by isolating ground paths and redesigning current flow through phase-phase methodology.</li>
+            <li class="project-desc">Enabled live testing and operation of appliances without traditional neutral connections.</li>
           </ul>
         </div>
       </div>
@@ -306,7 +332,7 @@
   </section>
 
   <section id="art-3d" style="display:none;">
-    <div class="container" style="display:flex; flex-direction:column; align-items:center; justify-content:center; background:#fff; border:none; border-radius:0; padding:0; width:100%; max-width:740px; margin:0 auto; text-align:center; box-sizing:border-box;">
+    <div class="container" style="display:flex; flex-direction:column; align-items:center; justify-content:center; border:none; border-radius:0; padding:0; width:100%; max-width:740px; margin:0 auto; text-align:center; box-sizing:border-box;">
       <h2 style="width:100%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">Imaginary Axis</h2>
       <div style="width:100%; max-width:740px; text-align:justify; margin:0 auto 1.2rem auto; line-height:1.6;">
         I started this project during the 2020 lockdown. I was limited with the technology I possessed and used Paint 3D for all the works below. I've lost most of the raw files, but those works are on <a href="https://www.instagram.com/imaginary_axis/" target="_blank" style="color:#00bcd4; text-decoration:underline;">@imaginary_axis</a> instagram account.
@@ -760,21 +786,36 @@
     script.src = 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js';
     document.head.appendChild(script);
 
-    // Dark/Light mode toggle logic
+    // Minimal dark/light mode toggle logic with black/white icon
     const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
     let darkMode = false;
+    function updateThemeIcon() {
+      themeToggle.style.color = darkMode ? '#fff' : '#111';
+      document.getElementById('outer-circle').setAttribute('stroke', darkMode ? '#fff' : '#111');
+      // Sun/Moon switch
+      const moon = document.getElementById('moon-shape');
+      const sun = document.getElementById('sun-shape');
+      if (darkMode) {
+        moon.style.display = 'block';
+        sun.style.display = 'none';
+      } else {
+        moon.style.display = 'none';
+        sun.style.display = 'block';
+      }
+    }
     themeToggle.addEventListener('click', function() {
       darkMode = !darkMode;
       document.body.classList.toggle('dark-mode', darkMode);
-      themeToggle.textContent = darkMode ? '☀️' : '🌙';
       localStorage.setItem('darkMode', darkMode);
+      updateThemeIcon();
     });
-    // Optionally, remember mode in localStorage
+    // Remember mode in localStorage
     if (localStorage.getItem('darkMode') === 'true') {
       darkMode = true;
       document.body.classList.add('dark-mode');
-      themeToggle.textContent = '☀️';
     }
+    updateThemeIcon();
   </script>
 </body>
 </html>
