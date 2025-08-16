@@ -777,14 +777,7 @@
     function updateThemeEmoji() {
       themeToggle.style.color = darkMode ? '#fff' : '#111';
       themeEmoji.textContent = darkMode ? '🌜' : '🌞';
-      // Sun should be white, moon should be dark
-      if (!darkMode) {
-        // Sun: white
-        themeEmoji.style.filter = 'grayscale(1) brightness(5)';
-      } else {
-        // Moon: dark
-        themeEmoji.style.filter = 'grayscale(1) brightness(0.2)';
-      }
+      themeEmoji.style.filter = '';
     }
     themeToggle.addEventListener('click', function() {
       darkMode = !darkMode;
