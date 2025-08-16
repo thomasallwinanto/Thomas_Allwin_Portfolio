@@ -1,33 +1,715 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <style>
+    /* Center navbar buttons */
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .nav-btn {
+      font-size: 1rem;
+      padding: 0.6rem 1.2rem;
+      background: #fff;
+      color: #111;
+      border: 2px solid #00bcd4;
+      border-radius: 0;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, box-shadow 0.18s, border 0.18s;
+      box-shadow: 0 2px 8px rgba(0,188,212,0.10);
+    }
+    .nav-btn:hover {
+      background: #00bcd4;
+      color: #fff;
+      border: 2.5px solid #111;
+      box-shadow: 0 4px 16px rgba(0,188,212,0.18);
+    }
+    /* Active nav button style */
+    .nav-btn.active {
+      background: #00bcd4;
+      color: #fff;
+      border: 2.5px solid #111;
+      box-shadow: 0 4px 16px rgba(0,188,212,0.22);
+    }
+    /* Make sections 20% bigger */
+    section .container {
+      font-size: 1.2rem;
+      padding: 2.4rem 0;
+    }
+    section h2 {
+      font-size: 2.4rem;
+      width: 92%;
+      max-width: 740px;
+      margin: 0 auto 1.2rem auto;
+      text-align: center;
+      box-sizing: border-box;
+      display: block;
+      border-bottom: 2.5px solid #00bcd4;
+      padding-bottom: 0.25em;
+    }
+    section.hero h1 {
+      font-size: 1.8rem !important;
+    }
+    #profile-pic {
+      width: 96px !important;
+      height: 96px !important;
+    }
+    /* Dark mode styles */
+    body.dark-mode {
+      background: #181a1b;
+      color: #e0e0e0;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.dark-mode .container {
+      background: #232527 !important;
+      color: #e0e0e0 !important;
+    }
+    body.dark-mode h2, body.dark-mode h1, body.dark-mode h3 {
+      color: #e0e0e0 !important;
+    }
+    body.dark-mode a {
+      color: #80deea !important;
+    }
+    body.dark-mode .nav-btn {
+      background: #232527;
+      color: #e0e0e0;
+      border: 2px solid #80deea;
+      box-shadow: 0 2px 8px rgba(128,222,234,0.10);
+    }
+    body.dark-mode .nav-btn:hover, body.dark-mode .nav-btn.active {
+      background: #80deea;
+      color: #232527;
+      border: 2.5px solid #e0e0e0;
+      box-shadow: 0 4px 16px rgba(128,222,234,0.18);
+    }
+    body.dark-mode #theme-toggle {
+      background: #80deea;
+      color: #232527;
+    }
+    body.dark-mode #main-model-viewer {
+      background: #232527 !important;
+      color: #e0e0e0 !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    body.dark-mode #viewer-controls button {
+      color: #80deea !important;
+    }
+    body.dark-mode #model-fallback {
+      color: #ff8a65 !important;
+    }
+    body.dark-mode #music-btn {
+      background: #80deea;
+      color: #232527;
+      border: 2px solid #e0e0e0;
+    }
+    body.dark-mode .love-categories button {
+      background: #232527;
+      color: #e0e0e0;
+      border: 2px solid #80deea;
+    }
+    body.dark-mode .love-categories button[style*='background: #00bcd4'] {
+      background: #80deea !important;
+      color: #232527 !important;
+      border: 2px solid #e0e0e0 !important;
+    }
+    body.dark-mode table th, body.dark-mode table td {
+      border-color: #80deea !important;
+    }
+    body.dark-mode #profile-pic {
+      border-color: #80deea !important;
+      background: #232527 !important;
+    }
+    body.dark-mode .art-3d-tip {
+      color: #fff !important;
+    }
+    body.dark-mode .love-list-item {
+      color: #fff !important;
+    }
+  </style>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Portfolio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>Hello, I'm [Your Name] 👋</h1>
-    <p>Welcome to my portfolio!</p>
-  </header>
+  <button id="theme-toggle" aria-label="Toggle dark/light mode" style="position:fixed; top:18px; right:18px; z-index:9999; background:#222; color:#fff; border:none; border-radius:50%; width:44px; height:44px; font-size:1.5rem; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.12); transition:background 0.3s, color 0.3s; display:flex; align-items:center; justify-content:center;">🌙</button>
+  <audio id="site-music" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12b6b9b7b7.mp3" loop preload="none"></audio>
+  <nav class="navbar">
+    <div class="container">
+      <ul class="nav-links">
+        <li><button class="nav-btn" onclick="showSection('home')">Home</button></li>
+        <li><button class="nav-btn" onclick="showSection('about')">About Me</button></li>
+        <li><button class="nav-btn" onclick="showSection('academic-projects')">Academic Projects</button></li>
+        <li><button class="nav-btn" onclick="showSection('personal-projects')">Personal Projects</button></li>
+        <li><button class="nav-btn" onclick="showSection('art-3d')">Art Projects</button></li>
+        <li><button class="nav-btn" onclick="showSection('blog')">Blog</button></li>
+        <li><button class="nav-btn" onclick="showSection('stuff-i-love')">Stuff I Love</button></li>
+        <li><button class="nav-btn" onclick="showSection('contact')">Contact</button></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- Removed navbar hide/unhide arrow -->
+  </nav>
+  <!-- Music controls below navbar, above Home section -->
+  <div id="music-controls" style="display: flex; justify-content: center; align-items: center; margin: 1.2rem 0 0.5rem 0;">
+    <button id="music-btn" style="background: #00bcd4; color: #fff; border: 2px solid #111; border-radius: 0; padding: 0.6rem 1.2rem; font-size: 1rem; cursor: pointer;">Play Music</button>
+  </div>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p>I'm learning web development and building cool projects.</p>
+  <section id="home" class="hero" style="background:#00bcd4;">
+    <div class="container">
+      <div style="margin: 1rem 0 0.5rem 0; display: flex; justify-content: center;">
+        <img id="profile-pic" src="assets/profile.jpg" alt="Profile Picture" style="width:80px; height:80px; object-fit:cover; border:2px solid #00bcd4; border-radius:50%; background:#fff;" />
+      </div>
+      <h1 style="font-size:1.5rem; font-weight:400; margin-top:0.5rem; text-align:center;">Hello, I'm Tom and welcome to my site :)</h1>
+    </div>
   </section>
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <ul>
-      <li>🌐 Portfolio Website</li>
-      <li>📱 Mobile App (coming soon)</li>
-    </ul>
+  <section id="about" style="display:none;">
+    <div class="container" style="text-align:center;">
+      <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">About me and other global events</h2>
+      <div class="fact-box" style="margin:0 auto; display:inline-block;">
+        <p id="about-fact">I'm passionate about technology and creativity.</p>
+      </div>
+      <div style="margin:1.2rem 0; display:flex; flex-direction:column; align-items:center;">
+        <input type="range" id="year-slider" min="1999" max="2025" value="1999" style="width:220px;">
+        <div style="margin-top:0.5rem; font-size:1.1rem; color:#00bcd4;">
+          Year: <span id="year-label">1999</span>
+        </div>
+        <div style="display:flex; gap:0.75rem; margin-top:1rem; justify-content:center;">
+          <button id="about-arrow" aria-label="Next year" style="background:none; border:none; padding:0; margin:0; cursor:pointer; display:flex; align-items:center; justify-content:center; width:19px; height:19px;">
+            <span style="display:inline-block; width:0; height:0; border-right:15px solid #00bcd4; border-top:13px solid transparent; border-bottom:13px solid transparent;"></span>
+          </button>
+          <button id="about-back" aria-label="Previous year" style="background:none; border:none; padding:0; margin:0; cursor:pointer; display:flex; align-items:center; justify-content:center; width:19px; height:19px;">
+            <span style="display:inline-block; width:0; height:0; border-left:15px solid #00bcd4; border-top:13px solid transparent; border-bottom:13px solid transparent;"></span>
+          </button>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: yourname@example.com</p>
+  <section id="academic-projects" style="display:none;">
+    <div class="container">
+      <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block;">Academic Projects</h2>
+      <div style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:justify; line-height:1.6;">
+        Here are some of my academic projects, each focused on solving real-world problems and applying modern technology and research methods.
+      </div>
+      <div class="project-blocks" style="display:flex; flex-direction:column; gap:0.9rem;">
+        <div class="project-block" style="background:none; border:none; padding:0;">
+          <strong>Project 1: Two Wire AC Distribution System <span style="font-weight:normal; color:#888; font-size:0.98rem;">01/2021 – 07/2021</span></strong>
+          <ul style="font-size:1rem; color:#555; margin:0.6rem 0 0 0; padding-left:1.2rem; text-align:left;">
+            <li>Designed a low-cost two-wire AC distribution system enabling isolated power extension for domestic households.</li>
+            <li>Addressed excessive energy losses and high billing caused by conventional distribution methods.</li>
+            <li>Implemented solutions for overheating and cooling inefficiencies to enhance reliability and energy efficiency by 20%.</li>
+          </ul>
+        </div>
+        <!-- Reduce extra space between project 2 and 3 -->
+        <div class="project-block" style="background:none; border:none; padding:0;">
+          <strong>Project 2: Transformer Failure Notifier <span style="font-weight:normal; color:#888; font-size:0.98rem;">01/2020 – 06/2020</span></strong>
+          <ul style="font-size:1rem; color:#555; margin:0.6rem 0 0 0; padding-left:1.2rem; text-align:left;">
+            <li>Developed a GSM-based wireless notification system using Arduino Uno to alert grid authorities of transformer failures.</li>
+            <li>Enabled real-time fault location detection with transformer ID tagging, significantly reducing downtime by 30% and manual fault tracing.</li>
+            <li>Proposed future scope for fault-type classification using extended sensor modules.</li>
+          </ul>
+        </div>
+        <div class="project-block" style="background:none; border:none; padding:0;">
+          <strong>Project 3: Isolated Extension Supply <span style="font-weight:normal; color:#888; font-size:0.98rem;">01/2019 – 06/2019</span></strong>
+          <ul style="font-size:1rem; color:#555; margin:0.6rem 0 0 0; padding-left:1.2rem; text-align:left;">
+            <li>Engineered a novel device for safe handling of live AC wires by converting Phase/Neutral to 2-phase input.</li>
+            <li>Eliminated risk of electrocution by isolating ground paths and redesigning current flow through phase-phase methodology.</li>
+            <li>Enabled live testing and operation of appliances without traditional neutral connections.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </section>
+
+  <section id="personal-projects" style="display:none;">
+    <div class="container">
+      <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">Personal Projects</h2>
+      <div class="project-blocks">
+        <div class="project-block">Personal Portfolio Website</div>
+        <div class="project-block">Todo List App</div>
+        <div class="project-block">Weather Dashboard</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="art-3d" style="display:none;">
+    <div class="container" style="display:flex; flex-direction:column; align-items:center; justify-content:center; background:#fff; border:none; border-radius:0; padding:0; width:800px; margin:0 auto; text-align:center; box-sizing:border-box;">
+      <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">Art Projects</h2>
+      <div style="width:92%; max-width:740px; text-align:justify; margin:0 auto 1.2rem auto; line-height:1.6;">
+        I started this project during the 2020 lockdown. I was limited with the technology I possessed and used Paint 3D for all the works below. I've lost most of the raw files, but those works are on <a href="https://www.instagram.com/imaginary_axis/" target="_blank" style="color:#00bcd4; text-decoration:underline;">@imaginary_axis</a> instagram account.
+      </div>
+      <div style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:left;">
+        <span class="art-3d-tip" style="display:block; margin-top:1.2rem; color:#111;">Interact with my 3D artwork below! You can rotate, zoom, and pan the model.</span>
+      </div>
+      <div id="viewer-controls" style="margin-bottom:1rem; display:flex; flex-direction:column; align-items:center; gap:0.7rem; width:800px; box-sizing:border-box;">
+        <div style="display:flex; justify-content:center; align-items:center; gap:0.96rem; width:100%; box-sizing:border-box;">
+          <button id="prev-model" style="background:none; color:#00bcd4; border:none; border-radius:0; padding:0.5rem 1.2rem; cursor:pointer; font-size:2rem; line-height:1;">
+            &#9664;
+          </button>
+          <button id="next-model" style="background:none; color:#00bcd4; border:none; border-radius:0; padding:0.5rem 1.2rem; cursor:pointer; font-size:2rem; line-height:1;">
+            &#9654;
+          </button>
+        </div>
+      </div>
+      <div style="width:700px; display:flex; justify-content:center; align-items:center; box-sizing:border-box;">
+        <model-viewer id="main-model-viewer" src="https://raw.githubusercontent.com/thomasallwinanto/Imaginary_Axis_files/main/BAC.glb" alt="3D Art" camera-controls auto-rotate style="width:700px; height:400px; margin:0 auto; background:none; border:none; border-radius:0; box-shadow:none; display:block; align-self:center; box-sizing:border-box;"
+          onerror="document.getElementById('model-fallback').style.display='block'"
+        ></model-viewer>
+      </div>
+      <div id="model-fallback" style="display:none; color:#d32f2f; font-size:1.1rem; margin-top:1rem; width:800px;">3D model could not be loaded. Please check that the file exists and is a valid .glb file.</div>
+      <p style="margin-top:1rem; color:#00bcd4; width:800px;">Tip: Use your mouse or touch to interact with the model.</p>
+    </div>
+  </section>
+  <section id="blog" style="display:none;">
+    <div class="container">
+      <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">Blog</h2>
+      <ul class="blog-list">
+        <li><a href="#" onclick="showBlog('blog1')">How I started coding</a></li>
+        <li><a href="#" onclick="showBlog('blog2')">Lessons from my first project</a></li>
+        <li><a href="#" onclick="showBlog('blog3')">Why I love web development</a></li>
+      </ul>
+      <div id="blog-content" style="display:none;"></div>
+    </div>
+  </section>
+
+  <section id="stuff-i-love" style="display:none;">
+    <div class="container">
+      <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">Stuff I Love</h2>
+      <div class="love-categories">
+        <button onclick="showLove('books')">Books</button>
+        <button onclick="showLove('games')">Games</button>
+        <button onclick="showLove('movies')">Movies</button>
+        <button onclick="showLove('music')">Music</button>
+      </div>
+      <ul id="love-list"></ul>
+      <div id="love-images" style="display:flex; gap:0.96rem; flex-wrap:wrap; justify-content:center; margin-top:1rem;"></div>
+    </div>
+  </section>
+
+  <section id="contact" style="display:none;">
+    <div class="container">
+      <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">Contact</h2>
+      <p>Email: thomasallwinanto@gmail.com</p>
+      <p>Instagram: <a href="https://www.instagram.com/thomas_allwin/#" target="_blank" style="color:#00bcd4; text-decoration:underline;">@thomas_allwin</a></p>
+      <p>or Send a pigeon </p>
+      <p>Feel free to reach out for collaborations or just to say hi!</p>
+    </div>
+  </section>
+
+  <script>
+    // Section navigation with selected nav button highlight
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll('section');
+      sections.forEach(sec => {
+        sec.style.display = 'none';
+      });
+      document.getElementById(sectionId).style.display = '';
+      // Highlight active nav button
+      const navBtns = document.querySelectorAll('.nav-btn');
+      navBtns.forEach(btn => {
+        // Get target section from onclick attribute
+        const match = btn.getAttribute('onclick')?.match(/showSection\(['"]([\w-]+)['"]\)/);
+        const btnSection = match ? match[1] : null;
+        if (btnSection === sectionId) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+    // Show 3D Art by default
+    showSection('art-3d');
+
+    // 3D model switching logic
+    const modelFiles = [
+      "BAC.glb",
+      "DEBRIS.glb",
+      "Death_Stranding.glb",
+      "PYRAMID.glb",
+      "Project_frame.glb",
+      "THE SHIP.glb",
+      "VFP.glb"
+    ];
+    const githubBase = "https://raw.githubusercontent.com/thomasallwinanto/Imaginary_Axis_files/main/";
+    const modelViewer = document.getElementById('main-model-viewer');
+    const prevBtn = document.getElementById('prev-model');
+    const nextBtn = document.getElementById('next-model');
+    let currentModelIdx = 0;
+
+    function updateModel(idx) {
+      currentModelIdx = idx;
+      const file = modelFiles[idx];
+      modelViewer.src = githubBase + file;
+      document.getElementById('model-fallback').style.display = 'none';
+    }
+
+    prevBtn.addEventListener('click', function() {
+      let idx = (currentModelIdx - 1 + modelFiles.length) % modelFiles.length;
+      updateModel(idx);
+    });
+    nextBtn.addEventListener('click', function() {
+      let idx = (currentModelIdx + 1) % modelFiles.length;
+      updateModel(idx);
+    });
+    // Initialize viewer to first model
+    updateModel(0);
+
+    // Minimal single music control button
+    const music = document.getElementById('site-music');
+    const musicBtn = document.getElementById('music-btn');
+    let state = 'play'; // play, mute, unmute
+
+    musicBtn.addEventListener('click', function() {
+      if (state === 'play') {
+        music.muted = false;
+        music.play();
+        state = 'mute';
+        musicBtn.textContent = 'Mute Music';
+      } else {
+        music.muted = !music.muted;
+        state = music.muted ? 'unmute' : 'mute';
+        musicBtn.textContent = music.muted ? 'Unmute Music' : 'Mute Music';
+      }
+    });
+
+    // About Me facts by year
+    const yearFacts = {
+      1999: "Born in 1999. The journey begins!",
+      2000: "I started exploring the world around me.",
+      2001: "Fall of the Twin Towers in New York.",
+      2002: "The first iPod was released.",
+      2003: "The Iraq War began.",
+      2004: "Facebook was launched.",
+      2005: "Started exploring computers and games.",
+      2006: "Discovered the internet and online communities.",
+      2007: "First smartphone released, changed how we use technology.",
+      2008: "The financial crisis affected many globally.",
+      2009: "Became interested in technology and the internet.",
+      2010: "Became interested in technology and the internet.",
+      2011: "The Arab Spring began, changing the political landscape.",
+      2012: "The Mayan calendar predicted the end of the world.",
+      2013: "The rise of social media platforms like Instagram.",
+      2014: "The Ebola outbreak in West Africa.",
+      2015: "Wrote my first lines of code.",
+      2016: "The US presidential election and Brexit.",
+      2017: "The rise of cryptocurrencies like Bitcoin.",
+      2018: "Graduated high school and started college.",
+      2019: "Worked on my first major web project.",
+      2020: "Worked on my first major web project.",
+      2021: "Learned about responsive design and accessibility.",
+      2022: "Began collaborating on open source projects.",
+      2023: "Discovered a passion for minimalistic design.",
+      2024: "Started building my personal portfolio.",
+      2025: "Aspiring to become a professional web developer."
+    };
+    // Fill in missing years with previous fact
+    let lastFact = yearFacts[1999];
+    for(let y=1999; y<=2025; y++) {
+      if(!yearFacts[y]) yearFacts[y] = lastFact;
+      else lastFact = yearFacts[y];
+    }
+    const yearSlider = document.getElementById('year-slider');
+    const yearLabel = document.getElementById('year-label');
+    const aboutFact = document.getElementById('about-fact');
+    const aboutArrow = document.getElementById('about-arrow');
+    yearSlider.addEventListener('input', function() {
+      const year = parseInt(yearSlider.value);
+      yearLabel.textContent = year;
+      aboutFact.textContent = yearFacts[year];
+    });
+    aboutArrow.addEventListener('click', function() {
+      let year = parseInt(yearSlider.value);
+      year = year > 1999 ? year - 1 : 2025;
+      yearSlider.value = year;
+      yearLabel.textContent = year;
+      aboutFact.textContent = yearFacts[year];
+    });
+    document.getElementById('about-back').addEventListener('click', function() {
+      let year = parseInt(yearSlider.value);
+      year = year < 2025 ? year + 1 : 1999;
+      yearSlider.value = year;
+      yearLabel.textContent = year;
+      aboutFact.textContent = yearFacts[year];
+    });
+    // Initialize fact
+    yearLabel.textContent = yearSlider.value;
+    aboutFact.textContent = yearFacts[yearSlider.value];
+
+    // Blog content
+    const blogs = {
+      blog1: "<h3>How I started coding</h3><p>I began my coding journey in high school, experimenting with simple websites and games...</p>",
+      blog2: "<h3>Lessons from my first project</h3><p>My first project taught me the importance of planning and perseverance...</p>",
+      blog3: "<h3>Why I love web development</h3><p>Web development allows me to blend creativity and logic to build amazing things...</p>"
+    };
+    function showBlog(blogKey) {
+      const blogContent = document.getElementById('blog-content');
+      blogContent.innerHTML = blogs[blogKey];
+      blogContent.style.display = 'block';
+    }
+
+    // Stuff I Love
+    const loveStuff = {
+      books: [
+        "The Da Vinci Code",
+        "The Name of the Rose",
+        "Industrial Society and Its Future",
+        "Dune",
+        "Dune Messiah",
+        "Children of Dune",
+        "God Emperor of Dune",
+        "Fahrenheit 451",
+        "Crime and Punishment",
+        "Once Upon a Time in Hollywood"
+      ],
+      games: [
+        "Grand Theft Auto III",
+        "Grand Theft Auto: Vice City",
+        "Grand Theft Auto: San Andreas",
+        "Grand Theft Auto IV",
+        "Grand Theft Auto IV: The Lost and Damned",
+        "Grand Theft Auto IV: The Ballad of Gay Tony",
+        "Assassin's Creed",
+        "Assassin's Creed II",
+        "Assassin's Creed Brotherhood",
+        "Assassin's Creed Revelations",
+        "Assassin's Creed III",
+        "Assassin's Creed IV: Black Flag",
+        "Assassin's Creed Rogue",
+        "Assassin's Creed Origins",
+        "Assassin's Creed Odyssey",
+        "Assassin's Creed Valhalla",
+        "Assassin's Creed Mirage",
+        "Braid",
+        "Dead Cells",
+        "BioShock",
+        "Red Dead Redemption",
+        "Red Dead Redemption 2",
+        "Total Overdose",
+        "Need for Speed",
+        "Max Payne 3",
+        "Super Mario Bros.",
+        "Pac-Man",
+        "Valorant",
+        "Counter-Strike: Global Offensive",
+        "Call of Duty",
+        "Battlefield"
+      ],
+      movies: [
+        "Inglourious Basterds\t9",
+        "Squid Games s2\t7",
+        "What if…? S3\t6",
+        "The Mauritanian\t8",
+        "Project Power\t5",
+        "Bad boys ride or die\t3",
+        "Justice League Snyder Cut\t6",
+        "Tron Legacy\t7",
+        "Kick Ass\t8",
+        "The Brutalist\t7.5",
+        "Heretic\t7",
+        "The Substance\t7.5",
+        "Irreversible\t8",
+        "Social network\t8",
+        "Rifle Club\t6",
+        "Princess Mononoke\t7",
+        "Back in action\t6",
+        "The Irishman\t8",
+        "KGF chapter 1 and 2\t6",
+        "Spirit : Stallion of the cimarron\t6",
+        "Pacific Rim\t8",
+        "Anora\t7",
+        "Jurassic World\t7",
+        "Jurassic World : Fallen Kingdom\t5",
+        "Sonic 1",
+        "Sonic 2",
+        "Kraven\t6",
+        "Marco\t6",
+        "Captain America 4\t6",
+        "Shaolin Soccer\t8",
+        "Get Smart\t6.5",
+        "Another german tank story",
+        "Friendly Neighbourhood Spider-Man\t7",
+        "Zero Day\t6.5",
+        "Gladiator\t8",
+        "Kill\t7.5",
+        "Officer on duty\t7.5",
+        "Dragon\t6.5",
+        "Adolescence\t8",
+        "Grown Ups\t8",
+        "Lucifer\t7.5",
+        "L2 Empuraan\t6",
+        "Iroopatham Nootandu\t7.5",
+        "Minnal Murali\t7.5",
+        "Deva\t5",
+        "Mumbai Police\t8",
+        "Green book\t7",
+        "Mickey 17\t7",
+        "The Amateur\t6",
+        "Dune part 2\t9",
+        "The hundred foot journey",
+        "The Other Guys\t8",
+        "Sinners\t8",
+        "Salaar\t7.5",
+        "Andor\t7.5",
+        "Star Wars episode 3\t8",
+        "Andor\t8",
+        "The New Avengers\t7.5",
+        "Hotel Reverie\t8",
+        "Andor\t9",
+        "Rogue One\t8",
+        "Empire strikes back\t8",
+        "The Diplomat\t7",
+        "American Manhunt bin laden\t8",
+        "Us\t6.5",
+        "Venom Last Dance\t6",
+        "Love death robots\t6",
+        "Jumanji : Next level\t6",
+        "Havoc\t5",
+        "Pathaan\t2",
+        "Thudarum\t8",
+        "Warfare\t8",
+        "Pain and gain\t7",
+        "World war Z\t7",
+        "Assassination of Jesse James by Coward Robert Ford\t8",
+        "Starsky and Hutch\t7",
+        "Padakkalam\t6.5",
+        "You don’t mess with Zohan\t5",
+        "Fight Club\t7.5",
+        "Alien Romulus\t8",
+        "Squid Games S3\t7",
+        "The Mummy\t5",
+        "Casino Royale\t7.5",
+        "Longlegs\t7",
+        "Naked Gun 2 1/2\t7",
+        "Breakfast with Giraffes",
+        "Joker 2\t4.5",
+        "Naked gun : files from police squad\t7",
+        "No country for old men\t9"
+      ],
+      music: [
+        "Stevie Ray Vaughan",
+        "Eric Clapton",
+        "Jimi Hendrix",
+        "JJ Cale",
+        "Radiohead",
+        "Thom Yorke",
+        "John Mayer",
+        "Kurt Cobain",
+        "Chris Cornell",
+        "Nirvana",
+        "Hans Zimmer",
+        "Derek and the Dominos",
+        "Cream",
+        "Agam",
+        "Lucky Ali"
+      ]
+    };
+    function showLove(category) {
+      const list = document.getElementById('love-list');
+      const images = document.getElementById('love-images');
+      // Highlight selected button
+      const btns = document.querySelectorAll('.love-categories button');
+      btns.forEach(btn => {
+        if (btn.textContent.toLowerCase().replace(/ /g, '-') === category.replace(/ /g, '-')) {
+          btn.style.background = '#00bcd4';
+          btn.style.color = '#fff';
+          btn.style.border = '2px solid #111';
+        } else {
+          btn.style.background = '#fff';
+          btn.style.color = '#111';
+          btn.style.border = '2px solid #00bcd4';
+        }
+      });
+      let items = loveStuff[category];
+      list.innerHTML = '';
+      let imgHtml = '';
+      if(category === 'books') {
+        const bookImages = {
+          'The Da Vinci Code': 'https://m.media-amazon.com/images/I/51Z0nLAfLmL.jpg',
+          'The Name of the Rose': 'https://m.media-amazon.com/images/I/81vpsIs58WL.jpg',
+          'Industrial Society and Its Future': 'https://m.media-amazon.com/images/I/41wQbFZKJjL.jpg',
+          'Dune': 'https://m.media-amazon.com/images/I/91uwocAMtSL.jpg',
+          'Dune Messiah': 'https://m.media-amazon.com/images/I/81t2CVWEsUL.jpg',
+          'Children of Dune': 'https://m.media-amazon.com/images/I/81eA0lGQHJL.jpg',
+          'God Emperor of Dune': 'https://m.media-amazon.com/images/I/81QpFQwZKGL.jpg',
+          'Fahrenheit 451': 'https://m.media-amazon.com/images/I/71OFqSRFDgL.jpg',
+          'Crime and Punishment': 'https://m.media-amazon.com/images/I/81WcnNQ-TBL.jpg',
+          'Once Upon a Time in Hollywood': 'https://m.media-amazon.com/images/I/81QpFQwZKGL.jpg'
+        };
+        imgHtml = items.map(item => {
+          // fallback if image not found
+          let imgSrc = bookImages[item] || 'https://via.placeholder.com/70x100?text=No+Image';
+          return `<div style='text-align:center;'><img src='${imgSrc}' alt='${item}' style='width:70px; height:100px; object-fit:cover; background:#fff;'><div style='font-size:0.9rem; margin-top:0.3rem;'>${item}</div></div>`;
+        }).join('');
+      } else if(category === 'games') {
+        imgHtml = `<ul style='list-style:none; padding:0; margin:0; text-align:left;'>` +
+          items.map(item => `<li class='love-list-item' style='font-size:0.98rem; margin-bottom:0.4rem; color:#111;'>${item}</li>`).join('') + `</ul>`;
+      } else if(category === 'movies') {
+        // Letterboxd link at the top
+        imgHtml = `<div style='width:100%; text-align:center; margin-bottom:1rem;'><a href='https://boxd.it/6ycaP' target='_blank' style='color:#00bcd4; font-size:1rem; text-decoration:underline;'>See more movies on my Letterboxd</a></div>`;
+        // Build table with serial no, movie name, rating
+        imgHtml += `<table style='width:100%; border-collapse:collapse; margin:0 auto; font-size:0.98rem;'>` +
+          `<thead><tr style='background:#00bcd4; color:#fff;'><th style='padding:0.4rem 0.6rem; border:1px solid #111;'>#</th><th style='padding:0.4rem 0.6rem; border:1px solid #111;'>Movie</th><th style='padding:0.4rem 0.6rem; border:1px solid #111;'>Rating</th></tr></thead><tbody>` +
+          items.map((item, idx) => {
+            let match = item.match(/^(.*?)(?:\t|\s{2,})([0-9.]+)?$/);
+            let name = match ? match[1].trim() : item.trim();
+            let rating = match && match[2] ? match[2] : '';
+            return `<tr class='love-list-item'><td style='border:1px solid #111; padding:0.3rem 0.6rem; text-align:center;'>${idx+1}</td><td style='border:1px solid #111; padding:0.3rem 0.6rem;'>${name}</td><td style='border:1px solid #111; padding:0.3rem 0.6rem; text-align:center;'>${rating}</td></tr>`;
+          }).join('') + `</tbody></table>`;
+      } else if(category === 'music') {
+        const musicImages = {
+          'Stevie Ray Vaughan': 'https://i.scdn.co/image/ab6761610000e5ebc2e7e2e6e7e2e7e2e7e2e7e2',
+          'Eric Clapton': 'https://i.scdn.co/image/ab6761610000e5ebc4c4c4c4c4c4c4c4c4c4c4',
+          'Jimi Hendrix': 'https://i.scdn.co/image/ab6761610000e5ebc3c3c3c3c3c3c3c3c3c3c3',
+          'JJ Cale': 'https://i.scdn.co/image/ab6761610000e5ebc1c1c1c1c1c1c1c1c1c1c1c1',
+          'Radiohead': 'https://i.scdn.co/image/ab6761610000e5ebc5c5c5c5c5c5c5c5c5c5c5c5',
+          'Thom Yorke': 'https://i.scdn.co/image/ab6761610000e5ebc6c6c6c6c6c6c6c6c6c6c6c6',
+          'John Mayer': 'https://i.scdn.co/image/ab6761610000e5ebc7c7c7c7c7c7c7c7c7c7c7c7',
+          'Kurt Cobain': 'https://i.scdn.co/image/ab6761610000e5ebc8c8c8c8c8c8c8c8c8c8c8c8',
+          'Chris Cornell': 'https://i.scdn.co/image/ab6761610000e5ebc9c9c9c9c9c9c9c9c9c9c9c9',
+          'Nirvana': 'https://i.scdn.co/image/ab6761610000e5ebcacacacacacacacacacacaca',
+          'Hans Zimmer': 'https://i.scdn.co/image/ab6761610000e5ebcbcbcbcbcbcbcbcbcbcbcbcb',
+          'Derek and the Dominos': 'https://i.scdn.co/image/ab6761610000e5ebcccccccccccccccccccccccc',
+          'Cream': 'https://i.scdn.co/image/ab6761610000e5ebcdcdcdcdcdcdcdcdcdcdcdcd',
+          'Agam': 'https://i.scdn.co/image/ab6761610000e5ebcececececececececececece',
+          'Lucky Ali': 'https://i.scdn.co/image/ab6761610000e5ebcfcfcfcfcfcfcfcfcfcfcfcf'
+        };
+        imgHtml = items.map(item => {
+          let imgSrc = musicImages[item] || 'https://via.placeholder.com/70x70?text=No+Image';
+          return `<div class='love-list-item' style='text-align:center;'><img src='${imgSrc}' alt='${item}' style='width:70px; height:70px; object-fit:cover; background:#fff; border-radius:50%;'><div style='font-size:0.9rem; margin-top:0.3rem;'>${item}</div></div>`;
+        }).join('');
+      }
+      images.innerHTML = imgHtml;
+    }
+
+    // Load model-viewer script for 3D art section
+    const script = document.createElement('script');
+    script.type = 'module';
+    script.src = 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js';
+    document.head.appendChild(script);
+
+    // Dark/Light mode toggle logic
+    const themeToggle = document.getElementById('theme-toggle');
+    let darkMode = false;
+    themeToggle.addEventListener('click', function() {
+      darkMode = !darkMode;
+      document.body.classList.toggle('dark-mode', darkMode);
+      themeToggle.textContent = darkMode ? '☀️' : '🌙';
+      localStorage.setItem('darkMode', darkMode);
+    });
+    // Optionally, remember mode in localStorage
+    if (localStorage.getItem('darkMode') === 'true') {
+      darkMode = true;
+      document.body.classList.add('dark-mode');
+      themeToggle.textContent = '☀️';
+    }
+  </script>
 </body>
 </html>

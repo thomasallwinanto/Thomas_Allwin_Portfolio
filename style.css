@@ -1,3 +1,420 @@
+/* Fact box for About section */
+.fact-box {
+  background: #fff;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+  font-size: 1.1rem;
+  color: #1976d2;
+  font-weight: 500;
+}
+/* Arrow button for About section */
+.arrow-btn {
+  background: #2196f3;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.2s;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.arrow-btn:hover {
+  background: #00bcd4;
+}
+
+
+/* --- Minimal 2010ish Design --- */
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  background: #e5e5e5;
+  color: #111;
+}
+
+.navbar {
+  background: #00bcd4;
+  color: #111;
+  border-bottom: 2px solid #0097a7;
+  padding: 0.5rem 0;
+  box-shadow: none;
+}
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+/* .logo styles removed for minimalism */
+
+#music-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.2rem 0 0.5rem 0;
+}
+#navbar-toggle-arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2px;
+  cursor: pointer;
+}
+#arrow-icon {
+  display: inline-block;
+  transition: border-bottom-color 0.2s, border-top-color 0.2s;
+  cursor: pointer;
+}
+#arrow-icon:hover {
+  border-bottom-color: #0097a7 !important;
+  border-top-color: #0097a7 !important;
+}
+#music-toggle-btn {
+  background: #00bcd4;
+  color: #fff;
+  border: 2px solid #111;
+  border-radius: 0;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+#music-toggle-btn.muted {
+  background: #fff;
+  color: #00bcd4;
+  border: 2px solid #00bcd4;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+.nav-btn {
+  background: #fff;
+  color: #00bcd4;
+  border: 2px solid #00bcd4;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.nav-btn:hover {
+  background: #00bcd4;
+  color: #fff;
+}
+
+.hero {
+  background: #00bcd4;
+  color: #111;
+  border-radius: 0;
+  border: 2px solid #111;
+  margin: 2rem auto 1rem auto;
+  max-width: 700px;
+  box-shadow: none;
+  padding: 2rem 0 1rem 0;
+  text-align: center;
+}
+.hero h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+}
+.subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 1.2rem;
+  color: #0097a7;
+}
+.bio {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+section {
+  padding: 1.5rem 0;
+}
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #0097a7;
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+}
+
+/* About Me Arrow Button */
+.arrow-btn {
+  background: #fff;
+  color: #00bcd4;
+  border: 2px solid #00bcd4;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0;
+  font-size: 1.3rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.arrow-btn:hover {
+  background: #00bcd4;
+  color: #fff;
+}
+
+/* Fact box for About section */
+.fact-box {
+  background: #fff;
+  border-radius: 0;
+  border: 2px solid #111;
+  box-shadow: none;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+  font-size: 1.05rem;
+  color: #00bcd4;
+  font-weight: 500;
+}
+
+/* Project Blocks */
+.project-blocks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.project-block {
+  background: #fff;
+  border-radius: 0;
+  border: 2px solid #111;
+  box-shadow: none;
+  padding: 1rem;
+  flex: 1 1 220px;
+  min-width: 220px;
+  font-size: 1rem;
+  color: #0097a7;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+/* Blog List */
+.blog-list {
+  list-style: none;
+  padding: 0;
+}
+.blog-list li {
+  margin-bottom: 0.8rem;
+}
+.blog-list a {
+  color: #00bcd4;
+  text-decoration: underline;
+  font-size: 1rem;
+  background: #fff;
+  border-radius: 0;
+  padding: 2px 8px;
+  transition: background 0.2s, color 0.2s;
+}
+.blog-list a:hover {
+  background: #00bcd4;
+  color: #fff;
+}
+#blog-content {
+  background: #fff;
+  border-radius: 0;
+  border: 2px solid #111;
+  box-shadow: none;
+  padding: 1rem;
+  margin-top: 1rem;
+  color: #0097a7;
+}
+
+/* Stuff I Love */
+.love-categories {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+.love-categories button {
+  background: #fff;
+  color: #00bcd4;
+  border: 2px solid #00bcd4;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+.love-categories button:hover {
+  background: #00bcd4;
+  color: #fff;
+}
+#love-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 0.5rem;
+}
+#love-list li {
+  background: #fff;
+  color: #00bcd4;
+  padding: 0.5rem 1rem;
+  border-radius: 0;
+  border: 2px solid #111;
+  margin-bottom: 0.5rem;
+  box-shadow: none;
+  font-weight: 500;
+}
+
+/* Contact Section */
+#contact p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #0097a7;
+}
+/* Modern Portfolio Styles */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  background: #f6f8fa;
+  color: #222;
+}
+
+.navbar {
+  background: #00bcd4;
+  color: #111;
+  border-bottom: 2px solid #0097a7;
+  padding: 0.5rem 0;
+  box-shadow: none;
+}
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+/* .logo styles removed for minimalism */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-links a:hover {
+  color: #00bcd4;
+}
+
+.hero {
+  background: linear-gradient(90deg, #00bcd4 0%, #2196f3 100%);
+  color: #fff;
+  padding: 4rem 0 2rem 0;
+  text-align: center;
+}
+.hero .container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+}
+.social-icons img {
+  filter: brightness(0) invert(1);
+  transition: transform 0.2s;
+}
+.social-icons a:hover img {
+  transform: scale(1.15);
+  filter: brightness(0.8) invert(0.7) sepia(1) hue-rotate(180deg);
+}
+
+section {
+  padding: 2.5rem 0;
+}
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #2196f3;
+}
+.project-list {
+  list-style: none;
+  padding: 0;
+}
+.project-list li {
+  background: #fff;
+  margin-bottom: 1.2rem;
+  padding: 1rem;
+  border-radius: 0;
+  box-shadow: none;
+}
+.project-list h3 {
+  margin: 0 0 0.5rem 0;
+  color: #00bcd4;
+}
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+}
+.skills-list li {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 0.5rem 1rem;
+  border-radius: 0;
+  font-weight: 500;
+  box-shadow: none;
+}
+.container p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+.container a {
+  color: #2196f3;
+  text-decoration: underline;
+}
+.container a:hover {
+  color: #00bcd4;
+}
 body {
   font-family: Arial, sans-serif;
   margin: 0;
