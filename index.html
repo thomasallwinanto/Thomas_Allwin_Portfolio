@@ -209,27 +209,11 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <button id="theme-toggle" aria-label="Toggle dark/light mode" style="position:fixed; top:18px; right:18px; z-index:9999; background:none; color:#111; border:none; border-radius:50%; width:36px; height:36px; font-size:1.3rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:color 0.3s;">
-    <svg id="theme-icon" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">
-      <circle id="outer-circle" cx="30" cy="30" r="24" stroke="currentColor" stroke-width="6.4" fill="none"/>
-      <g id="icon-group">
-        <path id="moon-shape" d="M38 30a8 8 0 1 1-16 0a8 8 0 0 1 16 0zm-4.5-8a7.5 7.5 0 1 0 0 16a6.5 6.5 0 1 1 0-16z" fill="#fff" stroke="#fff" style="display:none;"/>
-        <g id="sun-shape" style="display:block;">
-          <circle cx="30" cy="30" r="15" fill="#111" stroke="#111"/>
-          <g>
-            <line x1="30" y1="5" x2="30" y2="15" stroke="#111" stroke-width="3"/>
-            <line x1="30" y1="45" x2="30" y2="55" stroke="#111" stroke-width="3"/>
-            <line x1="5" y1="30" x2="15" y2="30" stroke="#111" stroke-width="3"/>
-            <line x1="45" y1="30" x2="55" y2="30" stroke="#111" stroke-width="3"/>
-            <line x1="13" y1="13" x2="20" y2="20" stroke="#111" stroke-width="3"/>
-            <line x1="47" y1="13" x2="40" y2="20" stroke="#111" stroke-width="3"/>
-            <line x1="13" y1="47" x2="20" y2="40" stroke="#111" stroke-width="3"/>
-            <line x1="47" y1="47" x2="40" y2="40" stroke="#111" stroke-width="3"/>
-          </g>
-        </g>
-      </g>
-    </svg>
-  </button>
+  <div style="position:fixed; top:8px; right:18px; z-index:9999; display:flex; align-items:center;">
+    <button id="theme-toggle" aria-label="Toggle dark/light mode" style="background:none; color:#111; border:none; border-radius:50%; width:56px; height:56px; font-size:2.2rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:color 0.3s;">
+      <span id="theme-emoji" style="filter: grayscale(1) brightness(0.2);">🌞</span>
+    </button>
+  </div
   <audio id="site-music" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12b6b9b7b7.mp3" loop preload="none"></audio>
   <nav class="navbar">
     <div class="container">
@@ -356,7 +340,7 @@
         ></model-viewer>
       </div>
       <div id="model-fallback" style="display:none; color:#d32f2f; font-size:1.1rem; margin-top:1rem; width:100%; max-width:740px;">3D model could not be loaded. Please check that the file exists and is a valid .glb file.</div>
-      <p style="margin-top:1rem; color:#00bcd4; width:100%; max-width:740px;">Tip: Use your mouse or touch to interact with the model.</p>
+      <p style="margin-top:1rem; color:#00bcd4; width:100%; max-width:740px;">Tip: Use your mouse or touch to <br> interact with the model.</p>
     </div>
   </section>
   <section id="blog" style="display:none;">
@@ -786,36 +770,34 @@
     script.src = 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js';
     document.head.appendChild(script);
 
-    // Minimal dark/light mode toggle logic with black/white icon
+    // Minimal dark/light mode toggle logic with emoji
     const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
+    const themeEmoji = document.getElementById('theme-emoji');
     let darkMode = false;
-    function updateThemeIcon() {
+    function updateThemeEmoji() {
       themeToggle.style.color = darkMode ? '#fff' : '#111';
-      document.getElementById('outer-circle').setAttribute('stroke', darkMode ? '#fff' : '#111');
-      // Sun/Moon switch
-      const moon = document.getElementById('moon-shape');
-      const sun = document.getElementById('sun-shape');
-      if (darkMode) {
-        moon.style.display = 'block';
-        sun.style.display = 'none';
+      themeEmoji.textContent = darkMode ? '🌜' : '🌞';
+      // Sun should be white, moon should be dark
+      if (!darkMode) {
+        // Sun: white
+        themeEmoji.style.filter = 'grayscale(1) brightness(5)';
       } else {
-        moon.style.display = 'none';
-        sun.style.display = 'block';
+        // Moon: dark
+        themeEmoji.style.filter = 'grayscale(1) brightness(0.2)';
       }
     }
     themeToggle.addEventListener('click', function() {
       darkMode = !darkMode;
       document.body.classList.toggle('dark-mode', darkMode);
       localStorage.setItem('darkMode', darkMode);
-      updateThemeIcon();
+      updateThemeEmoji();
     });
     // Remember mode in localStorage
     if (localStorage.getItem('darkMode') === 'true') {
       darkMode = true;
       document.body.classList.add('dark-mode');
     }
-    updateThemeIcon();
+    updateThemeEmoji();
   </script>
 </body>
 </html>
