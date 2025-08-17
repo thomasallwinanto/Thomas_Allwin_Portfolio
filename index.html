@@ -349,7 +349,7 @@
       <ul class="blog-list">
         <li><a href="#" onclick="showBlog('blog1')">How I started coding</a></li>
         <li><a href="#" onclick="showBlog('blog2')">Lessons from my first project</a></li>
-        <li><a href="#" onclick="showBlog('blog3')">Why I love web development</a></li>
+        <li><a href="#" onclick="showBlog('blog3')">Dune</a></li>
       </ul>
       <div id="blog-content" style="display:none;"></div>
     </div>
@@ -460,30 +460,30 @@
       1999: "Born in 1999. The journey begins!",
       2000: "I started exploring the world around me.",
       2001: "Fall of the Twin Towers in New York.",
-      2002: "The first iPod was released.",
-      2003: "The Iraq War began.",
-      2004: "Facebook was launched.",
-      2005: "Started exploring computers and games.",
-      2006: "Discovered the internet and online communities.",
-      2007: "First smartphone released, changed how we use technology.",
-      2008: "The financial crisis affected many globally.",
+      2002: "Did my kindergarten and started school in Bangalore",
+      2003: "Lower Kindergarten in Bangalore.",
+      2004: "I rhink I started learning to read and write in detail",
+      2005: "Changed my school and started class 1",
+      2006: "Was doing class 2 but had to move to Chennai.",
+      2007: "Something was coming up, I could feel it.",
+      2008: "The 2008 financial crisis and housing crisis affected many globally.",
       2009: "Became interested in technology and the internet.",
-      2010: "Became interested in technology and the internet.",
+      2010: "Got my first computer and started playing games.",
       2011: "The Arab Spring began, changing the political landscape.",
       2012: "The Mayan calendar predicted the end of the world.",
       2013: "The rise of social media platforms like Instagram.",
-      2014: "The Ebola outbreak in West Africa.",
-      2015: "Wrote my first lines of code.",
-      2016: "The US presidential election and Brexit.",
-      2017: "The rise of cryptocurrencies like Bitcoin.",
-      2018: "Graduated high school and started college.",
-      2019: "Worked on my first major web project.",
-      2020: "Worked on my first major web project.",
-      2021: "Learned about responsive design and accessibility.",
-      2022: "Began collaborating on open source projects.",
-      2023: "Discovered a passion for minimalistic design.",
-      2024: "Started building my personal portfolio.",
-      2025: "Aspiring to become a professional web developer."
+      2014: "Had my first crush in school",
+      2015: "Had my second crush in school and then I changed my school again to do class 11.",
+      2016: "Got my first smart phone. It was an HCL.",
+      2017: "The rise of cryptocurrencies like Bitcoin. But I didn't know about it. I graduated High School and started college.",
+      2018: "I was pursuing my Bachelors in Electrical and Electronics Engineering and also gave my first Navy exam.",
+      2019: "Someguy from China ate a bat and the world went into a pandemic.",
+      2020: "Worked on my academic projects, art projects in lockdown, gained a lot of knowledge and weight",
+      2021: "I graduated from college and started working at Bosch.",
+      2022: "No significant updates. Just working and living life.",
+      2023: "Went fine the first half, but the second half was a bit rough, complex and difficult.",
+      2024: "I left my job, friends, family and everything I had connection to and moved to Germany to pursue my Masters in MEMS.",
+      2025: "I turned 26 this year and I am still figuring things out. But I am happy with my life choices so far."
     };
     // Fill in missing years with previous fact
     let lastFact = yearFacts[1999];
@@ -520,9 +520,9 @@
 
     // Blog content
     const blogs = {
-      blog1: "<h3>How I started coding</h3><p>I began my coding journey in high school, experimenting with simple websites and games...</p>",
-      blog2: "<h3>Lessons from my first project</h3><p>My first project taught me the importance of planning and perseverance...</p>",
-      blog3: "<h3>Why I love web development</h3><p>Web development allows me to blend creativity and logic to build amazing things...</p>"
+      blog1: "<h3>How I started coding</h3><p>I began my coding by modding games like GTA SA, It started from small characters to making new maps in game till the games crashed.</p>",
+      blog2: "<h3>Lessons from my first project</h3><p>Alwyas keep a backup.</p>",
+      blog3: "<h3>Dune</h3><p>Might be one of the greatest sci-fi movies of the 21st century.I want to write more. But later</p>"
     };
     function showBlog(blogKey) {
       const blogContent = document.getElementById('blog-content');
@@ -545,37 +545,18 @@
         "Once Upon a Time in Hollywood"
       ],
       games: [
-        "Grand Theft Auto III",
-        "Grand Theft Auto: Vice City",
         "Grand Theft Auto: San Andreas",
-        "Grand Theft Auto IV",
-        "Grand Theft Auto IV: The Lost and Damned",
-        "Grand Theft Auto IV: The Ballad of Gay Tony",
-        "Assassin's Creed",
-        "Assassin's Creed II",
         "Assassin's Creed Brotherhood",
-        "Assassin's Creed Revelations",
-        "Assassin's Creed III",
         "Assassin's Creed IV: Black Flag",
         "Assassin's Creed Rogue",
         "Assassin's Creed Origins",
-        "Assassin's Creed Odyssey",
-        "Assassin's Creed Valhalla",
         "Assassin's Creed Mirage",
         "Braid",
-        "Dead Cells",
-        "BioShock",
-        "Red Dead Redemption",
-        "Red Dead Redemption 2",
+        "Red Dead Redemption 1,2",
         "Total Overdose",
-        "Need for Speed",
-        "Max Payne 3",
-        "Super Mario Bros.",
-        "Pac-Man",
+        "Far Cry 3,4",
         "Valorant",
-        "Counter-Strike: Global Offensive",
-        "Call of Duty",
-        "Battlefield"
+        "2048",
       ],
       movies: [
         "Inglourious Basterds\t9",
@@ -630,16 +611,16 @@
       let imgHtml = '';
       if(category === 'books') {
         const bookImages = {
-          'The Da Vinci Code': 'https://m.media-amazon.com/images/I/51Z0nLAfLmL.jpg',
-          'The Name of the Rose': 'https://m.media-amazon.com/images/I/81vpsIs58WL.jpg',
-          'Industrial Society and Its Future': 'https://m.media-amazon.com/images/I/41wQbFZKJjL.jpg',
-          'Dune': 'https://m.media-amazon.com/images/I/91uwocAMtSL.jpg',
-          'Dune Messiah': 'https://m.media-amazon.com/images/I/81t2CVWEsUL.jpg',
-          'Children of Dune': 'https://m.media-amazon.com/images/I/81eA0lGQHJL.jpg',
-          'God Emperor of Dune': 'https://m.media-amazon.com/images/I/81QpFQwZKGL.jpg',
+          'The Da Vinci Code': 'https://m.media-amazon.com/images/I/4182WHOHqUL._SY445_SX342_.jpg',
+          'The Name of the Rose': 'https://m.media-amazon.com/images/I/51kkGmOoqQL._SY445_SX342_.jpg',
+          'Industrial Society and Its Future': 'https://m.media-amazon.com/images/I/41ySrRF+tXL._SY445_SX342_.jpg',
+          'Dune': 'https://m.media-amazon.com/images/I/41qSPS2EDdL._SY445_SX342_.jpg',
+          'Dune Messiah': 'https://m.media-amazon.com/images/I/41NUm1sYjLL._SY445_SX342_.jpg',
+          'Children of Dune': 'https://m.media-amazon.com/images/I/41GzZqH3cjL._SY445_SX342_.jpg',
+          'God Emperor of Dune': 'https://m.media-amazon.com/images/I/41i-YhzQ0tL._SY445_SX342_.jpg',
           'Fahrenheit 451': 'https://m.media-amazon.com/images/I/71OFqSRFDgL.jpg',
-          'Crime and Punishment': 'https://m.media-amazon.com/images/I/81WcnNQ-TBL.jpg',
-          'Once Upon a Time in Hollywood': 'https://m.media-amazon.com/images/I/81QpFQwZKGL.jpg'
+          'Crime and Punishment': 'https://m.media-amazon.com/images/I/41c99G44teL._SY445_SX342_.jpg',
+          'Once Upon a Time in Hollywood': 'https://m.media-amazon.com/images/I/81b4luHhI6S._SX385_.jpg'
         };
         imgHtml = items.map(item => {
           // fallback if image not found
