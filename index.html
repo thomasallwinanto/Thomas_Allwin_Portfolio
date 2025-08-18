@@ -124,84 +124,60 @@
       width: 96px !important;
       height: 96px !important;
     }
-    /* Dark mode styles */
-    body.dark-mode {
-      background: #181a1b;
-      color: #e0e0e0;
-      transition: background 0.3s, color 0.3s;
-    }
-    body.dark-mode .container {
-      background: #232527 !important;
-      color: #e0e0e0 !important;
-    }
-    body.dark-mode h2, body.dark-mode h1, body.dark-mode h3 {
-      color: #e0e0e0 !important;
-    }
-    body.dark-mode a {
-      color: #80deea !important;
-    }
-    body.dark-mode .nav-btn {
-      background: #232527;
-      color: #e0e0e0;
-      border: 2px solid #80deea;
-      box-shadow: 0 2px 8px rgba(128,222,234,0.10);
-    }
-    body.dark-mode .nav-btn:hover, body.dark-mode .nav-btn.active {
-      background: #80deea;
-      color: #232527;
-      border: 2.5px solid #e0e0e0;
-      box-shadow: 0 4px 16px rgba(128,222,234,0.18);
-    }
-    body.dark-mode #theme-toggle {
-      background: #80deea;
-      color: #232527;
-    }
-    body.dark-mode #main-model-viewer {
-      background: #232527 !important;
-      color: #e0e0e0 !important;
-      border: none !important;
-      box-shadow: none !important;
-    }
-    body.dark-mode #viewer-controls button {
-      color: #80deea !important;
-    }
-    body.dark-mode #model-fallback {
-      color: #ff8a65 !important;
-    }
-    body.dark-mode #music-btn {
-      background: #80deea;
-      color: #232527;
-      border: 2px solid #e0e0e0;
-    }
-    body.dark-mode .love-categories button {
-      background: #232527;
-      color: #e0e0e0;
-      border: 2px solid #80deea;
-    }
-    body.dark-mode .love-categories button[style*='background: #00bcd4'] {
-      background: #80deea !important;
-      color: #232527 !important;
-      border: 2px solid #e0e0e0 !important;
-    }
-    body.dark-mode table th, body.dark-mode table td {
-      border-color: #80deea !important;
-    }
-    body.dark-mode #profile-pic {
-      border-color: #80deea !important;
-      background: #232527 !important;
-    }
-    body.dark-mode .art-3d-tip {
-      color: #fff !important;
-    }
-    body.dark-mode .love-list-item {
-      color: #fff !important;
-    }
-    body.dark-mode .project-desc {
-      color: #fff !important;
-    }
-    .project-desc {
-      color: #111 !important;
-    }
+    /* Restored dark and light mode styles */
+body.dark-mode {
+  background: #181a1b;
+  color: #e0e0e0;
+  transition: background 0.3s, color 0.3s;
+}
+body.dark-mode .container {
+  background: #232527 !important;
+  color: #e0e0e0 !important;
+}
+body.dark-mode h2, body.dark-mode h1, body.dark-mode h3 {
+  color: #e0e0e0 !important;
+}
+body.dark-mode a {
+  color: #80deea !important;
+}
+body.dark-mode .nav-btn {
+  background: #232527;
+  color: #e0e0e0;
+  border: 2px solid #80deea;
+  box-shadow: 0 2px 8px rgba(128,222,234,0.10);
+}
+body.dark-mode .nav-btn:hover, body.dark-mode .nav-btn.active {
+  background: #80deea;
+  color: #232527;
+  border: 2.5px solid #e0e0e0;
+  box-shadow: 0 4px 16px rgba(128,222,234,0.18);
+}
+
+/* Restored theme toggle button */
+
+/* Blog section readability fix */
+.blog-list a {
+  background: none; /* Removed white background */
+  color: #111; /* Dark text for better readability */
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.blog-list a:hover {
+  color: #00bcd4; /* Cyan on hover for emphasis */
+}
+
+/* Dark mode styles for games section */
+body.dark-mode .love-list-item {
+  color: #e0e0e0; /* Light text for readability in dark mode */
+}
+
+/* Games list color for light and dark mode */
+.love-list-item {
+  color: #111; /* Black text in light mode */
+}
+body.dark-mode .love-list-item {
+  color: #fff; /* White text in dark mode */
+}
   </style>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -322,7 +298,7 @@
         I started this project during the 2020 lockdown. I was limited with the technology I possessed and used Paint 3D for all the works below. I've lost most of the raw files, but those works are on <a href="https://www.instagram.com/imaginary_axis/" target="_blank" style="color:#00bcd4; text-decoration:underline;">@imaginary_axis</a> IG account.
       </div>
       <div style="width:100%; max-width:740px; margin:0 auto 1.2rem auto; text-align:justify; line-height:1.6;">
-        <span class="art-3d-tip" style="display:block; margin-top:1.2rem; color:#111;">Interact with my 3D artwork below!<br>You can rotate, zoom, and pan the model.</span>
+        <span class="art-3d-tip" style="display:block; margin-top:1.2rem;">Interact with my 3D artwork below!<br>You can rotate, zoom, and pan the model.</span>
       </div>
       <div id="viewer-controls" style="margin-bottom:1rem; display:flex; flex-direction:column; align-items:center; gap:0.7rem; width:100%; max-width:740px; box-sizing:border-box;">
         <div style="display:flex; justify-content:center; align-items:center; gap:0.96rem; width:100%; box-sizing:border-box;">
@@ -651,8 +627,8 @@
           'Hans Zimmer': 'https://commons.wikimedia.org/wiki/File:Hans_Zimmer_live_-_52992256582.jpg',
           'Chris Cornell': 'https://commons.wikimedia.org/wiki/File:Chris_Cornell_Live_2009.jpg',
           'Nirvana': 'https://commons.wikimedia.org/wiki/File:Nirvana_around_1992.jpg',
-          'Radiohead': 'https://i.scdn.co/image/ab6761610000e5ebc5c5c5c5c5c5c5c5c5c5c5c5',
-          'Thom Yorke': 'https://i.scdn.co/image/ab6761610000e5ebc6c6c6c6c6c6c6c6c6c6c6c6',
+          'Radiohead': 'https://i.scdn.co/image/ab6761610000e5ebc5c5c5c5c5c5',
+          'Thom Yorke': 'https://i.scdn.co/image/ab6761610000e5ebc6c6c6c6c6c6c6c6c6c6c6',
           'John Mayer': 'https://i.scdn.co/image/ab6761610000e5ebc7c7c7c7c7c7c7c7c7c7c7c7',
           'Kurt Cobain': 'https://i.scdn.co/image/ab6761610000e5ebc8c8c8c8c8c8c8c8c8c8c8c8',
           'Derek and the Dominos': 'https://i.scdn.co/image/ab6761610000e5ebcccccccccccccccccccccccc',
@@ -674,27 +650,26 @@
     script.src = 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js';
     document.head.appendChild(script);
 
-    // Minimal dark/light mode toggle logic with emoji
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeEmoji = document.getElementById('theme-emoji');
-    let darkMode = false;
-    function updateThemeEmoji() {
-      themeToggle.style.color = darkMode ? '#fff' : '#111';
-      themeEmoji.textContent = darkMode ? '🌜' : '🌞';
-      themeEmoji.style.filter = '';
-    }
-    themeToggle.addEventListener('click', function() {
-      darkMode = !darkMode;
-      document.body.classList.toggle('dark-mode', darkMode);
-      localStorage.setItem('darkMode', darkMode);
-      updateThemeEmoji();
-    });
-    // Remember mode in localStorage
-    if (localStorage.getItem('darkMode') === 'true') {
-      darkMode = true;
-      document.body.classList.add('dark-mode');
-    }
-    updateThemeEmoji();
+    /* Restored theme toggle logic */
+const themeToggle = document.getElementById('theme-toggle');
+const themeEmoji = document.getElementById('theme-emoji');
+let darkMode = false;
+function updateThemeEmoji() {
+  themeToggle.style.color = darkMode ? '#fff' : '#111';
+  themeEmoji.textContent = darkMode ? '🌜' : '🌞';
+  themeEmoji.style.filter = '';
+}
+themeToggle.addEventListener('click', function() {
+  darkMode = !darkMode;
+  document.body.classList.toggle('dark-mode', darkMode);
+  localStorage.setItem('darkMode', darkMode);
+  updateThemeEmoji();
+});
+if (localStorage.getItem('darkMode') === 'true') {
+  darkMode = true;
+  document.body.classList.add('dark-mode');
+}
+updateThemeEmoji();
   </script>
 </body>
 </html>
