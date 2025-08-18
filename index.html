@@ -171,12 +171,39 @@ body.dark-mode .love-list-item {
   color: #e0e0e0; /* Light text for readability in dark mode */
 }
 
-/* Games list color for light and dark mode */
+/* Games list color for light and dark mode, override inline styles */
 .love-list-item {
-  color: #111; /* Black text in light mode */
+  color: #111 !important; /* Black text in light mode */
 }
 body.dark-mode .love-list-item {
-  color: #fff; /* White text in dark mode */
+  color: #fff !important; /* White text in dark mode */
+}
+
+/* Increase space between About Me year navigation buttons */
+#about-arrow, #about-back {
+  margin-right: 0.75rem;
+  margin-left: 0.75rem;
+}
+/* Or, if using a flex container with gap, double the gap: */
+.about-year-nav {
+  gap: 3rem !important;
+}
+
+/* Section container width for all sections */
+#academic-projects .container,
+#personal-projects .container,
+#art-3d .container,
+#blog .container,
+#stuff-i-love .container,
+#contact .container,
+#about .container,
+section .container {
+  max-width: 700px !important;
+  width: 100%;
+  margin: 0 auto;
+  padding-left: 2.2rem;
+  padding-right: 2.2rem;
+  box-sizing: border-box;
 }
   </style>
   <meta charset="UTF-8" />
@@ -232,7 +259,7 @@ body.dark-mode .love-list-item {
         <div style="margin-top:0.5rem; font-size:1.1rem; color:#00bcd4;">
           Year: <span id="year-label">1999</span>
         </div>
-        <div style="display:flex; gap:0.75rem; margin-top:1rem; justify-content:center;">
+        <div style="display:flex; gap:1.5rem; margin-top:1rem; justify-content:center;" class="about-year-nav">
           <button id="about-arrow" aria-label="Next year" style="background:none; border:none; padding:0; margin:0; cursor:pointer; display:flex; align-items:center; justify-content:center; width:19px; height:19px;">
             <span style="display:inline-block; width:0; height:0; border-right:15px solid #00bcd4; border-top:13px solid transparent; border-bottom:13px solid transparent;"></span>
           </button>
@@ -292,16 +319,16 @@ body.dark-mode .love-list-item {
   </section>
 
   <section id="art-3d" style="display:none;">
-    <div class="container" style="display:flex; flex-direction:column; align-items:center; justify-content:center; border:none; border-radius:0; padding:0; width:100%; max-width:740px; margin:0 auto; text-align:center; box-sizing:border-box;">
-      <h2 style="width:100%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">Imaginary Axis</h2>
-      <div style="width:100%; max-width:740px; text-align:justify; margin:0 auto 1.2rem auto; line-height:1.6;">
+  <div class="container" style="display:flex; flex-direction:column; align-items:center; justify-content:center; border:none; border-radius:0; padding:0; width:100%; max-width:700px; margin:0 auto; text-align:center; box-sizing:border-box;">
+  <h2 style="width:100%; max-width:700px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">Imaginary Axis</h2>
+  <div style="width:92%; max-width:600px; text-align:justify; margin:0 auto 1.2rem auto; line-height:1.6;">
         I started this project during the 2020 lockdown. I was limited with the technology I possessed and used Paint 3D for all the works below. I've lost most of the raw files, but those works are on <a href="https://www.instagram.com/imaginary_axis/" target="_blank" style="color:#00bcd4; text-decoration:underline;">@imaginary_axis</a> IG account.
       </div>
-      <div style="width:100%; max-width:740px; margin:0 auto 1.2rem auto; text-align:justify; line-height:1.6;">
+  <div style="width:92%; max-width:600px; margin:0 auto 1.2rem auto; text-align:justify; line-height:1.6;">
         <span class="art-3d-tip" style="display:block; margin-top:1.2rem;">Interact with my 3D artwork below!<br>You can rotate, zoom, and pan the model.</span>
       </div>
-      <div id="viewer-controls" style="margin-bottom:1rem; display:flex; flex-direction:column; align-items:center; gap:0.7rem; width:100%; max-width:740px; box-sizing:border-box;">
-        <div style="display:flex; justify-content:center; align-items:center; gap:0.96rem; width:100%; box-sizing:border-box;">
+  <div id="viewer-controls" style="margin-bottom:1rem; display:flex; flex-direction:column; align-items:center; gap:0.7rem; width:100%; max-width:700px; box-sizing:border-box;">
+  <div style="display:flex; justify-content:center; align-items:center; gap:0.96rem; width:100%; max-width:700px; box-sizing:border-box;">
           <button id="prev-model" style="background:none; color:#00bcd4; border:none; border-radius:0; padding:0.5rem 1.2rem; cursor:pointer; font-size:2rem; line-height:1;">
             &#9664;
           </button>
@@ -310,13 +337,13 @@ body.dark-mode .love-list-item {
           </button>
         </div>
       </div>
-      <div style="width:100%; max-width:740px; display:flex; justify-content:center; align-items:center; box-sizing:border-box;">
+      <div style="width:100%; max-width:700px; display:flex; justify-content:center; align-items:center; box-sizing:border-box;">
         <model-viewer id="main-model-viewer" src="https://raw.githubusercontent.com/thomasallwinanto/Imaginary_Axis_files/main/BAC.glb" alt="3D Art" camera-controls auto-rotate style="width:100%; max-width:700px; height:400px; margin:0 auto; background:none; border:none; border-radius:0; box-shadow:none; display:block; align-self:center; box-sizing:border-box;"
           onerror="document.getElementById('model-fallback').style.display='block'"
         ></model-viewer>
       </div>
-      <div id="model-fallback" style="display:none; color:#d32f2f; font-size:1.1rem; margin-top:1rem; width:100%; max-width:740px;">3D model could not be loaded. Please check that the file exists and is a valid .glb file.</div>
-      <p style="margin-top:1rem; color:#00bcd4; width:100%; max-width:740px;">Tip: Use your mouse or touch to <br> interact with the model.</p>
+      <div id="model-fallback" style="display:none; color:#d32f2f; font-size:1.1rem; margin-top:1rem; width:100%; max-width:700px;">3D model could not be loaded. Please check that the file exists and is a valid .glb file.</div>
+      <p style="margin-top:1rem; color:#00bcd4; width:100%; max-width:700px;">Tip: Use your mouse or touch to <br> interact with the model.</p>
     </div>
   </section>
   <section id="blog" style="display:none;">
@@ -628,7 +655,7 @@ body.dark-mode .love-list-item {
           'Chris Cornell': 'https://commons.wikimedia.org/wiki/File:Chris_Cornell_Live_2009.jpg',
           'Nirvana': 'https://commons.wikimedia.org/wiki/File:Nirvana_around_1992.jpg',
           'Radiohead': 'https://i.scdn.co/image/ab6761610000e5ebc5c5c5c5c5c5',
-          'Thom Yorke': 'https://i.scdn.co/image/ab6761610000e5ebc6c6c6c6c6c6c6c6c6c6c6',
+          'Thom Yorke': 'https://i.scdn.co/image/ab6761610000e5ebc6c6c6c6c6c6c6c6',
           'John Mayer': 'https://i.scdn.co/image/ab6761610000e5ebc7c7c7c7c7c7c7c7c7c7c7c7',
           'Kurt Cobain': 'https://i.scdn.co/image/ab6761610000e5ebc8c8c8c8c8c8c8c8c8c8c8c8',
           'Derek and the Dominos': 'https://i.scdn.co/image/ab6761610000e5ebcccccccccccccccccccccccc',
