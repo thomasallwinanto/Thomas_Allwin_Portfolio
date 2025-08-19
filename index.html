@@ -401,7 +401,7 @@ section .container {
       <span id="theme-emoji" style="filter: grayscale(1) brightness(0.2);">🌞</span>
     </button>
   </div
-  <audio id="site-music" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12b6b9b7b7.mp3" loop preload="none"></audio>
+  <audio id="site-music" src="assets/One step ahead of the blues by JJ Cale.mp3" preload="auto"></audio>
   <nav class="navbar">
     <div class="container">
       <ul class="nav-links">
@@ -429,6 +429,7 @@ section .container {
         <img id="profile-pic" src="assets/profile.jpg" alt="Profile Picture" style="width:80px; height:80px; object-fit:cover; border:2px solid #00bcd4; border-radius:50%; background:#fff;" />
       </div>
       <h1 style="font-size:1.5rem; font-weight:400; margin-top:0.5rem; text-align:center;">Hello, I'm Tom and welcome to my site :)</h1>
+      <p style="font-size:1.1rem; color:#fff; text-align:center; margin:0.5rem 0 1.2rem 0;">The track playing is "One step ahead of the blues" by JJ Cale.</p>
     </div>
   </section>
 
@@ -629,18 +630,43 @@ section .container {
     const musicBtn = document.getElementById('music-btn');
     let state = 'play'; // play, mute, unmute
 
+    function updateMusicBtn() {
+      if (state === 'play') {
+        musicBtn.textContent = 'Play Music';
+      } else if (state === 'mute') {
+        musicBtn.textContent = 'Mute Music';
+      } else {
+        musicBtn.textContent = 'Unmute Music';
+      }
+    }
+
     musicBtn.addEventListener('click', function() {
       if (state === 'play') {
+        music.currentTime = 0;
         music.muted = false;
         music.play();
         state = 'mute';
-        musicBtn.textContent = 'Mute Music';
+        updateMusicBtn();
+      } else if (state === 'mute') {
+        music.muted = true;
+        state = 'unmute';
+        updateMusicBtn();
       } else {
-        music.muted = !music.muted;
-        state = music.muted ? 'unmute' : 'mute';
-        musicBtn.textContent = music.muted ? 'Unmute Music' : 'Mute Music';
+        music.muted = false;
+        state = 'mute';
+        updateMusicBtn();
       }
     });
+
+    // Fix: Ensure music can play after user gesture (for Chrome/Edge/Firefox)
+    musicBtn.addEventListener('mousedown', function() {
+      if (music.paused && state === 'play') {
+        music.play();
+      }
+    });
+
+    // Ensure button text is correct on page load
+    updateMusicBtn();
 
     // About Me facts by year
     const yearFacts = {
