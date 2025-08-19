@@ -25,7 +25,8 @@
       }
       .nav-btn {
         font-size: 0.95rem;
-        padding: 0.5rem 0.7rem;
+        padding: 0.5rem 1.1rem;
+        min-width: 100px;
       }
       #profile-pic {
         width: 64px !important;
@@ -59,11 +60,12 @@
       .love-categories {
         flex-wrap: wrap;
         gap: 0.4rem !important;
+        justify-content: center;
       }
       .fact-box {
+        width: 100% !important;
         min-width: 0 !important;
-        max-width: 98vw !important;
-        width: 98vw !important;
+        max-width: 100vw !important;
         height: auto !important;
         padding: 0.8rem 0.5rem !important;
         font-size: 1rem !important;
@@ -71,6 +73,7 @@
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+        word-break: break-word !important;
       }
       #love-images {
         gap: 0.4rem !important;
@@ -84,14 +87,15 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 0.7rem;
+      gap: 1.2rem;
       padding: 0;
       margin: 0;
       list-style: none;
     }
     .nav-btn {
       font-size: 1rem;
-      padding: 0.6rem 1.2rem;
+      padding: 0.6rem 1.8rem;
+      min-width: 170px;
       background: #fff;
       color: #111;
       border: 2px solid #00bcd4;
@@ -217,6 +221,174 @@ section .container {
   padding-right: 2.2rem;
   box-sizing: border-box;
 }
+
+/* 1. Keep About container size constant while scrolling facts */
+#about .container {
+  max-width: 540px !important;
+  min-width: 400px !important;
+  width: 90% !important;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+#about .fact-box {
+  min-width: 400px;
+  max-width: 540px;
+  width: 90%;
+  height: 3.6em;
+  text-align: center;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow: hidden;
+}
+#about .fact-box p {
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+}
+
+/* 2. Navigation buttons wrap to second row if needed */
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  max-width: 100vw;
+  overflow-x: auto;
+}
+
+/* 3. Center align Stuff I Love category buttons below title */
+#stuff-i-love .love-categories {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.4rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* 4. Uniform navbar buttons and links */
+.nav-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.nav-btn {
+  font-size: 1rem;
+  padding: 0.6rem 1.8rem;
+  min-width: 170px;
+  background: #fff;
+  color: #111;
+  border: 2px solid #00bcd4;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.18s, border 0.18s;
+  box-shadow: 0 2px 8px rgba(0,188,212,0.10);
+}
+.nav-btn:hover {
+  background: #00bcd4;
+  color: #fff;
+  border: 2.5px solid #111;
+  box-shadow: 0 4px 16px rgba(0,188,212,0.18);
+}
+.nav-btn.active {
+  background: #00bcd4;
+  color: #fff;
+  border: 2.5px solid #111;
+  box-shadow: 0 4px 16px rgba(0,188,212,0.22);
+}
+
+/* 5. Smartphone optimization */
+@media (max-width: 600px) {
+  body {
+    font-size: 1rem;
+  }
+  .container {
+    width: 98% !important;
+    max-width: 100vw !important;
+    padding: 1.2rem 0.5rem !important;
+  }
+  section h2 {
+    font-size: 1.4rem;
+    width: 98%;
+    max-width: 98vw;
+    margin: 0 auto 1rem auto;
+    padding-bottom: 0.18em;
+  }
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .nav-btn {
+    font-size: 0.95rem;
+    padding: 0.5rem 1.2rem;
+    min-width: 120px;
+  }
+  #profile-pic {
+    width: 64px !important;
+    height: 64px !important;
+  }
+  .project-blocks {
+    gap: 0.6rem !important;
+  }
+  .project-block ul {
+    font-size: 0.95rem !important;
+    padding-left: 0.8rem !important;
+  }
+  #music-controls {
+    flex-direction: column;
+    margin: 0.8rem 0 0.3rem 0 !important;
+  }
+  #main-model-viewer {
+    width: 98vw !important;
+    height: 220px !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+  }
+  #viewer-controls {
+    width: 98vw !important;
+    gap: 0.4rem !important;
+  }
+  #model-fallback, .art-3d-tip, p[style*='color:#00bcd4'] {
+    width: 98vw !important;
+    font-size: 1rem !important;
+  }
+  .love-categories {
+    flex-wrap: wrap;
+    gap: 0.4rem !important;
+    justify-content: center;
+  }
+  .fact-box {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+    height: auto !important;
+    padding: 0.8rem 0.5rem !important;
+    font-size: 1rem !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    word-break: break-word !important;
+  }
+  #love-images {
+    gap: 0.4rem !important;
+  }
+  table {
+    font-size: 0.95rem !important;
+  }
+}
   </style>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -263,7 +435,7 @@ section .container {
   <section id="about" style="display:none;">
     <div class="container" style="text-align:center;">
       <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">About me and other global events</h2>
-  <div class="fact-box" style="margin:0 auto; display:inline-block; min-width:400px; max-width:540px; width:90%; height:3.6em; text-align:center; vertical-align:middle; display:flex; align-items:center; justify-content:center;">
+      <div class="fact-box" style="margin:0 auto; display:inline-block;">
         <p id="about-fact">I'm passionate about technology and creativity.</p>
       </div>
       <div style="margin:1.2rem 0; display:flex; flex-direction:column; align-items:center;">
@@ -324,8 +496,9 @@ section .container {
       <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">Personal Projects</h2>
       <div class="project-blocks">
         <div class="project-block">Personal Portfolio Website</div>
-        <div class="project-block">Todo List App</div>
-        <div class="project-block">Weather Dashboard</div>
+        <div class="project-block">Guild and Company</div>
+        <div class="project-block">Imaginary Axis (see Art Projects) </div>
+        <div class="project-block">Music</div>
       </div>
     </div>
   </section>
@@ -371,15 +544,15 @@ section .container {
   </section>
 
   <section id="stuff-i-love" style="display:none;">
-    <div class="container" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+    <div class="container">
       <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">Stuff I Love</h2>
-      <div class="love-categories" style="display:flex; justify-content:center; align-items:center; gap:1.4rem; width:100%; margin-bottom:1rem;">
-        <button onclick="showLove('books')">Books</button>
-        <button onclick="showLove('movies')">Movies</button>
-        <button onclick="showLove('music')">Music</button>
+      <div class="love-categories">
+    <button onclick="showLove('books')">Books</button>
+    <button onclick="showLove('movies')">Movies</button>
+    <button onclick="showLove('music')">Music</button>
       </div>
-      <ul id="love-list" style="display:flex; flex-direction:row; flex-wrap:wrap; justify-content:center; align-items:center; padding:0; margin:0; width:100%; text-align:center;"></ul>
-      <div id="love-images" style="display:flex; gap:0.96rem; flex-wrap:wrap; justify-content:center; align-items:center; margin-top:1rem; width:100%;"></div>
+      <ul id="love-list"></ul>
+      <div id="love-images" style="display:flex; gap:0.96rem; flex-wrap:wrap; justify-content:center; margin-top:1rem;"></div>
     </div>
   </section>
 
@@ -607,8 +780,8 @@ section .container {
         }
       });
       let items = loveStuff[category];
-  list.innerHTML = '';
-  let imgHtml = '';
+      list.innerHTML = '';
+      let imgHtml = '';
   if(category === 'books') {
         const bookImages = {
           'The Da Vinci Code': 'https://m.media-amazon.com/images/I/4182WHOHqUL._SY445_SX342_.jpg',
@@ -622,19 +795,20 @@ section .container {
           'Crime and Punishment': 'https://m.media-amazon.com/images/I/41c99G44teL._SY445_SX342_.jpg',
           'Once Upon a Time in Hollywood': 'https://m.media-amazon.com/images/I/81b4luHhI6S._SX385_.jpg'
         };
-        imgHtml = `<div style='display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:0.96rem; width:100%;'>` +
-          items.map(item => {
-            let imgSrc = bookImages[item] || 'https://via.placeholder.com/70x100?text=No+Image';
-            return `<div style='text-align:center;'><img src='${imgSrc}' alt='${item}' style='width:70px; height:100px; object-fit:cover; background:#fff;'><div style='font-size:0.9rem; margin-top:0.3rem;'>${item}</div></div>`;
-          }).join('') + `</div>`;
+        imgHtml = items.map(item => {
+          // fallback if image not found
+          let imgSrc = bookImages[item] || 'https://via.placeholder.com/70x100?text=No+Image';
+          return `<div style='text-align:center;'><img src='${imgSrc}' alt='${item}' style='width:70px; height:100px; object-fit:cover; background:#fff;'><div style='font-size:0.9rem; margin-top:0.3rem;'>${item}</div></div>`;
+        }).join('');
       } else if(category === 'movies') {
         // Letterboxd link at the top
         imgHtml = `<div style='width:100%; text-align:center; margin-bottom:1rem;'><a href='https://boxd.it/6ycaP' target='_blank' style='color:#00bcd4; font-size:1rem; text-decoration:underline;'>See more movies on my Letterboxd</a></div>`;
-        imgHtml += `<ul style='list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:0.96rem; width:100%;'>` +
+        // Display movies as a simple list, similar to books
+        imgHtml += `<ul style='list-style:none; padding:0; margin:0; text-align:left;'>` +
           items.map(item => {
             let match = item.match(/^(.*?)(?:\t|\s{2,})([0-9.]+)?$/);
             let name = match ? match[1].trim() : item.trim();
-            return `<li class='love-list-item' style='font-size:0.98rem; margin-bottom:0.4rem; color:#111; text-align:center;'>${name}</li>`;
+            return `<li class='love-list-item' style='font-size:0.98rem; margin-bottom:0.4rem; color:#111;'>${name}</li>`;
           }).join('') + `</ul>`;
       } else if(category === 'music') {
         const musicImages = {
@@ -646,7 +820,7 @@ section .container {
           'Chris Cornell': 'https://commons.wikimedia.org/wiki/File:Chris_Cornell_Live_2009.jpg',
           'Nirvana': 'https://commons.wikimedia.org/wiki/File:Nirvana_around_1992.jpg',
           'Radiohead': 'https://i.scdn.co/image/ab6761610000e5ebc5c5c5c5c5c5',
-          'Thom Yorke': 'https://i.scdn.co/image/ab6761610000e5ebc6c6c6c6c6c6c6c6',
+          'Thom Yorke': 'https://i.scdn.co/image/ab6761610000e5ebc6c6c6c6c6c6c6',
           'John Mayer': 'https://i.scdn.co/image/ab6761610000e5ebc7c7c7c7c7c7c7c7c7c7c7c7',
           'Kurt Cobain': 'https://i.scdn.co/image/ab6761610000e5ebc8c8c8c8c8c8c8c8c8c8c8c8',
           'Derek and the Dominos': 'https://i.scdn.co/image/ab6761610000e5ebcccccccccccccccccccccccc',
@@ -654,11 +828,10 @@ section .container {
           'Agam': 'https://i.scdn.co/image/ab6761610000e5ebcececececececececececece',
           'Lucky Ali': 'https://i.scdn.co/image/ab6761610000e5ebcfcfcfcfcfcfcfcfcfcfcfcf'
         };
-        imgHtml = `<div style='display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:0.96rem; width:100%;'>` +
-          items.map(item => {
-            let imgSrc = musicImages[item] || 'https://via.placeholder.com/70x70?text=No+Image';
-            return `<div class='love-list-item' style='text-align:center;'><img src='${imgSrc}' alt='${item}' style='width:70px; height:70px; object-fit:cover; background:#fff; border-radius:50%;'><div style='font-size:0.9rem; margin-top:0.3rem;'>${item}</div></div>`;
-          }).join('') + `</div>`;
+        imgHtml = items.map(item => {
+          let imgSrc = musicImages[item] || 'https://via.placeholder.com/70x70?text=No+Image';
+          return `<div class='love-list-item' style='text-align:center;'><img src='${imgSrc}' alt='${item}' style='width:70px; height:70px; object-fit:cover; background:#fff; border-radius:50%;'><div style='font-size:0.9rem; margin-top:0.3rem;'>${item}</div></div>`;
+        }).join('');
       }
       images.innerHTML = imgHtml;
     }
