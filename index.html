@@ -60,6 +60,18 @@
         flex-wrap: wrap;
         gap: 0.4rem !important;
       }
+      .fact-box {
+        min-width: 0 !important;
+        max-width: 98vw !important;
+        width: 98vw !important;
+        height: auto !important;
+        padding: 0.8rem 0.5rem !important;
+        font-size: 1rem !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
       #love-images {
         gap: 0.4rem !important;
       }
@@ -251,7 +263,7 @@ section .container {
   <section id="about" style="display:none;">
     <div class="container" style="text-align:center;">
       <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">About me and other global events</h2>
-      <div class="fact-box" style="margin:0 auto; display:inline-block;">
+  <div class="fact-box" style="margin:0 auto; display:inline-block; min-width:400px; max-width:540px; width:90%; height:3.6em; text-align:center; vertical-align:middle; display:flex; align-items:center; justify-content:center;">
         <p id="about-fact">I'm passionate about technology and creativity.</p>
       </div>
       <div style="margin:1.2rem 0; display:flex; flex-direction:column; align-items:center;">
@@ -359,16 +371,15 @@ section .container {
   </section>
 
   <section id="stuff-i-love" style="display:none;">
-    <div class="container">
+    <div class="container" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
       <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">Stuff I Love</h2>
-  <div class="love-categories" style="display:flex; justify-content:center; align-items:center; gap:0.7rem; width:100%; margin-bottom:1rem;">
-    <button onclick="showLove('books')">Books</button>
-    <button onclick="showLove('movies')">Movies</button>
-    <button onclick="showLove('music')">Music</button>
+      <div class="love-categories" style="display:flex; justify-content:center; align-items:center; gap:1.4rem; width:100%; margin-bottom:1rem;">
+        <button onclick="showLove('books')">Books</button>
+        <button onclick="showLove('movies')">Movies</button>
+        <button onclick="showLove('music')">Music</button>
       </div>
-  <div class="love-categories" style="display:flex; justify-content:center; align-items:center; gap:1.4rem; width:100%; margin-bottom:1rem;">
-  <ul id="love-list" style="display:flex; flex-direction:row; flex-wrap:wrap; justify-content:center; align-items:center; padding:0; margin:0; width:100%;"></ul>
-  <div id="love-images" style="display:flex; gap:0.96rem; flex-wrap:wrap; justify-content:center; align-items:center; margin-top:1rem; width:100%;"></div>
+      <ul id="love-list" style="display:flex; flex-direction:row; flex-wrap:wrap; justify-content:center; align-items:center; padding:0; margin:0; width:100%; text-align:center;"></ul>
+      <div id="love-images" style="display:flex; gap:0.96rem; flex-wrap:wrap; justify-content:center; align-items:center; margin-top:1rem; width:100%;"></div>
     </div>
   </section>
 
