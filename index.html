@@ -140,47 +140,74 @@
       width: 96px !important;
       height: 96px !important;
     }
-    /* Restored dark and light mode styles */
-body.dark-mode {
-  background: #181a1b;
-  color: #e0e0e0;
-  transition: background 0.3s, color 0.3s;
+    /* Remove dark mode styles */
+body.dark-mode,
+body.dark-mode .container,
+body.dark-mode h2, body.dark-mode h1, body.dark-mode h3,
+body.dark-mode a,
+body.dark-mode .nav-btn,
+body.dark-mode .nav-btn:hover, body.dark-mode .nav-btn.active,
+body.dark-mode .love-list-item {
+  /* All dark mode styles removed */
 }
-body.dark-mode .container {
-  background: #232527 !important;
-  color: #e0e0e0 !important;
+
+/* New dark / light mode implementation */
+.theme-toggle-btn {
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:1000;
+  background:#fff;
+  color:#111;
+  border:2px solid #00bcd4;
+  padding:0.45rem 0.9rem;
+  font-size:0.9rem;
+  cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,188,212,0.12);
+  transition:background .2s,color .2s, box-shadow .2s;
 }
-body.dark-mode h2, body.dark-mode h1, body.dark-mode h3 {
-  color: #e0e0e0 !important;
-}
-body.dark-mode a {
-  color: #80deea !important;
-}
-body.dark-mode .nav-btn {
-  background: #232527;
-  color: #e0e0e0;
-  border: 2px solid #80deea;
-  box-shadow: 0 2px 8px rgba(128,222,234,0.10);
-}
-body.dark-mode .nav-btn:hover, body.dark-mode .nav-btn.active {
-  background: #80deea;
-  color: #232527;
-  border: 2.5px solid #e0e0e0;
-  box-shadow: 0 4px 16px rgba(128,222,234,0.18);
-}
+.theme-toggle-btn:hover { background:#00bcd4; color:#fff; }
+body.dark-mode .theme-toggle-btn { background:#222; color:#eee; border-color:#00bcd4; }
+body.dark-mode .theme-toggle-btn:hover { background:#00bcd4; color:#fff; }
+
+body.dark-mode { background:#121212; color:#eee; }
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 { color:#eee; }
+body.dark-mode h2 { border-color:#00bcd4; }
+body.dark-mode a { color:#56d9e9; }
+body.dark-mode a:hover { color:#8ae9f5; }
+body.dark-mode .nav-btn { background:#1e1e1e; color:#eee; border-color:#00bcd4; }
+body.dark-mode .nav-btn:hover, body.dark-mode .nav-btn.active { background:#00bcd4; color:#fff; border-color:#111; }
+body.dark-mode .project-block { background:transparent !important; color:#eee !important; }
+body.dark-mode #project-details { background:transparent !important; color:#eee !important; }
+body.dark-mode .fact-box { background:#1e1e1e; color:#eee; }
+body.dark-mode table { color:#eee; }
+/* Override inline black text colors */
+body.dark-mode [style*='color:#111'] { color:#eee !important; }
+body.dark-mode .blog-list a { color:#eee; }
+body.dark-mode .blog-list a:hover { color:#56d9e9; }
+/* Buttons inside Stuff I Love */
+body.dark-mode .love-categories button { background:#1e1e1e; color:#eee; border:2px solid #00bcd4; }
+body.dark-mode .love-categories button[style*='background:#00bcd4'] { color:#fff !important; }
+/* Academic projects clean styles */
+#academic-projects .project-meta-date { font-weight:normal; color:#888; font-size:0.98rem; }
+#academic-projects .project-list { font-size:1rem; margin:0.6rem 0 0 0; padding-left:1.2rem; text-align:left; color:#444; line-height:1.45; }
+#academic-projects .project-list li { margin-bottom:0.35rem; }
+body.dark-mode #academic-projects .project-meta-date { color:#bbb; }
+body.dark-mode #academic-projects .project-list, body.dark-mode #academic-projects .project-list li { color:#ddd !important; }
+body.dark-mode #academic-projects strong { color:#fff; }
+/* Project detail description adaptive text */
+.project-detail-desc { color:#111; }
+body.dark-mode .project-detail-desc { color:#eee; }
+/* Project blocks base & unified hover (applies to personal, academic, blog) */
+.project-block { transition:background .18s, color .18s, box-shadow .18s; }
+.project-block:hover { background:#00bcd4; color:#fff; }
+body.dark-mode .project-block { border-color:#00bcd4 !important; }
+body.dark-mode .project-block:hover { background:#00bcd4; color:#fff; }
 
 /* Restored theme toggle button */
 
-/* Blog section readability fix */
-.blog-list a {
-  background: none; /* Removed white background */
-  color: #111; /* Dark text for better readability */
-  text-decoration: none;
-  transition: color 0.3s;
-}
-.blog-list a:hover {
-  color: #00bcd4; /* Cyan on hover for emphasis */
-}
+/* Blog content should have no forced background */
+#blog #blog-content { background:transparent !important; }
 
 /* Dark mode styles for games section */
 body.dark-mode .love-list-item {
@@ -394,13 +421,14 @@ section .container {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tom's Site</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Override (after external stylesheet) to ensure hover color applies everywhere */
+    .project-block:hover { background:#00bcd4 !important; color:#fff !important; }
+    body.dark-mode .project-block:hover { background:#00bcd4 !important; color:#fff !important; }
+  </style>
 </head>
 <body>
-  <div style="position:fixed; top:8px; right:18px; z-index:9999; display:flex; align-items:center;">
-    <button id="theme-toggle" aria-label="Toggle dark/light mode" style="background:none; color:#111; border:none; border-radius:50%; width:56px; height:56px; font-size:2.2rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:color 0.3s;">
-      <span id="theme-emoji" style="filter: grayscale(1) brightness(0.2);">🌞</span>
-    </button>
-  </div
+  <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">Dark Mode</button>
   <audio id="site-music" src="assets/One step ahead of the blues by JJ Cale.mp3" preload="auto"></audio>
   <nav class="navbar">
     <div class="container">
@@ -419,9 +447,7 @@ section .container {
   <!-- Removed navbar hide/unhide arrow -->
   </nav>
   <!-- Music controls below navbar, above Home section -->
-  <div id="music-controls" style="display: flex; justify-content: center; align-items: center; margin: 1.2rem 0 0.5rem 0;">
-    <button id="music-btn" style="background: #00bcd4; color: #fff; border: 2px solid #111; border-radius: 0; padding: 0.6rem 1.2rem; font-size: 1rem; cursor: pointer;">Play Music</button>
-  </div>
+  <!-- Removed music controls -->
 
   <section id="home" class="hero" style="background:#00bcd4;">
     <div class="container">
@@ -429,7 +455,6 @@ section .container {
         <img id="profile-pic" src="assets/profile.jpg" alt="Profile Picture" style="width:80px; height:80px; object-fit:cover; border:2px solid #00bcd4; border-radius:50%; background:#fff;" />
       </div>
       <h1 style="font-size:1.5rem; font-weight:400; margin-top:0.5rem; text-align:center;">Hello, I'm Tom and welcome to my site :)</h1>
-      <p style="font-size:1.1rem; color:#fff; text-align:center; margin:0.5rem 0 1.2rem 0;">The track playing is "One step ahead of the blues" by JJ Cale.</p>
     </div>
   </section>
 
@@ -459,36 +484,15 @@ section .container {
   <section id="academic-projects" style="display:none;">
     <div class="container">
       <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block;">Academic Projects</h2>
-      <div style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:justify; line-height:1.6;">
-        Here are some of my academic projects, each focused on solving real-world problems and applying modern technology and research methods.
+      <div class="academic-intro" style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:justify; line-height:1.6;">
+        Here are some of my academic projects, each focused on solving real-world problems and applying modern technology and research methods. Click a project to see details.
       </div>
-      <div class="project-blocks" style="display:flex; flex-direction:column; gap:0.9rem;">
-        <div class="project-block" style="background:none; border:none; padding:0;">
-          <strong>Project 1: Two Wire AC Distribution System <span style="font-weight:normal; color:#888; font-size:0.98rem;">01/2021 – 07/2021</span></strong>
-          <ul style="font-size:1rem; color:#555; margin:0.6rem 0 0 0; padding-left:1.2rem; text-align:left;">
-            <li class="project-desc">Designed a low-cost two-wire AC distribution system enabling isolated power extension for domestic households.</li>
-            <li class="project-desc">Addressed excessive energy losses and high billing caused by conventional distribution methods.</li>
-            <li class="project-desc">Implemented solutions for overheating and cooling inefficiencies to enhance reliability and energy efficiency by 20%.</li>
-          </ul>
-        </div>
-        <!-- Reduce extra space between project 2 and 3 -->
-        <div class="project-block" style="background:none; border:none; padding:0;">
-          <strong>Project 2: Transformer Failure Notifier <span style="font-weight:normal; color:#888; font-size:0.98rem;">01/2020 – 06/2020</span></strong>
-          <ul style="font-size:1rem; color:#555; margin:0.6rem 0 0 0; padding-left:1.2rem; text-align:left;">
-            <li class="project-desc">Developed a GSM-based wireless notification system using Arduino Uno to alert grid authorities of transformer failures.</li>
-            <li class="project-desc">Enabled real-time fault location detection with transformer ID tagging, significantly reducing downtime by 30% and manual fault tracing.</li>
-            <li class="project-desc">Proposed future scope for fault-type classification using extended sensor modules.</li>
-          </ul>
-        </div>
-        <div class="project-block" style="background:none; border:none; padding:0;">
-          <strong>Project 3: Isolated Extension Supply <span style="font-weight:normal; color:#888; font-size:0.98rem;">01/2019 – 06/2019</span></strong>
-          <ul style="font-size:1rem; color:#555; margin:0.6rem 0 0 0; padding-left:1.2rem; text-align:left;">
-            <li class="project-desc">Engineered a novel device for safe handling of live AC wires by converting Phase/Neutral to 2-phase input.</li>
-            <li class="project-desc">Eliminated risk of electrocution by isolating ground paths and redesigning current flow through phase-phase methodology.</li>
-            <li class="project-desc">Enabled live testing and operation of appliances without traditional neutral connections.</li>
-          </ul>
-        </div>
+      <div class="project-blocks">
+  <div class="project-block" role="button" tabindex="0" onclick="showAcademicProject('twoWire')" onkeypress="if(event.key==='Enter'){showAcademicProject('twoWire')};" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Two Wire AC Distribution System</div>
+  <div class="project-block" role="button" tabindex="0" onclick="showAcademicProject('transformer')" onkeypress="if(event.key==='Enter'){showAcademicProject('transformer')};" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Transformer Failure Notifier</div>
+  <div class="project-block" role="button" tabindex="0" onclick="showAcademicProject('isolated')" onkeypress="if(event.key==='Enter'){showAcademicProject('isolated')};" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Isolated Extension Supply</div>
       </div>
+      <div id="academic-project-details" style="display:none; margin-top:1.2rem; padding:0.4rem 0 0.4rem 0;"></div>
     </div>
   </section>
 
@@ -496,11 +500,12 @@ section .container {
     <div class="container">
       <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">Personal Projects</h2>
       <div class="project-blocks">
-        <div class="project-block">Personal Portfolio Website</div>
-        <div class="project-block">Guild and Company</div>
-        <div class="project-block">Imaginary Axis (see Art Projects) </div>
-        <div class="project-block">Music</div>
+  <div class="project-block" onclick="showProject('portfolio')" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Personal Portfolio Website</div>
+  <div class="project-block" onclick="showProject('guild')" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Guild and Company</div>
+  <div class="project-block" onclick="showProject('imaginary')" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Imaginary Axis (see Art Projects)</div>
+  <div class="project-block" onclick="showProject('music')" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Music</div>
       </div>
+  <div id="project-details" style="display:none; margin-top:1.2rem; padding:0.8rem 0 0.2rem 0; color:#111;"></div>
     </div>
   </section>
 
@@ -535,12 +540,12 @@ section .container {
   <section id="blog" style="display:none;">
     <div class="container">
       <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">Blog</h2>
-      <ul class="blog-list">
-        <li><a href="#" onclick="showBlog('blog1')">How I started coding</a></li>
-        <li><a href="#" onclick="showBlog('blog2')">Lessons from my first project</a></li>
-        <li><a href="#" onclick="showBlog('blog3')">Dune</a></li>
-      </ul>
-      <div id="blog-content" style="display:none;"></div>
+      <div class="project-blocks">
+        <div class="project-block" role="button" tabindex="0" onclick="showBlog('blog1')" onkeypress="if(event.key==='Enter'){showBlog('blog1')}" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">How I started coding</div>
+        <div class="project-block" role="button" tabindex="0" onclick="showBlog('blog2')" onkeypress="if(event.key==='Enter'){showBlog('blog2')}" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Lessons from my first project</div>
+        <div class="project-block" role="button" tabindex="0" onclick="showBlog('blog3')" onkeypress="if(event.key==='Enter'){showBlog('blog3')}" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Dune</div>
+      </div>
+      <div id="blog-content" style="display:none; margin-top:1.2rem; padding:0.6rem 0 0.4rem 0;"></div>
     </div>
   </section>
 
@@ -625,48 +630,24 @@ section .container {
     // Initialize viewer to first model
     updateModel(0);
 
-    // Minimal single music control button
-    const music = document.getElementById('site-music');
-    const musicBtn = document.getElementById('music-btn');
-    let state = 'play'; // play, mute, unmute
-
-    function updateMusicBtn() {
-      if (state === 'play') {
-        musicBtn.textContent = 'Play Music';
-      } else if (state === 'mute') {
-        musicBtn.textContent = 'Mute Music';
-      } else {
-        musicBtn.textContent = 'Unmute Music';
-      }
-    }
-
-    musicBtn.addEventListener('click', function() {
-      if (state === 'play') {
-        music.currentTime = 0;
-        music.muted = false;
-        music.play();
-        state = 'mute';
-        updateMusicBtn();
-      } else if (state === 'mute') {
-        music.muted = true;
-        state = 'unmute';
-        updateMusicBtn();
-      } else {
-        music.muted = false;
-        state = 'mute';
+    // Music controls removed; guard to prevent errors if legacy code references missing button
+    (function(){
+      const musicBtn = document.getElementById('music-btn');
+      if (musicBtn) {
+        const music = document.getElementById('site-music');
+        let state = 'play';
+        function updateMusicBtn(){
+          musicBtn.textContent = state === 'play' ? 'Play Music' : (state === 'mute' ? 'Mute Music' : 'Unmute Music');
+        }
+        musicBtn.addEventListener('click', () => {
+          if (state === 'play') { music.currentTime = 0; music.muted = false; music.play(); state='mute'; }
+          else if (state === 'mute') { music.muted = true; state='unmute'; }
+          else { music.muted = false; state='mute'; }
+          updateMusicBtn();
+        });
         updateMusicBtn();
       }
-    });
-
-    // Fix: Ensure music can play after user gesture (for Chrome/Edge/Firefox)
-    musicBtn.addEventListener('mousedown', function() {
-      if (music.paused && state === 'play') {
-        music.play();
-      }
-    });
-
-    // Ensure button text is correct on page load
-    updateMusicBtn();
+    })();
 
     // About Me facts by year
     const yearFacts = {
@@ -741,6 +722,7 @@ section .container {
       const blogContent = document.getElementById('blog-content');
       blogContent.innerHTML = blogs[blogKey];
       blogContent.style.display = 'block';
+  blogContent.scrollIntoView({behavior:'smooth', block:'start'});
     }
 
     // Stuff I Love
@@ -868,26 +850,92 @@ section .container {
     script.src = 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js';
     document.head.appendChild(script);
 
-    /* Restored theme toggle logic */
-const themeToggle = document.getElementById('theme-toggle');
-const themeEmoji = document.getElementById('theme-emoji');
-let darkMode = false;
-function updateThemeEmoji() {
-  themeToggle.style.color = darkMode ? '#fff' : '#111';
-  themeEmoji.textContent = darkMode ? '🌜' : '🌞';
-  themeEmoji.style.filter = '';
-}
-themeToggle.addEventListener('click', function() {
-  darkMode = !darkMode;
-  document.body.classList.toggle('dark-mode', darkMode);
-  localStorage.setItem('darkMode', darkMode);
-  updateThemeEmoji();
-});
-if (localStorage.getItem('darkMode') === 'true') {
-  darkMode = true;
-  document.body.classList.add('dark-mode');
-}
-updateThemeEmoji();
+    const projectDescriptions = {
+      portfolio: {
+        title: "Personal Portfolio Website",
+        desc: "A showcase of my skills, projects, and interests. Built with HTML, CSS, and JavaScript for a modern, responsive experience.",
+        images: ["assets/profile.jpg"]
+      },
+      guild: {
+        title: "Guild and Company",
+        desc: "A collaborative platform for creative minds to share and build projects together. Features team management and project tracking.",
+        images: ["assets/guild.jpg"]
+      },
+      imaginary: {
+        title: "Imaginary Axis",
+        desc: "My 3D art project created during lockdown using Paint 3D. See more in the Art Projects section.",
+        images: ["assets/imaginary1.jpg", "assets/imaginary2.jpg"]
+      },
+      music: {
+        title: "Music",
+        desc: "A collection of my favorite music and personal compositions. Includes playlists and audio samples.",
+        images: ["assets/music1.jpg"]
+      }
+    };
+    function showProject(key) {
+      const details = projectDescriptions[key];
+      if (!details) return;
+      const container = document.getElementById('project-details');
+      let imgHtml = details.images.map(img => `<img src='${img}' alt='' style='width:120px; height:auto; margin:0.5rem;'>`).join('');
+  container.innerHTML = `<h3 style='margin-top:0;'>${details.title}</h3><p class='project-detail-desc' style='font-size:1.05rem; line-height:1.5; margin:0.4rem 0 0.8rem;'>${details.desc}</p><div style='display:flex; gap:0.8rem; flex-wrap:wrap;'>${imgHtml}</div>`;
+  container.style.display = 'block';
+  container.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    // Academic projects interactive data
+    const academicProjects = {
+      twoWire: {
+        title: 'Two Wire AC Distribution System',
+        period: '01/2021 – 07/2021', // kept for potential internal use
+        points: [
+          'Designed a low-cost two-wire AC distribution system enabling isolated power extension for domestic households.',
+          'Addressed excessive energy losses and high billing caused by conventional distribution methods.',
+          'Implemented solutions for overheating and cooling inefficiencies to enhance reliability and energy efficiency by 20%.'
+        ]
+      },
+      transformer: {
+        title: 'Transformer Failure Notifier',
+        period: '01/2020 – 06/2020',
+        points: [
+          'Developed a GSM-based wireless notification system using Arduino Uno to alert grid authorities of transformer failures.',
+          'Enabled real-time fault location detection with transformer ID tagging, reducing downtime by 30% and manual tracing.',
+          'Proposed future scope for fault-type classification using extended sensor modules.'
+        ]
+      },
+      isolated: {
+        title: 'Isolated Extension Supply',
+        period: '01/2019 – 06/2019',
+        points: [
+          'Engineered a novel device for safe handling of live AC wires by converting Phase/Neutral to 2-phase input.',
+          'Eliminated electrocution risk by isolating ground paths and redesigning current flow through phase-phase methodology.',
+          'Enabled live testing and operation of appliances without traditional neutral connections.'
+        ]
+      }
+    };
+    function showAcademicProject(key){
+      const data = academicProjects[key];
+      if(!data) return;
+      const container = document.getElementById('academic-project-details');
+      const list = data.points.map(p=>`<li>${p}</li>`).join('');
+  container.innerHTML = `<h3 style='margin:0 0 0.4rem 0;'>${data.title}</h3><ul class='project-detail-desc' style='margin:0 0 0.6rem 1.1rem; padding:0; list-style:disc; line-height:1.45;'>${list}</ul>`;
+      container.style.display='block';
+      container.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    // Theme toggling
+    (function(){
+      const toggleBtn = document.getElementById('theme-toggle');
+      const stored = localStorage.getItem('site-theme');
+      if (stored === 'dark') {
+        document.body.classList.add('dark-mode');
+        toggleBtn.textContent = 'Light Mode';
+      }
+      toggleBtn.addEventListener('click', () => {
+        const isDark = document.body.classList.toggle('dark-mode');
+        toggleBtn.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+        localStorage.setItem('site-theme', isDark ? 'dark' : 'light');
+      });
+    })();
   </script>
 </body>
 </html>
