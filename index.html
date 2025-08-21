@@ -1,441 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <style>
-    /* Responsive styles for mobile */
-    @media (max-width: 600px) {
-      body {
-        font-size: 1rem;
-      }
-      .container {
-        width: 98% !important;
-        max-width: 100vw !important;
-        padding: 1.2rem 0.5rem !important;
-      }
-      section h2 {
-        font-size: 1.4rem;
-        width: 98%;
-        max-width: 98vw;
-        margin: 0 auto 1rem auto;
-        padding-bottom: 0.18em;
-      }
-      .nav-links {
-        flex-wrap: wrap;
-        gap: 0.4rem;
-      }
-      .nav-btn {
-        font-size: 0.95rem;
-        padding: 0.5rem 1.1rem;
-        min-width: 100px;
-      }
-      #profile-pic {
-        width: 64px !important;
-        height: 64px !important;
-      }
-      .project-blocks {
-        gap: 0.6rem !important;
-      }
-      .project-block ul {
-        font-size: 0.95rem !important;
-        padding-left: 0.8rem !important;
-      }
-      #music-controls {
-        flex-direction: column;
-        margin: 0.8rem 0 0.3rem 0 !important;
-      }
-      #main-model-viewer {
-        width: 98vw !important;
-        height: 220px !important;
-        min-width: 0 !important;
-        min-height: 0 !important;
-      }
-      #viewer-controls {
-        width: 98vw !important;
-        gap: 0.4rem !important;
-      }
-      #model-fallback, .art-3d-tip, p[style*='color:#00bcd4'] {
-        width: 98vw !important;
-        font-size: 1rem !important;
-      }
-      .love-categories {
-        flex-wrap: wrap;
-        gap: 0.4rem !important;
-        justify-content: center;
-      }
-      .fact-box {
-        width: 100% !important;
-        min-width: 0 !important;
-        max-width: 100vw !important;
-        height: auto !important;
-        padding: 0.8rem 0.5rem !important;
-        font-size: 1rem !important;
-        box-sizing: border-box !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        word-break: break-word !important;
-      }
-      #love-images {
-        gap: 0.4rem !important;
-      }
-      table {
-        font-size: 0.95rem !important;
-      }
-    }
-    /* Center navbar buttons */
-    .nav-links {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 1.2rem;
-      padding: 0;
-      margin: 0;
-      list-style: none;
-    }
-    .nav-btn {
-      font-size: 1rem;
-      padding: 0.6rem 1.8rem;
-      min-width: 170px;
-      background: #fff;
-      color: #111;
-      border: 2px solid #00bcd4;
-      border-radius: 0;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s, box-shadow 0.18s, border 0.18s;
-      box-shadow: 0 2px 8px rgba(0,188,212,0.10);
-    }
-    .nav-btn:hover {
-      background: #00bcd4;
-      color: #fff;
-      border: 2.5px solid #111;
-      box-shadow: 0 4px 16px rgba(0,188,212,0.18);
-    }
-    /* Active nav button style */
-    .nav-btn.active {
-      background: #00bcd4;
-      color: #fff;
-      border: 2.5px solid #111;
-      box-shadow: 0 4px 16px rgba(0,188,212,0.22);
-    }
-    /* Make sections 20% bigger */
-    section .container {
-      font-size: 1.2rem;
-      padding: 2.4rem 0;
-    }
-    section h2 {
-      font-size: 2.4rem;
-      width: 92%;
-      max-width: 740px;
-      margin: 0 auto 1.2rem auto;
-      text-align: center;
-      box-sizing: border-box;
-      display: block;
-      border-bottom: 2.5px solid #00bcd4;
-      padding-bottom: 0.25em;
-    }
-    section.hero h1 {
-      font-size: 1.8rem !important;
-    }
-    #profile-pic {
-      width: 96px !important;
-      height: 96px !important;
-    }
-    /* Remove dark mode styles */
-body.dark-mode,
-body.dark-mode .container,
-body.dark-mode h2, body.dark-mode h1, body.dark-mode h3,
-body.dark-mode a,
-body.dark-mode .nav-btn,
-body.dark-mode .nav-btn:hover, body.dark-mode .nav-btn.active,
-body.dark-mode .love-list-item {
-  /* All dark mode styles removed */
-}
-
-/* New dark / light mode implementation */
-.theme-toggle-btn {
-  position:fixed;
-  top:10px;
-  right:10px;
-  z-index:1000;
-  background:#fff;
-  color:#111;
-  border:2px solid #00bcd4;
-  width:42px;
-  height:42px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:0;
-  font-size:1.15rem;
-  line-height:1;
-  cursor:pointer;
-  border-radius:6px;
-  box-shadow:0 2px 8px rgba(0,188,212,0.12);
-  transition:background .2s,color .2s, box-shadow .2s;
-}
-.theme-toggle-btn:hover { background:#00bcd4; color:#fff; }
-body.dark-mode .theme-toggle-btn { background:#222; color:#eee; border-color:#00bcd4; }
-body.dark-mode .theme-toggle-btn:hover { background:#00bcd4; color:#fff; }
-
-body.dark-mode { background:#2b2a2a; color:#eee; }
-body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 { color:#eee; }
-body.dark-mode h2 { border-color:#00bcd4; }
-body.dark-mode a { color:#56d9e9; }
-body.dark-mode a:hover { color:#8ae9f5; }
-body.dark-mode .nav-btn { background:#2b2a2a; color:#eee; border-color:#00bcd4; }
-body.dark-mode .nav-btn:hover, body.dark-mode .nav-btn.active { background:#00bcd4; color:#fff; border-color:#111; }
-body.dark-mode .project-block { background:transparent !important; color:#eee !important; }
-body.dark-mode #project-details { background:transparent !important; color:#eee !important; }
-body.dark-mode .fact-box { background:#242323; color:#eee; }
-body.dark-mode table { color:#eee; }
-/* Override inline black text colors */
-body.dark-mode [style*='color:#111'] { color:#eee !important; }
-body.dark-mode .blog-list a { color:#eee; }
-body.dark-mode .blog-list a:hover { color:#56d9e9; }
-/* Buttons inside Stuff I Love */
-body.dark-mode .love-categories button { background:#1e1e1e; color:#eee; border:2px solid #00bcd4; }
-body.dark-mode .love-categories button[style*='background:#00bcd4'] { color:#fff !important; }
-/* Academic projects clean styles */
-#academic-projects .project-meta-date { font-weight:normal; color:#888; font-size:0.98rem; }
-#academic-projects .project-list { font-size:1rem; margin:0.6rem 0 0 0; padding-left:1.2rem; text-align:left; color:#444; line-height:1.45; }
-#academic-projects .project-list li { margin-bottom:0.35rem; }
-body.dark-mode #academic-projects .project-meta-date { color:#bbb; }
-body.dark-mode #academic-projects .project-list, body.dark-mode #academic-projects .project-list li { color:#ddd !important; }
-body.dark-mode #academic-projects strong { color:#fff; }
-/* Project detail description adaptive text */
-.project-detail-desc { color:#111; }
-body.dark-mode .project-detail-desc { color:#eee; }
-/* Project blocks base & unified hover (applies to personal, academic, blog) */
-.project-block { transition:background .18s, color .18s, box-shadow .18s; }
-.project-block:hover { background:#00bcd4; color:#fff; }
-body.dark-mode .project-block { border-color:#00bcd4 !important; }
-body.dark-mode .project-block:hover { background:#00bcd4; color:#fff; }
-/* Active (selected) state shared by category selectors etc */
-.project-block.active { background:#00bcd4 !important; color:#fff !important; border:2.5px solid #111; box-shadow:0 4px 16px rgba(0,188,212,0.18); }
-body.dark-mode .project-block.active { background:#00bcd4 !important; color:#fff !important; border-color:#111; }
-
-/* Restored theme toggle button */
-
-/* Blog content should have no forced background */
-#blog #blog-content { background:transparent !important; }
-
-/* Dark mode styles for games section */
-body.dark-mode .love-list-item {
-  color: #e0e0e0; /* Light text for readability in dark mode */
-}
-
-/* Games list color for light and dark mode, override inline styles */
-.love-list-item {
-  color: #111 !important; /* Black text in light mode */
-}
-body.dark-mode .love-list-item {
-  color: #fff !important; /* White text in dark mode */
-}
-
-/* Increase space between About Me year navigation buttons */
-#about-arrow, #about-back {
-  margin-right: 0.75rem;
-  margin-left: 0.75rem;
-}
-/* Or, if using a flex container with gap, double the gap: */
-.about-year-nav {
-  gap: 3rem !important;
-}
-
-/* Section container width for all sections */
-#academic-projects .container,
-#personal-projects .container,
-#art-3d .container,
-#blog .container,
-#stuff-i-love .container,
-#contact .container,
-#about .container,
-section .container {
-  max-width: 700px !important;
-  width: 100%;
-  margin: 0 auto;
-  padding-left: 2.2rem;
-  padding-right: 2.2rem;
-  box-sizing: border-box;
-}
-
-/* 1. Keep About container size constant while scrolling facts */
-#about .container {
-  max-width: 540px !important;
-  min-width: 400px !important;
-  width: 90% !important;
-  margin: 0 auto;
-  box-sizing: border-box;
-}
-#about .fact-box {
-  min-width: 400px;
-  max-width: 540px;
-  width: 90%;
-  height: 3.6em;
-  text-align: center;
-  vertical-align: middle;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  overflow: hidden;
-}
-#about .fact-box p {
-  margin: 0 auto;
-  text-align: center;
-  width: 100%;
-}
-
-/* 2. Navigation buttons wrap to second row if needed */
-.nav-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 0.7rem;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  max-width: 100vw;
-  overflow-x: auto;
-}
-
-/* 3. Center align Stuff I Love category buttons below title */
-#stuff-i-love .love-categories {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1.4rem;
-  width: 100%;
-  margin-bottom: 1rem;
-}
-
-/* 4. Uniform navbar buttons and links */
-.nav-links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1.2rem;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-.nav-btn {
-  font-size: 1rem;
-  padding: 0.6rem 1.8rem;
-  min-width: 170px;
-  background: #fff;
-  color: #111;
-  border: 2px solid #00bcd4;
-  border-radius: 0;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s, box-shadow 0.18s, border 0.18s;
-  box-shadow: 0 2px 8px rgba(0,188,212,0.10);
-}
-.nav-btn:hover {
-  background: #00bcd4;
-  color: #fff;
-  border: 2.5px solid #111;
-  box-shadow: 0 4px 16px rgba(0,188,212,0.18);
-}
-.nav-btn.active {
-  background: #00bcd4;
-  color: #fff;
-  border: 2.5px solid #111;
-  box-shadow: 0 4px 16px rgba(0,188,212,0.22);
-}
-
-/* 5. Smartphone optimization */
-@media (max-width: 600px) {
-  body {
-    font-size: 1rem;
-  }
-  .container {
-    width: 98% !important;
-    max-width: 100vw !important;
-    padding: 1.2rem 0.5rem !important;
-  }
-  section h2 {
-    font-size: 1.4rem;
-    width: 98%;
-    max-width: 98vw;
-    margin: 0 auto 1rem auto;
-    padding-bottom: 0.18em;
-  }
-  .nav-links {
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-  .nav-btn {
-    font-size: 0.95rem;
-    padding: 0.5rem 1.2rem;
-    min-width: 120px;
-  }
-  #profile-pic {
-    width: 64px !important;
-    height: 64px !important;
-  }
-  .project-blocks {
-    gap: 0.6rem !important;
-  }
-  .project-block ul {
-    font-size: 0.95rem !important;
-    padding-left: 0.8rem !important;
-  }
-  #music-controls {
-    flex-direction: column;
-    margin: 0.8rem 0 0.3rem 0 !important;
-  }
-  #main-model-viewer {
-    width: 98vw !important;
-    height: 220px !important;
-    min-width: 0 !important;
-    min-height: 0 !important;
-  }
-  #viewer-controls {
-    width: 98vw !important;
-    gap: 0.4rem !important;
-  }
-  #model-fallback, .art-3d-tip, p[style*='color:#00bcd4'] {
-    width: 98vw !important;
-    font-size: 1rem !important;
-  }
-  .love-categories {
-    flex-wrap: wrap;
-    gap: 0.4rem !important;
-    justify-content: center;
-  }
-  .fact-box {
-    width: 100% !important;
-    min-width: 0 !important;
-    max-width: 100vw !important;
-    height: auto !important;
-    padding: 0.8rem 0.5rem !important;
-    font-size: 1rem !important;
-    box-sizing: border-box !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    word-break: break-word !important;
-  }
-  #love-images {
-    gap: 0.4rem !important;
-  }
-  table {
-    font-size: 0.95rem !important;
-  }
-}
-  </style>
+  <!-- (Large inline styles removed; now consolidated in style.css) -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tom's Site</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    /* Override (after external stylesheet) to ensure hover color applies everywhere */
-    .project-block:hover { background:#00bcd4 !important; color:#fff !important; }
-    body.dark-mode .project-block:hover { background:#00bcd4 !important; color:#fff !important; }
-  </style>
+  <!-- Small override style block removed (handled in stylesheet) -->
 </head>
 <body>
   <button id="theme-toggle" class="theme-toggle-btn" aria-label="Switch to dark mode" title="Toggle theme" type="button">🌙</button>
@@ -459,19 +30,19 @@ section .container {
   <!-- Music controls below navbar, above Home section -->
   <!-- Removed music controls -->
 
-  <section id="home" class="hero" style="background:#00bcd4;">
+  <section id="home" class="hero">
     <div class="container">
       <div style="margin: 1rem 0 0.5rem 0; display: flex; justify-content: center;">
-        <img id="profile-pic" src="assets/profile.jpg" alt="Profile Picture" style="width:80px; height:80px; object-fit:cover; border:2px solid #00bcd4; border-radius:50%; background:#fff;" />
+        <img id="profile-pic" src="assets/profile.jpg" alt="Profile Picture" />
       </div>
-      <h1 style="font-size:1.5rem; font-weight:400; margin-top:0.5rem; text-align:center;">Hello, I'm Tom and welcome to my site :)</h1>
+      <h1 style="margin-top:0.5rem; text-align:center;">Hello, I'm Tom and welcome to my site :)</h1>
     </div>
   </section>
 
   <section id="about" style="display:none;">
     <div class="container" style="text-align:center;">
-      <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">About me and other global events</h2>
-      <div class="fact-box" style="margin:0 auto; display:inline-block;">
+      <h2>About me and other global events</h2>
+      <div class="fact-box">
         <p id="about-fact">I'm passionate about technology and creativity.</p>
       </div>
       <div style="margin:1.2rem 0; display:flex; flex-direction:column; align-items:center;">
@@ -493,35 +64,35 @@ section .container {
 
   <section id="academic-projects" style="display:none;">
     <div class="container">
-      <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block;">Academic Projects</h2>
-      <div class="academic-intro" style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:justify; line-height:1.6;">
+    <h2>Academic Projects</h2>
+    <div class="academic-intro" style="text-align:justify; line-height:1.6;">
         Here are some of my academic projects, each focused on solving real-world problems and applying modern technology and research methods. Click a project to see details.
       </div>
       <div class="project-blocks">
-  <div class="project-block" role="button" tabindex="0" onclick="showAcademicProject('twoWire')" onkeypress="if(event.key==='Enter'){showAcademicProject('twoWire')};" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Two Wire AC Distribution System</div>
-  <div class="project-block" role="button" tabindex="0" onclick="showAcademicProject('transformer')" onkeypress="if(event.key==='Enter'){showAcademicProject('transformer')};" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Transformer Failure Notifier</div>
-  <div class="project-block" role="button" tabindex="0" onclick="showAcademicProject('isolated')" onkeypress="if(event.key==='Enter'){showAcademicProject('isolated')};" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Isolated Extension Supply</div>
+  <div class="project-block" role="button" tabindex="0" onclick="showAcademicProject('twoWire')" onkeypress="if(event.key==='Enter'){showAcademicProject('twoWire')};">Two Wire AC Distribution System</div>
+  <div class="project-block" role="button" tabindex="0" onclick="showAcademicProject('transformer')" onkeypress="if(event.key==='Enter'){showAcademicProject('transformer')};">Transformer Failure Notifier</div>
+  <div class="project-block" role="button" tabindex="0" onclick="showAcademicProject('isolated')" onkeypress="if(event.key==='Enter'){showAcademicProject('isolated')};">Isolated Extension Supply</div>
       </div>
-      <div id="academic-project-details" style="display:none; margin-top:1.2rem; padding:0.4rem 0 0.4rem 0;"></div>
+    <div id="academic-project-details" style="display:none;"></div>
     </div>
   </section>
 
   <section id="personal-projects" style="display:none;">
     <div class="container">
-      <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">Personal Projects</h2>
+      <h2>Personal Projects</h2>
       <div class="project-blocks">
-  <div class="project-block" onclick="showProject('portfolio')" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Personal Portfolio Website</div>
-  <div class="project-block" onclick="showProject('guild')" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Guild and Company</div>
-  <div class="project-block" onclick="showProject('imaginary')" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Imaginary Axis</div>
-  <div class="project-block" onclick="showProject('architecture')" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Architecture</div>
+  <div class="project-block" onclick="showProject('portfolio')">Personal Portfolio Website</div>
+  <div class="project-block" onclick="showProject('guild')">Guild and Company</div>
+  <div class="project-block" onclick="showProject('imaginary')">Imaginary Axis</div>
+  <div class="project-block" onclick="showProject('architecture')">Architecture</div>
       </div>
-  <div id="project-details" style="display:none; margin-top:1.2rem; padding:0.8rem 0 0.2rem 0; color:#111;"></div>
+  <div id="project-details" style="display:none;"></div>
     </div>
   </section>
 
   <section id="art-3d" style="display:none;">
-  <div class="container" style="display:flex; flex-direction:column; align-items:center; justify-content:center; border:none; border-radius:0; padding:0; width:100%; max-width:700px; margin:0 auto; text-align:center; box-sizing:border-box;">
-  <h2 style="width:100%; max-width:700px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">Imaginary Axis</h2>
+  <div class="container" style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0; text-align:center;">
+  <h2>Imaginary Axis</h2>
   <div style="width:92%; max-width:600px; text-align:justify; margin:0 auto 1.2rem auto; line-height:1.6;">
         I started this project during the 2020 lockdown. I was limited with the technology I possessed and used Paint 3D for all the works below. I've lost most of the raw files, but those works are on <a href="https://www.instagram.com/imaginary_axis/" target="_blank" style="color:#00bcd4; text-decoration:underline;">@imaginary_axis</a> IG account.
       </div>
@@ -538,43 +109,43 @@ section .container {
           </button>
         </div>
       </div>
-      <div style="width:100%; max-width:700px; display:flex; justify-content:center; align-items:center; box-sizing:border-box;">
-        <model-viewer id="main-model-viewer" src="https://raw.githubusercontent.com/thomasallwinanto/Imaginary_Axis_files/main/BAC.glb" alt="3D Art" camera-controls auto-rotate style="width:100%; max-width:700px; height:400px; margin:0 auto; background:none; border:none; border-radius:0; box-shadow:none; display:block; align-self:center; box-sizing:border-box;"
+      <div style="width:100%; max-width:700px; display:flex; justify-content:center; align-items:center;">
+        <model-viewer id="main-model-viewer" src="https://raw.githubusercontent.com/thomasallwinanto/Imaginary_Axis_files/main/BAC.glb" alt="3D Art" camera-controls auto-rotate
           onerror="document.getElementById('model-fallback').style.display='block'"
         ></model-viewer>
       </div>
-      <div id="model-fallback" style="display:none; color:#d32f2f; font-size:1.1rem; margin-top:1rem; width:100%; max-width:700px;">3D model could not be loaded. Please check that the file exists and is a valid .glb file.</div>
-      <p style="margin-top:1rem; color:#00bcd4; width:100%; max-width:700px;">Tip: Use your mouse or touch to <br> interact with the model.</p>
+      <div id="model-fallback" style="display:none; color:#d32f2f; font-size:1.1rem; margin-top:1rem;">3D model could not be loaded. Please check that the file exists and is a valid .glb file.</div>
+      <p style="margin-top:1rem; color:#00bcd4;">Tip: Use your mouse or touch to <br> interact with the model.</p>
     </div>
   </section>
   <section id="blog" style="display:none;">
     <div class="container">
-      <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">Blog</h2>
+      <h2>Blog</h2>
       <div class="project-blocks">
-        <div class="project-block" role="button" tabindex="0" onclick="showBlog('blog1')" onkeypress="if(event.key==='Enter'){showBlog('blog1')}" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">How I started coding</div>
-        <div class="project-block" role="button" tabindex="0" onclick="showBlog('blog2')" onkeypress="if(event.key==='Enter'){showBlog('blog2')}" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Lessons from my first project</div>
-        <div class="project-block" role="button" tabindex="0" onclick="showBlog('blog3')" onkeypress="if(event.key==='Enter'){showBlog('blog3')}" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Dune</div>
+        <div class="project-block" role="button" tabindex="0" onclick="showBlog('blog1')" onkeypress="if(event.key==='Enter'){showBlog('blog1')}">How I started coding</div>
+        <div class="project-block" role="button" tabindex="0" onclick="showBlog('blog2')" onkeypress="if(event.key==='Enter'){showBlog('blog2')}">Lessons from my first project</div>
+        <div class="project-block" role="button" tabindex="0" onclick="showBlog('blog3')" onkeypress="if(event.key==='Enter'){showBlog('blog3')}">Dune</div>
       </div>
-  <div id="blog-content" style="display:none; margin-top:1.2rem; padding:0.8rem 1.15rem 0.9rem 1.15rem; line-height:1.58; font-size:1.02rem; box-sizing:border-box;"></div>
+  <div id="blog-content" style="display:none;"></div>
     </div>
   </section>
 
   <section id="stuff-i-love" style="display:none;">
     <div class="container">
-      <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">Stuff I Love</h2>
-      <div class="love-categories project-blocks" style="display:flex; gap:0.6rem;">
-        <div class="project-block" role="button" tabindex="0" data-category="books" onclick="showLove('books')" onkeypress="if(event.key==='Enter'){showLove('books')}" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Books</div>
-        <div class="project-block" role="button" tabindex="0" data-category="movies" onclick="showLove('movies')" onkeypress="if(event.key==='Enter'){showLove('movies')}" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Movies</div>
-        <div class="project-block" role="button" tabindex="0" data-category="music" onclick="showLove('music')" onkeypress="if(event.key==='Enter'){showLove('music')}" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Music</div>
+      <h2>Stuff I Love</h2>
+      <div class="love-categories project-blocks" style="gap:0.6rem;">
+        <div class="project-block" role="button" tabindex="0" data-category="books" onclick="showLove('books')" onkeypress="if(event.key==='Enter'){showLove('books')}">Books</div>
+        <div class="project-block" role="button" tabindex="0" data-category="movies" onclick="showLove('movies')" onkeypress="if(event.key==='Enter'){showLove('movies')}">Movies</div>
+        <div class="project-block" role="button" tabindex="0" data-category="music" onclick="showLove('music')" onkeypress="if(event.key==='Enter'){showLove('music')}">Music</div>
       </div>
       <ul id="love-list" style="display:none;"></ul>
-      <div id="love-images" style="display:flex; gap:0.96rem; flex-wrap:wrap; justify-content:center; margin-top:1rem;"></div>
+      <div id="love-images"></div>
     </div>
   </section>
 
   <section id="contact" style="display:none;">
     <div class="container">
-      <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">Contact</h2>
+      <h2>Contact</h2>
       <p>Email: thomasallwinanto@gmail.com</p>
       <p>Instagram: <a href="https://www.instagram.com/thomas_allwin/#" target="_blank" style="color:#00bcd4; text-decoration:underline;">@thomas_allwin</a></p>
       <p>or Send a pigeon </p>
@@ -582,380 +153,13 @@ section .container {
     </div>
   </section>
 
-  <script>
-    // Section navigation with selected nav button highlight
-    function showSection(sectionId) {
-      const sections = document.querySelectorAll('section');
-      sections.forEach(sec => {
-        sec.style.display = 'none';
-      });
-      document.getElementById(sectionId).style.display = '';
-      // Highlight active nav button
-      const navBtns = document.querySelectorAll('.nav-btn');
-      navBtns.forEach(btn => {
-        // Get target section from onclick attribute
-        const match = btn.getAttribute('onclick')?.match(/showSection\(['"]([\w-]+)['"]\)/);
-        const btnSection = match ? match[1] : null;
-        if (btnSection === sectionId) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
-      });
-    }
-    // Show Home by default
-    showSection('home');
-
-    // 3D model switching logic
-    const modelFiles = [
-      "BAC.glb",
-      "DEBRIS.glb",
-      "Death_Stranding.glb",
-      "PYRAMID.glb",
-      "Project_frame.glb",
-      "THE SHIP.glb",
-      "VFP.glb"
-    ];
-    const githubBase = "https://raw.githubusercontent.com/thomasallwinanto/Imaginary_Axis_files/main/";
-    const modelViewer = document.getElementById('main-model-viewer');
-    const prevBtn = document.getElementById('prev-model');
-    const nextBtn = document.getElementById('next-model');
-    let currentModelIdx = 0;
-
-    function updateModel(idx) {
-      currentModelIdx = idx;
-      const file = modelFiles[idx];
-      modelViewer.src = githubBase + file;
-      document.getElementById('model-fallback').style.display = 'none';
-    }
-
-    prevBtn.addEventListener('click', function() {
-      let idx = (currentModelIdx - 1 + modelFiles.length) % modelFiles.length;
-      updateModel(idx);
-    });
-    nextBtn.addEventListener('click', function() {
-      let idx = (currentModelIdx + 1) % modelFiles.length;
-      updateModel(idx);
-    });
-    // Initialize viewer to first model
-    updateModel(0);
-
-    // Music controls removed; guard to prevent errors if legacy code references missing button
-    (function(){
-      const musicBtn = document.getElementById('music-btn');
-      if (musicBtn) {
-        const music = document.getElementById('site-music');
-        let state = 'play';
-        function updateMusicBtn(){
-          musicBtn.textContent = state === 'play' ? 'Play Music' : (state === 'mute' ? 'Mute Music' : 'Unmute Music');
-        }
-        musicBtn.addEventListener('click', () => {
-          if (state === 'play') { music.currentTime = 0; music.muted = false; music.play(); state='mute'; }
-          else if (state === 'mute') { music.muted = true; state='unmute'; }
-          else { music.muted = false; state='mute'; }
-          updateMusicBtn();
-        });
-        updateMusicBtn();
-      }
-    })();
-
-    // About Me facts by year
-    const yearFacts = {
-      1999: "Born in 1999. The journey begins!",
-      2000: "I started exploring the world around me.",
-      2001: "Fall of the Twin Towers in New York.",
-      2002: "Did my kindergarten and started school in Bangalore",
-      2003: "Lower Kindergarten in Bangalore.",
-      2004: "I rhink I started learning to read and write in detail",
-      2005: "Changed my school and started class 1",
-      2006: "Was doing class 2 but had to move to Chennai.",
-      2007: "Something was coming up, I could feel it.",
-      2008: "The 2008 financial crisis and housing crisis affected many globally.",
-      2009: "Became interested in technology and the internet.",
-      2010: "Got my first computer and started playing games.",
-      2011: "The Arab Spring began, changing the political landscape.",
-      2012: "The Mayan calendar predicted the end of the world.",
-      2013: "The rise of social media platforms like Instagram.",
-      2014: "Had my first crush in school",
-      2015: "Had my second crush in school and then I changed my school again to do class 11.",
-      2016: "Got my first smart phone. It was an HCL.",
-      2017: "The rise of cryptocurrencies like Bitcoin. But I didn't know about it. I graduated High School and started college.",
-      2018: "I was pursuing my Bachelors in Electrical and Electronics Engineering and also gave my first Navy exam.",
-      2019: "Someguy from China ate a bat and the world went into a pandemic.",
-      2020: "Worked on my academic projects, art projects in lockdown, gained a lot of knowledge and weight",
-      2021: "I graduated from college and started working at Bosch.",
-      2022: "No significant updates. Just working and living life.",
-      2023: "Went fine the first half, but the second half was a bit rough, complex and difficult.",
-      2024: "I left my job, friends, family and everything I had connection to and moved to Germany to pursue my Masters in MEMS.",
-      2025: "I turned 26 this year and I am still figuring things out. But I am happy with my life choices so far."
-    };
-    // Fill in missing years with previous fact
-    let lastFact = yearFacts[1999];
-    for(let y=1999; y<=2025; y++) {
-      if(!yearFacts[y]) yearFacts[y] = lastFact;
-      else lastFact = yearFacts[y];
-    }
-    const yearSlider = document.getElementById('year-slider');
-    const yearLabel = document.getElementById('year-label');
-    const aboutFact = document.getElementById('about-fact');
-    const aboutArrow = document.getElementById('about-arrow');
-    yearSlider.addEventListener('input', function() {
-      const year = parseInt(yearSlider.value);
-      yearLabel.textContent = year;
-      aboutFact.textContent = yearFacts[year];
-    });
-    aboutArrow.addEventListener('click', function() {
-      let year = parseInt(yearSlider.value);
-      year = year > 1999 ? year - 1 : 2025;
-      yearSlider.value = year;
-      yearLabel.textContent = year;
-      aboutFact.textContent = yearFacts[year];
-    });
-    document.getElementById('about-back').addEventListener('click', function() {
-      let year = parseInt(yearSlider.value);
-      year = year < 2025 ? year + 1 : 1999;
-      yearSlider.value = year;
-      yearLabel.textContent = year;
-      aboutFact.textContent = yearFacts[year];
-    });
-    // Initialize fact
-    yearLabel.textContent = yearSlider.value;
-    aboutFact.textContent = yearFacts[yearSlider.value];
-
-    // Blog content
-    const blogs = {
-      blog1: "<h3>How I started coding</h3><p>I began my coding by modding games like GTA SA, It started from small characters to making new maps in game till the games crashed.</p>",
-      blog2: "<h3>Lessons from my first project</h3><p>Alwyas keep a backup.</p>",
-      blog3: "<h3>Dune</h3><p>Might be one of the greatest sci-fi movies of the 21st century.I want to write more. But later</p>"
-    };
-    function showBlog(blogKey) {
-      const blogContent = document.getElementById('blog-content');
-      blogContent.innerHTML = blogs[blogKey];
-      blogContent.style.display = 'block';
-  blogContent.scrollIntoView({behavior:'smooth', block:'start'});
-    }
-
-    // Stuff I Love
-    const loveStuff = {
-      books: [
-        "The Da Vinci Code",
-        "The Name of the Rose",
-        "Industrial Society and Its Future",
-        "Dune",
-        "Dune Messiah",
-        "Children of Dune",
-        "God Emperor of Dune",
-        "Fahrenheit 451",
-        "Crime and Punishment",
-        "Once Upon a Time in Hollywood"
-      ],
-      movies: [
-        "Inglourious Basterds\t9",
-        "Nayakan\t9",
-        "The Thing\t9",
-        "The Good, the Bad and the Ugly\t9",
-        "Ratatouille\t9",
-        "Saving Private Ryan\t9",
-        "Dune\t9",
-        "Star Wars: Episode V - The Empire Strikes Back\t9",
-        "Man From Earth\t9",
-        "GoodFellas\t9",
-        "the social network\t9",
-        "The Godfather Part II\t9"
-      ],
-      music: [
-        "Stevie Ray Vaughan",
-        "Eric Clapton",
-        "Jimi Hendrix",
-        "JJ Cale",
-        "Radiohead",
-        "Thom Yorke",
-        "John Mayer",
-        "Kurt Cobain",
-        "Chris Cornell",
-        "Nirvana",
-        "Hans Zimmer",
-        "Derek and the Dominos",
-        "Cream",
-        "Agam",
-        "Lucky Ali"
-      ]
-    };
-    function showLove(category) {
-      const list = document.getElementById('love-list');
-      const images = document.getElementById('love-images');
-      // Toggle active class on category project-blocks
-      document.querySelectorAll('.love-categories .project-block').forEach(block => {
-        const cat = block.getAttribute('data-category');
-        if(cat === category) block.classList.add('active'); else block.classList.remove('active');
-      });
-      const items = loveStuff[category];
-      list.innerHTML = '';
-      let imgHtml = '';
-  if(category === 'books') {
-        const bookImages = {
-          'The Da Vinci Code': 'https://m.media-amazon.com/images/I/4182WHOHqUL._SY445_SX342_.jpg',
-          'The Name of the Rose': 'https://m.media-amazon.com/images/I/51kkGmOoqQL._SY445_SX342_.jpg',
-          'Industrial Society and Its Future': 'https://m.media-amazon.com/images/I/41ySrRF+tXL._SY445_SX342_.jpg',
-          'Dune': 'https://m.media-amazon.com/images/I/41qSPS2EDdL._SY445_SX342_.jpg',
-          'Dune Messiah': 'https://m.media-amazon.com/images/I/41NUm1sYjLL._SY445_SX342_.jpg',
-          'Children of Dune': 'https://m.media-amazon.com/images/I/41GzZqH3cjL._SY445_SX342_.jpg',
-          'God Emperor of Dune': 'https://m.media-amazon.com/images/I/41i-YhzQ0tL._SY445_SX342_.jpg',
-          'Fahrenheit 451': 'https://m.media-amazon.com/images/I/71OFqSRFDgL.jpg',
-          'Crime and Punishment': 'https://m.media-amazon.com/images/I/41c99G44teL._SY445_SX342_.jpg',
-          'Once Upon a Time in Hollywood': 'https://m.media-amazon.com/images/I/81b4luHhI6S._SX385_.jpg'
-        };
-        imgHtml = items.map(item => {
-          // fallback if image not found
-          let imgSrc = bookImages[item] || 'https://via.placeholder.com/70x100?text=No+Image';
-          return `<div style='text-align:center;'><img src='${imgSrc}' alt='${item}' style='width:70px; height:100px; object-fit:cover; background:#fff;'><div style='font-size:0.9rem; margin-top:0.3rem;'>${item}</div></div>`;
-        }).join('');
-      } else if(category === 'movies') {
-        // Letterboxd link at the top
-        imgHtml = `<div style='width:100%; text-align:center; margin-bottom:1rem;'><a href='https://boxd.it/6ycaP' target='_blank' style='color:#00bcd4; font-size:1rem; text-decoration:underline;'>See more movies on my Letterboxd</a></div>`;
-        // Display movies as a simple list, similar to books
-        imgHtml += `<ul style='list-style:none; padding:0; margin:0; text-align:left;'>` +
-          items.map(item => {
-            let match = item.match(/^(.*?)(?:\t|\s{2,})([0-9.]+)?$/);
-            let name = match ? match[1].trim() : item.trim();
-            return `<li class='love-list-item' style='font-size:0.98rem; margin-bottom:0.4rem; color:#111;'>${name}</li>`;
-          }).join('') + `</ul>`;
-      } else if(category === 'music') {
-        const musicImages = {
-          'Stevie Ray Vaughan': 'https://commons.wikimedia.org/wiki/File:Stevie_Ray_Vaughan_Live_1983.jpg',
-          'Eric Clapton': 'https://commons.wikimedia.org/wiki/File:Eric_Clapton_live_on_acoustic_guitar.jpg',
-          'Jimi Hendrix': 'https://commons.wikimedia.org/wiki/File:Hendrix_performing_6-20-1970.jpg',
-          'J.J. Cale': 'https://commons.wikimedia.org/wiki/File:J_J_Cale_Munich_75.jpg',
-          'Hans Zimmer': 'https://commons.wikimedia.org/wiki/File:Hans_Zimmer_live_-_52992256582.jpg',
-          'Chris Cornell': 'https://commons.wikimedia.org/wiki/File:Chris_Cornell_Live_2009.jpg',
-          'Nirvana': 'https://commons.wikimedia.org/wiki/File:Nirvana_around_1992.jpg',
-          'Radiohead': 'https://i.scdn.co/image/ab6761610000e5ebc5c5c5c5c5c5',
-          'Thom Yorke': 'https://i.scdn.co/image/ab6761610000e5ebc6c6c6c6c6c6c6',
-          'John Mayer': 'https://i.scdn.co/image/ab6761610000e5ebc7c7c7c7c7c7c7c7c7c7c7c7',
-          'Kurt Cobain': 'https://i.scdn.co/image/ab6761610000e5ebc8c8c8c8c8c8c8c8c8c8c8c8',
-          'Derek and the Dominos': 'https://i.scdn.co/image/ab6761610000e5ebcccccccccccccccccccccccc',
-          'Cream': 'https://i.scdn.co/image/ab6761610000e5ebcdcdcdcdcdcdcdcdcdcdcdcd',
-          'Agam': 'https://i.scdn.co/image/ab6761610000e5ebcececececececececececece',
-          'Lucky Ali': 'https://i.scdn.co/image/ab6761610000e5ebcfcfcfcfcfcfcfcfcfcfcfcf'
-        };
-        imgHtml = items.map(item => {
-          let imgSrc = musicImages[item] || 'https://via.placeholder.com/70x70?text=No+Image';
-          return `<div class='love-list-item' style='text-align:center;'><img src='${imgSrc}' alt='${item}' style='width:70px; height:70px; object-fit:cover; background:#fff; border-radius:50%;'><div style='font-size:0.9rem; margin-top:0.3rem;'>${item}</div></div>`;
-        }).join('');
-      }
-      images.innerHTML = imgHtml;
-    }
-
-    // Load model-viewer script for 3D art section
-    const script = document.createElement('script');
-    script.type = 'module';
-    script.src = 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js';
-    document.head.appendChild(script);
-
-    const personalProjects = {
-      portfolio: {
-        title: "Personal Portfolio Website",
-        desc: "This website. I know, the project in a project. I used github copilot, VS code and other softwares to build this site. I am still learning and exploring this domain and figuring out ways to optimise this site, finding cleaner, healthier ways to code. Need to explore react and much more... :)",
-      },
-      guild: {
-        title: "Guild and Company",
-  desc: "I'm part of a collaborative music and creative project in Hamburg where we explore Blues plus 70s and 80s rock. I personally tilt towards the blues, drawing inspiration from Eric Clapton and Stevie Ray Vaughan. I play a Telecaster strung with 10 gauge strings because I find it versatile, simple, and clean, and I'm currently experimenting with wah pedals to play a few tracks and learn more. Follow us on IG: <a href='https://www.instagram.com/theguild_band/' target='_blank' style='color:#00bcd4; text-decoration:underline;'>@theguild_band</a>.",
-        images: ["assets/tom_guitar.jpg", "assets/guild.jpg"]
-      },
-      imaginary: {
-        title: "Imaginary Axis",
-  desc: "My 3D art project created during lockdown using Paint 3D. See more in the <a href='#' onclick=\"showSection('art-3d'); return false;\" style='color:#00bcd4; text-decoration:underline;'>Art Projects</a> section.",
-      },
-      architecture: {
-        title: "Architecture",
-        desc: "Planned, designed and constructed a house in Kerala, India using self‑learned tools (Paint, Unreal Engine & open source). Completed concept + plan set in a month; available on request. It's not much but it's honest work.",
-        images: ["assets/House_1.jpg", "assets/House_2.jpg", "assets/House_3.jpg", "assets/House_4.jpg"]
-      }
-    };
-    function showProject(key) {
-      const details = personalProjects[key];
-      if (!details) return;
-      const container = document.getElementById('project-details');
-      const imgHtml = (details.images || []).map(img => {
-        if (key === 'guild' || key === 'architecture') {
-          // Natural size (true scale) while remaining responsive
-          return `<img src='${img}' alt='' style='max-width:100%; height:auto; margin:0.5rem;'>`;
-        }
-        return `<img src='${img}' alt='' style='width:120px; height:auto; margin:0.5rem;'>`;
-      }).join('');
-      let bodyHtml = '';
-      if (details.points) {
-        bodyHtml = `<ul class='project-detail-desc' style='font-size:1.02rem; line-height:1.5; margin:0.4rem 0 0.8rem 1.1rem; padding:0; list-style:disc;'>${details.points.map(p=>`<li style='margin-bottom:0.35rem;'>${p}</li>`).join('')}</ul>`;
-      } else if (details.desc) {
-        bodyHtml = `<p class='project-detail-desc' style='font-size:1.05rem; line-height:1.5; margin:0.4rem 0 0.8rem;'>${details.desc}</p>`;
-      }
-      container.innerHTML = `<h3 style='margin-top:0;'>${details.title}</h3>${bodyHtml}<div style='display:flex; gap:0.8rem; flex-wrap:wrap;'>${imgHtml}</div>`;
-      container.style.display = 'block';
-      container.scrollIntoView({behavior:'smooth', block:'start'});
-    }
-
-    // Academic projects interactive data
-    const academicProjects = {
-      twoWire: {
-        title: 'Two Wire AC Distribution System',
-        period: '01/2021 – 07/2021', // kept for potential internal use
-        points: [
-          'Designed a low-cost two-wire AC distribution system enabling isolated power extension for domestic households.',
-          'Addressed excessive energy losses and high billing caused by conventional distribution methods.',
-          'Implemented solutions for overheating and cooling inefficiencies to enhance reliability and energy efficiency by 20%.'
-        ]
-      },
-      transformer: {
-        title: 'Transformer Failure Notifier',
-        period: '01/2020 – 06/2020',
-        points: [
-          'Developed a GSM-based wireless notification system using Arduino Uno to alert grid authorities of transformer failures.',
-          'Enabled real-time fault location detection with transformer ID tagging, reducing downtime by 30% and manual tracing.',
-          'Proposed future scope for fault-type classification using extended sensor modules.'
-        ]
-      },
-      isolated: {
-        title: 'Isolated Extension Supply',
-        period: '01/2019 – 06/2019',
-        points: [
-          'Engineered a novel device for safe handling of live AC wires by converting Phase/Neutral to 2-phase input.',
-          'Eliminated electrocution risk by isolating ground paths and redesigning current flow through phase-phase methodology.',
-          'Enabled live testing and operation of appliances without traditional neutral connections.'
-        ]
-      }
-    };
-    function showAcademicProject(key){
-      const data = academicProjects[key];
-      if(!data) return;
-      const container = document.getElementById('academic-project-details');
-      const list = data.points.map(p=>`<li>${p}</li>`).join('');
-  container.innerHTML = `<h3 style='margin:0 0 0.4rem 0;'>${data.title}</h3><ul class='project-detail-desc' style='margin:0 0 0.6rem 1.1rem; padding:0; list-style:disc; line-height:1.45;'>${list}</ul>`;
-      container.style.display='block';
-      container.scrollIntoView({behavior:'smooth', block:'start'});
-    }
-
-    // Theme toggling
-    (function(){
-      const toggleBtn = document.getElementById('theme-toggle');
-      function applyIcon(isDark){
-        // Show sun icon when dark (indicates you can switch to light), moon when light
-        toggleBtn.innerHTML = isDark ? '☀️' : '🌙';
-        toggleBtn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
-        toggleBtn.setAttribute('title', isDark ? 'Light mode' : 'Dark mode');
-      }
-      const stored = localStorage.getItem('site-theme');
-      if (stored === 'dark') {
-        document.body.classList.add('dark-mode');
-        applyIcon(true);
-      } else {
-        applyIcon(false);
-      }
-      toggleBtn.addEventListener('click', () => {
-        const isDark = document.body.classList.toggle('dark-mode');
-        localStorage.setItem('site-theme', isDark ? 'dark' : 'light');
-        applyIcon(isDark);
-      });
-    })();
-  </script>
+  <!-- Load scripts (order matters: utilities before main initializer) -->
+  <script src="./js/nav.js"></script>
+  <script src="./js/about.js"></script>
+  <script src="./js/modelviewer.js"></script>
+  <script src="./js/projects.js"></script>
+  <script src="./js/blog.js"></script>
+  <script src="./js/love.js"></script>
+  <script src="./js/main.js"></script>
 </body>
 </html>

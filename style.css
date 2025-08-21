@@ -1,45 +1,131 @@
-/* Fact box for About section */
-.fact-box {
-  background: #fff;
-  border-radius: 0;
-  box-shadow: none;
-  padding: 1.2rem 1.5rem;
-  margin-bottom: 1rem;
-  display: inline-block;
-  font-size: 1.1rem;
-  color: #1976d2;
-  font-weight: 500;
+/* ====== Base / Reset ====== */
+* { box-sizing: border-box; }
+body { margin:0; font-family: 'Segoe UI','Roboto','Arial',sans-serif; background:#f6f8fa; color:#111; line-height:1.55; }
+img { max-width:100%; display:block; }
+a { color:#00bcd4; text-decoration:underline; }
+a:hover { color:#0097a7; }
+
+/* ====== Layout ====== */
+section { padding:2.4rem 0; }
+.container { width:100%; max-width:700px; margin:0 auto; padding:0 2.2rem; }
+@media (max-width:600px){
+  .container { width:98% !important; max-width:100vw !important; padding:1.2rem 0.5rem !important; }
+  section { padding:1.6rem 0; }
 }
-/* Arrow button for About section */
-.arrow-btn {
-  background: #2196f3;
-  color: #fff;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 0;
-  font-size: 1.5rem;
-  cursor: pointer;
-  margin-top: 1rem;
-  transition: background 0.2s;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.arrow-btn:hover {
-  background: #00bcd4;
-}
+
+/* Headings */
+h1,h2,h3 { font-weight:600; line-height:1.2; margin:0 0 0.8rem 0; }
+h2 { font-size:2.2rem; text-align:center; border-bottom:2.5px solid #0097a7; padding-bottom:0.25em; }
+@media (max-width:600px){ h2 { font-size:1.4rem; } }
+
+/* Hero */
+.hero { background:#00bcd4; color:#111; }
+.hero h1 { font-size:1.8rem; margin:0.5rem 0 0.2rem; font-weight:400; }
+@media (max-width:600px){ .hero h1 { font-size:1.5rem !important; } }
+
+/* Navbar */
+.navbar { background:#00bcd4; padding:0.5rem 0; border:1px solid #111; border-left:0; border-right:0; }
+.nav-links { display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:1.2rem; list-style:none; padding:0; margin:0; }
+@media (max-width:600px){ .nav-links { gap:0.4rem; } }
+.nav-btn { font-size:1rem; padding:0.6rem 1.8rem; min-width:170px; background:#fff; color:#111; border:1px solid #111; cursor:pointer; transition:background .2s,color .2s,box-shadow .18s,border .18s; box-shadow:0 2px 8px rgba(0,0,0,.10); }
+.nav-btn:hover { background:#00bcd4; color:#fff; border:1px solid #111; box-shadow:0 4px 16px rgba(0,0,0,.18); }
+.nav-btn.active { background:#00bcd4; color:#fff; border:1px solid #111; box-shadow:0 4px 16px rgba(0,0,0,.22); }
+@media (max-width:600px){ .nav-btn { font-size:.95rem; padding:0.5rem 1.2rem; min-width:120px; } }
+
+/* Theme toggle */
+.theme-toggle-btn { position:fixed; top:10px; right:10px; z-index:1000; background:#fff; color:#111; border:2px solid #00bcd4; width:42px; height:42px; display:flex; align-items:center; justify-content:center; font-size:1.15rem; cursor:pointer; border-radius:6px; box-shadow:0 2px 8px rgba(0,188,212,.12); transition:background .2s,color .2s, box-shadow .2s; }
+.theme-toggle-btn:hover { background:#00bcd4; color:#fff; }
+
+/* Project Blocks */
+.project-blocks { display:flex; flex-wrap:wrap; gap:0.96rem; }
+@media (max-width:600px){ .project-blocks { gap:0.6rem !important; } }
+.project-block { border:2px solid #00bcd4; padding:0.6rem 0.9rem; cursor:pointer; transition:background .18s,color .18s, box-shadow .18s; flex:1 1 200px; }
+.project-block { margin:0.3rem 0; }
+.project-block:hover { background:#00bcd4; color:#fff; }
+.project-block.active { background:#00bcd4 !important; color:#fff !important; border:2px solid #00bcd4; box-shadow:0 4px 16px rgba(0,188,212,.18); }
+
+/* Detail areas */
+#project-details, #academic-project-details, #blog-content { margin-top:1.2rem; line-height:1.58; font-size:1.02rem; padding:0.8rem 0.2rem 0.2rem 0.2rem; }
+
+/* Fact box */
+.fact-box { background:#fff; padding:1.2rem 1.5rem; margin:0 auto 1rem; font-size:1.05rem; color:#00bcd4; display:flex; align-items:center; justify-content:center; border:2px solid #111; min-width:400px; max-width:540px; width:90%; height:3.6em; overflow:hidden; }
+@media (max-width:600px){ .fact-box { width:100% !important; min-width:0 !important; max-width:100vw !important; height:auto !important; padding:0.8rem 0.5rem !important; font-size:1rem !important; } }
+
+/* Stuff I Love */
+.love-categories { display:flex; justify-content:center; align-items:center; gap:1.4rem; width:100%; margin-bottom:1rem; flex-wrap:wrap; }
+@media (max-width:600px){ .love-categories { gap:0.4rem !important; } }
+#love-images { display:flex; gap:0.96rem; flex-wrap:wrap; justify-content:center; margin-top:1rem; }
+@media (max-width:600px){ #love-images { gap:0.4rem !important; } }
+
+/* 3D Viewer */
+#viewer-controls { margin-bottom:1rem; display:flex; flex-direction:column; align-items:center; gap:0.7rem; width:100%; }
+#main-model-viewer { width:100%; height:400px; background:none; border:none; }
+@media (max-width:600px){ #main-model-viewer { width:98vw !important; height:220px !important; } }
+
+/* Contact */
+#contact p { font-size:1rem; line-height:1.5; }
+
+/* Dark Mode */
+body.dark-mode { background:#2b2a2a; color:#eee; }
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 { color:#eee; }
+body.dark-mode h2 { border-color:#00bcd4; }
+body.dark-mode a { color:#56d9e9; }
+body.dark-mode a:hover { color:#8ae9f5; }
+body.dark-mode .nav-btn { background:#2b2a2a; color:#eee; border:1px solid #666; box-shadow:0 2px 8px rgba(0,0,0,.4); }
+body.dark-mode .nav-btn:hover, body.dark-mode .nav-btn.active { background:#00bcd4; color:#fff; border:1px solid #666; }
+body.dark-mode .project-block { border-color:#00bcd4 !important; }
+body.dark-mode .project-block:hover { background:#00bcd4; color:#fff; }
+body.dark-mode .project-block.active { background:#00bcd4 !important; color:#fff !important; border-color:#00bcd4; }
+body.dark-mode .fact-box { background:#242323; color:#eee; }
+body.dark-mode #project-details, body.dark-mode #academic-project-details, body.dark-mode #blog-content { color:#eee; }
+body.dark-mode .theme-toggle-btn { background:#222; color:#eee; }
+body.dark-mode .theme-toggle-btn:hover { background:#00bcd4; color:#fff; }
+body.dark-mode .love-list-item { color:#fff !important; }
+
+/* Utilities */
+.text-center { text-align:center; }
+.mt-1 { margin-top:0.25rem; }
+.mt-2 { margin-top:0.5rem; }
+.mt-3 { margin-top:0.75rem; }
+.mt-4 { margin-top:1rem; }
+
+/* Accessibility focus */
+/* Accessible focus only for keyboard (no extra border on mouse click) */
+.nav-btn:focus { outline:none; }
+.project-block:focus { outline:none; }
+.nav-btn:focus-visible, .project-block:focus-visible { outline:3px solid #111; outline-offset:2px; }
+
+/* Remove any forced inline black text when dark */
+body.dark-mode [style*='color:#111'] { color:#eee !important; }
+
+/* Blog overrides */
+#blog #blog-content { background:transparent !important; border:none; padding:0.8rem 1.15rem 0.9rem; }
+
+/* About year nav gap */
+.about-year-nav { gap:3rem !important; }
+
+/* Ensure consistent container sizing for headings across sections */
+/* About uses the same width as others (700px by default) */
+/* Removed the narrower About container override */
+
+/* Normalize Art-3D container padding to match others (overrides inline) */
+#art-3d .container { padding: 0 2.2rem !important; }
+
+/* Profile pic */
+#profile-pic { width:96px; height:96px; object-fit:cover; border:2px solid #00bcd4; border-radius:50%; background:#fff; }
+@media (max-width:600px){ #profile-pic { width:64px !important; height:64px !important; } }
+
+/* Tables (if any) */
+table { border-collapse:collapse; width:100%; }
+table td, table th { padding:0.4rem 0.6rem; border:1px solid #ccc; }
+@media (max-width:600px){ table { font-size:0.95rem !important; } }
+
+/* END CONSOLIDATED STYLES */
 
 
 /* --- Minimal 2010ish Design --- */
 
-body {
-  margin: 0;
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  background: #e5e5e5;
-  color: #111;
-}
+/* (Removed duplicate older body styles) */
 
 .navbar {
   background: #00bcd4;
@@ -95,39 +181,9 @@ body {
   color: #00bcd4;
   border: 2px solid #00bcd4;
 }
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 1rem;
-  margin: 0;
-  padding: 0;
-}
-.nav-btn {
-  background: #fff;
-  color: #00bcd4;
-  border: 2px solid #00bcd4;
-  font-weight: 500;
-  padding: 4px 12px;
-  border-radius: 0;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-}
-.nav-btn:hover {
-  background: #00bcd4;
-  color: #fff;
-}
+/* (Removed legacy nav styles now unified) */
 
-.hero {
-  background: #00bcd4;
-  color: #111;
-  border-radius: 0;
-  border: 2px solid #111;
-  margin: 2rem auto 1rem auto;
-  max-width: 700px;
-  box-shadow: none;
-  padding: 2rem 0 1rem 0;
-  text-align: center;
-}
+/* (Hero consolidated earlier) */
 .hero h1 {
   font-size: 2rem;
   margin-bottom: 0.5rem;
@@ -143,20 +199,7 @@ body {
   margin-bottom: 1rem;
 }
 
-section {
-  padding: 1.5rem 0;
-}
-.container {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-h2 {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  color: #0097a7;
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-}
+/* (Section/container/h2 legacy removed) */
 
 /* About Me Arrow Button */
 .arrow-btn {
@@ -181,38 +224,10 @@ h2 {
 }
 
 /* Fact box for About section */
-.fact-box {
-  background: #fff;
-  border-radius: 0;
-  border: 2px solid #111;
-  box-shadow: none;
-  padding: 1.2rem 1.5rem;
-  margin-bottom: 1rem;
-  display: inline-block;
-  font-size: 1.05rem;
-  color: #00bcd4;
-  font-weight: 500;
-}
+/* (Fact-box legacy removed) */
 
 /* Project Blocks */
-.project-blocks {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-.project-block {
-  background: #fff;
-  border-radius: 0;
-  border: 2px solid #111;
-  box-shadow: none;
-  padding: 1rem;
-  flex: 1 1 220px;
-  min-width: 220px;
-  font-size: 1rem;
-  color: #0097a7;
-  font-weight: 500;
-  margin-bottom: 1rem;
-}
+/* (Project block legacy removed) */
 
 /* Blog List */
 .blog-list {
@@ -235,37 +250,10 @@ h2 {
   background: #00bcd4;
   color: #fff;
 }
-#blog-content {
-  background: #fff;
-  border-radius: 0;
-  border: 2px solid #111;
-  box-shadow: none;
-  padding: 1rem;
-  margin-top: 1rem;
-  color: #0097a7;
-}
+/* (Blog content box legacy removed) */
 
 /* Stuff I Love */
-.love-categories {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1.2rem;
-}
-.love-categories button {
-  background: #fff;
-  color: #00bcd4;
-  border: 2px solid #00bcd4;
-  padding: 0.6rem 1.2rem;
-  border-radius: 0;
-  font-size: 1rem;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background 0.2s, color 0.2s;
-}
-.love-categories button:hover {
-  background: #00bcd4;
-  color: #fff;
-}
+/* (Love categories legacy removed) */
 #love-list {
   list-style: none;
   padding: 0;
@@ -283,23 +271,14 @@ h2 {
 }
 
 /* Contact Section */
-#contact p {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #0097a7;
-}
+/* (Contact p legacy removed) */
 /* Modern Portfolio Styles */
-body {
-  margin: 0;
-  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
-  background: #f6f8fa;
-  color: #222;
-}
+/* (Duplicate body removed) */
 
 .navbar {
   background: #00bcd4;
   color: #111;
-  border-bottom: 2px solid #0097a7;
+  border-bottom: 20px solid #fff; /* light mode: white divider */
   padding: 0.5rem 0;
   box-shadow: none;
 }
@@ -328,6 +307,9 @@ body {
 .nav-links a:hover {
   color: #00bcd4;
 }
+
+/* Dark mode: navbar divider becomes dark */
+body.dark-mode .navbar { border-bottom-color: #111; }
 
 .hero {
   background: linear-gradient(90deg, #00bcd4 0%, #2196f3 100%);
@@ -372,7 +354,7 @@ section {
 h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #2196f3;
+  color: #0097a7; /* dark cyan for light mode */
 }
 .project-list {
   list-style: none;
@@ -414,24 +396,19 @@ h2 {
 .container a:hover {
   color: #00bcd4;
 }
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  line-height: 1.6;
-}
+/* (Extra body style removed) */
 
-header {
-  background: #333;
-  color: white;
-  text-align: center;
-  padding: 2rem;
-}
+/* (Old header/section/h2 styling removed) */
 
-section {
-  padding: 2rem;
-}
+/* === Final normalization overrides === */
+/* Consistent underline for all section headings (underline fits text width) */
+section h2 { display: table; margin: 0 auto 1.2rem; border-bottom: 2.5px solid #0097a7; padding-bottom: 0.25em; }
 
-h2 {
-  color: #333;
-}
+/* Remove gradient from hero and keep solid brand color + stronger divider */
+.hero { background: #00bcd4; color: #111; background-image: none; border-bottom: 3px solid #fff; }
+/* Dark mode: make divider dark */
+body.dark-mode .hero { border-bottom: 3px solid #111; }
+
+/* Keep the hero welcome text white in both themes */
+.hero h1 { color: #fff !important; }
+body.dark-mode .hero h1 { color: #fff !important; }
