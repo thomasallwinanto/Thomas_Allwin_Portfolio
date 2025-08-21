@@ -203,6 +203,9 @@ body.dark-mode .project-detail-desc { color:#eee; }
 .project-block:hover { background:#00bcd4; color:#fff; }
 body.dark-mode .project-block { border-color:#00bcd4 !important; }
 body.dark-mode .project-block:hover { background:#00bcd4; color:#fff; }
+/* Active (selected) state shared by category selectors etc */
+.project-block.active { background:#00bcd4 !important; color:#fff !important; border:2.5px solid #111; box-shadow:0 4px 16px rgba(0,188,212,0.18); }
+body.dark-mode .project-block.active { background:#00bcd4 !important; color:#fff !important; border-color:#111; }
 
 /* Restored theme toggle button */
 
@@ -552,12 +555,12 @@ section .container {
   <section id="stuff-i-love" style="display:none;">
     <div class="container">
       <h2 style="width:92%; max-width:740px; margin:0 auto 1.2rem auto; text-align:center; box-sizing:border-box; display:block; border-bottom:2px solid #00bcd4;">Stuff I Love</h2>
-      <div class="love-categories">
-    <button onclick="showLove('books')">Books</button>
-    <button onclick="showLove('movies')">Movies</button>
-    <button onclick="showLove('music')">Music</button>
+      <div class="love-categories project-blocks" style="display:flex; gap:0.6rem;">
+        <div class="project-block" role="button" tabindex="0" data-category="books" onclick="showLove('books')" onkeypress="if(event.key==='Enter'){showLove('books')}" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Books</div>
+        <div class="project-block" role="button" tabindex="0" data-category="movies" onclick="showLove('movies')" onkeypress="if(event.key==='Enter'){showLove('movies')}" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Movies</div>
+        <div class="project-block" role="button" tabindex="0" data-category="music" onclick="showLove('music')" onkeypress="if(event.key==='Enter'){showLove('music')}" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Music</div>
       </div>
-      <ul id="love-list"></ul>
+      <ul id="love-list" style="display:none;"></ul>
       <div id="love-images" style="display:flex; gap:0.96rem; flex-wrap:wrap; justify-content:center; margin-top:1rem;"></div>
     </div>
   </section>
@@ -774,20 +777,12 @@ section .container {
     function showLove(category) {
       const list = document.getElementById('love-list');
       const images = document.getElementById('love-images');
-      // Highlight selected button
-      const btns = document.querySelectorAll('.love-categories button');
-      btns.forEach(btn => {
-        if (btn.textContent.toLowerCase().replace(/ /g, '-') === category.replace(/ /g, '-')) {
-          btn.style.background = '#00bcd4';
-          btn.style.color = '#fff';
-          btn.style.border = '2px solid #111';
-        } else {
-          btn.style.background = '#fff';
-          btn.style.color = '#111';
-          btn.style.border = '2px solid #00bcd4';
-        }
+      // Toggle active class on category project-blocks
+      document.querySelectorAll('.love-categories .project-block').forEach(block => {
+        const cat = block.getAttribute('data-category');
+        if(cat === category) block.classList.add('active'); else block.classList.remove('active');
       });
-      let items = loveStuff[category];
+      const items = loveStuff[category];
       list.innerHTML = '';
       let imgHtml = '';
   if(category === 'books') {
