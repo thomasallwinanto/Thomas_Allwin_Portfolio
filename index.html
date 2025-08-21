@@ -513,7 +513,7 @@ section .container {
   <div class="project-block" onclick="showProject('portfolio')" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Personal Portfolio Website</div>
   <div class="project-block" onclick="showProject('guild')" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Guild and Company</div>
   <div class="project-block" onclick="showProject('imaginary')" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Imaginary Axis (see Art Projects)</div>
-  <div class="project-block" onclick="showProject('music')" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Music</div>
+  <div class="project-block" onclick="showProject('architecture')" style="cursor:pointer; border:2px solid #00bcd4; padding:0.6rem 0.9rem; margin:0.3rem 0;">Architecture</div>
       </div>
   <div id="project-details" style="display:none; margin-top:1.2rem; padding:0.8rem 0 0.2rem 0; color:#111;"></div>
     </div>
@@ -852,36 +852,41 @@ section .container {
     script.src = 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js';
     document.head.appendChild(script);
 
-    const projectDescriptions = {
+    const personalProjects = {
       portfolio: {
         title: "Personal Portfolio Website",
-        desc: "A showcase of my skills, projects, and interests. Built with HTML, CSS, and JavaScript for a modern, responsive experience.",
-        images: ["assets/profile.jpg"]
+        desc: "This website. I know, the project in a project. I used github copilot, VS code and other softwares to build this site. I am still learning and exploring this domain and figuring out ways to optimise this site, finding cleaner, healthier ways to code. Need to explore react and much more... :)",
       },
       guild: {
         title: "Guild and Company",
-        desc: "A collaborative platform for creative minds to share and build projects together. Features team management and project tracking.",
-        images: ["assets/guild.jpg"]
+  desc: "I'm part of a collaborative music and creative project in Hamburg where we explore Blues plus 70s and 80s rock. I personally tilt towards the blues, drawing inspiration from Eric Clapton and Stevie Ray Vaughan. I play a Telecaster strung with 10 gauge strings because I find it versatile, simple, and clean, and I'm currently experimenting with wah pedals to play a few tracks and learn more.",
+        images: ["assets/guild.jpg", "assets/tom_guitar.jpg"]
       },
       imaginary: {
         title: "Imaginary Axis",
         desc: "My 3D art project created during lockdown using Paint 3D. See more in the Art Projects section.",
         images: ["assets/imaginary1.jpg", "assets/imaginary2.jpg"]
       },
-      music: {
-        title: "Music",
-        desc: "A collection of my favorite music and personal compositions. Includes playlists and audio samples.",
+      architecture: {
+        title: "Architecture",
+        desc: "Planned, designed and constructed a house in Kerala, India using self‑learned tools (Paint, Unreal Engine & open source). Completed concept + plan set in a month; available on request.",
         images: ["assets/music1.jpg"]
       }
     };
     function showProject(key) {
-      const details = projectDescriptions[key];
+      const details = personalProjects[key];
       if (!details) return;
       const container = document.getElementById('project-details');
-      let imgHtml = details.images.map(img => `<img src='${img}' alt='' style='width:120px; height:auto; margin:0.5rem;'>`).join('');
-  container.innerHTML = `<h3 style='margin-top:0;'>${details.title}</h3><p class='project-detail-desc' style='font-size:1.05rem; line-height:1.5; margin:0.4rem 0 0.8rem;'>${details.desc}</p><div style='display:flex; gap:0.8rem; flex-wrap:wrap;'>${imgHtml}</div>`;
-  container.style.display = 'block';
-  container.scrollIntoView({behavior:'smooth', block:'start'});
+      const imgHtml = (details.images || []).map(img => `<img src='${img}' alt='' style='width:120px; height:auto; margin:0.5rem;'>`).join('');
+      let bodyHtml = '';
+      if (details.points) {
+        bodyHtml = `<ul class='project-detail-desc' style='font-size:1.02rem; line-height:1.5; margin:0.4rem 0 0.8rem 1.1rem; padding:0; list-style:disc;'>${details.points.map(p=>`<li style='margin-bottom:0.35rem;'>${p}</li>`).join('')}</ul>`;
+      } else if (details.desc) {
+        bodyHtml = `<p class='project-detail-desc' style='font-size:1.05rem; line-height:1.5; margin:0.4rem 0 0.8rem;'>${details.desc}</p>`;
+      }
+      container.innerHTML = `<h3 style='margin-top:0;'>${details.title}</h3>${bodyHtml}<div style='display:flex; gap:0.8rem; flex-wrap:wrap;'>${imgHtml}</div>`;
+      container.style.display = 'block';
+      container.scrollIntoView({behavior:'smooth', block:'start'});
     }
 
     // Academic projects interactive data
