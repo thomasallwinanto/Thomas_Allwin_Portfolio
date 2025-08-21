@@ -155,14 +155,21 @@ body.dark-mode .love-list-item {
 .theme-toggle-btn {
   position:fixed;
   top:10px;
-  left:10px;
+  right:10px;
   z-index:1000;
   background:#fff;
   color:#111;
   border:2px solid #00bcd4;
-  padding:0.45rem 0.9rem;
-  font-size:0.9rem;
+  width:42px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  font-size:1.15rem;
+  line-height:1;
   cursor:pointer;
+  border-radius:6px;
   box-shadow:0 2px 8px rgba(0,188,212,0.12);
   transition:background .2s,color .2s, box-shadow .2s;
 }
@@ -431,7 +438,7 @@ section .container {
   </style>
 </head>
 <body>
-  <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">Dark Mode</button>
+  <button id="theme-toggle" class="theme-toggle-btn" aria-label="Switch to dark mode" title="Toggle theme" type="button">🌙</button>
   <audio id="site-music" src="assets/One step ahead of the blues by JJ Cale.mp3" preload="auto"></audio>
   <nav class="navbar">
     <div class="container">
@@ -920,15 +927,23 @@ section .container {
     // Theme toggling
     (function(){
       const toggleBtn = document.getElementById('theme-toggle');
+      function applyIcon(isDark){
+        // Show sun icon when dark (indicates you can switch to light), moon when light
+        toggleBtn.innerHTML = isDark ? '☀️' : '🌙';
+        toggleBtn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+        toggleBtn.setAttribute('title', isDark ? 'Light mode' : 'Dark mode');
+      }
       const stored = localStorage.getItem('site-theme');
       if (stored === 'dark') {
         document.body.classList.add('dark-mode');
-        toggleBtn.textContent = 'Light Mode';
+        applyIcon(true);
+      } else {
+        applyIcon(false);
       }
       toggleBtn.addEventListener('click', () => {
         const isDark = document.body.classList.toggle('dark-mode');
-        toggleBtn.textContent = isDark ? 'Light Mode' : 'Dark Mode';
         localStorage.setItem('site-theme', isDark ? 'dark' : 'light');
+        applyIcon(isDark);
       });
     })();
   </script>
