@@ -11,6 +11,30 @@ window.loveStuff = {
   ]
 };
 
+// Helper: slugify a string for element IDs
+function slugify(str){
+  return String(str).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+}
+
+// Helper: get a Wikipedia thumbnail for a given title (uses REST summary API)
+async function fetchWikiThumb(title){
+  const endpoint = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`;
+  try{
+    const res = await fetch(endpoint, { headers: { 'Accept': 'application/json' } });
+    if(!res.ok) return null;
+    const data = await res.json();
+    if(data && data.thumbnail && data.thumbnail.source) return data.thumbnail.source;
+    return null;
+  }catch(e){ return null; }
+}
+
+// Some ambiguous artist names benefit from explicit Wikipedia titles
+const wikiTitleOverrides = {
+  'Cream': 'Cream (band)',
+  'Nirvana': 'Nirvana (band)',
+  'Agam': 'Agam (band)'
+};
+
 window.showLove = function(category){
   const list=document.getElementById('love-list');
   const images=document.getElementById('love-images');
@@ -35,13 +59,73 @@ window.showLove = function(category){
       'Crime and Punishment':'https://m.media-amazon.com/images/I/41c99G44teL._SY445_SX342_.jpg',
       'Once Upon a Time in Hollywood':'https://m.media-amazon.com/images/I/81b4luHhI6S._SX385_.jpg'
     };
-    imgHtml=items.map(item=>{ const src=bookImages[item]||'https://via.placeholder.com/70x100?text=No+Image'; return `<div style='text-align:center;'><img src='${src}' alt='${item}' style='width:70px; height:100px; object-fit:cover; background:#fff;'><div style='font-size:0.9rem; margin-top:0.3rem;'>${item}</div></div>`; }).join('');
+  imgHtml=items.map(item=>{ const src=bookImages[item]||'https://via.placeholder.com/70x100?text=No+Image'; return `<div class='love-item love-item--portrait'><img src='${src}' alt='${item}'><div class='love-caption' title='${item}'>${item}</div></div>`; }).join('');
   } else if(category==='movies') {
-    imgHtml = `<div style='width:100%; text-align:center; margin-bottom:1rem;'><a href='https://boxd.it/6ycaP' target='_blank' style='color:#00bcd4; font-size:1rem; text-decoration:underline;'>See more movies on my Letterboxd</a></div>`;
-    imgHtml += `<ul style='list-style:none; padding:0; margin:0; text-align:left;'>` + items.map(item=>{ const match=item.match(/^(.*?)(?:\t|\s{2,})([0-9.]+)?$/); const name=match? match[1].trim(): item.trim(); return `<li class='love-list-item' style='font-size:0.98rem; margin-bottom:0.4rem; color:#111;'>${name}</li>`; }).join('') + `</ul>`;
+    // Display like books: poster thumbnail + title caption
+    const movieTitles = items.map(item => {
+      const match = item.match(/^(.*?)(?:\t|\s{2,})([0-9.]+)?$/);
+      return match ? match[1].trim() : item.trim();
+    });
+
+    // Known ambiguous titles mapping to specific Wikipedia pages
+    const wikiMovieTitleOverrides = {
+      'The Thing': 'The Thing (1982 film)',
+      'Ratatouille': 'Ratatouille (film)',
+      'Nayakan': 'Nayakan (1987 film)',
+      'Star Wars: Episode V - The Empire Strikes Back': 'The Empire Strikes Back',
+      'Man From Earth': 'The Man from Earth',
+      'GoodFellas': 'Goodfellas',
+      'the social network': 'The Social Network',
+      'Dune': 'Dune (2021 film)'
+    };
+
+    imgHtml = movieTitles.map(title => {
+      const id = `movie-img-${slugify(title)}`;
+      const placeholder = 'https://via.placeholder.com/70x100.png?text=%20';
+      return `<div class='love-item love-item--portrait'>
+        <img id='${id}' src='${placeholder}' alt='${title}'>
+        <div class='love-caption' title='${title}'>${title}</div>
+      </div>`;
+    }).join('');
+
+    // Hydrate thumbnails asynchronously with Wikipedia posters
+    setTimeout(() => {
+      movieTitles.forEach(async (title) => {
+        const el = document.getElementById(`movie-img-${slugify(title)}`);
+        if(!el) return;
+        let query = wikiMovieTitleOverrides[title] || title;
+        let url = await fetchWikiThumb(query);
+        // Try common film disambiguation if not found
+        if(!url) url = await fetchWikiThumb(`${title} (film)`);
+        if(url){ el.src = url; el.style.background = '#fff'; }
+      });
+    }, 0);
+
   } else if(category==='music') {
-    const musicImages={};
-    imgHtml=items.map(item=>{ const src=musicImages[item]||'https://via.placeholder.com/70x70?text=No+Image'; return `<div class='love-list-item' style='text-align:center;'><img src='${src}' alt='${item}' style='width:70px; height:70px; object-fit:cover; background:#fff; border-radius:50%;'><div style='font-size:0.9rem; margin-top:0.3rem;'>${item}</div></div>`; }).join('');
+    // Build placeholders first, then hydrate with fetched thumbnails
+    imgHtml = items.map(item => {
+      const id = `music-img-${slugify(item)}`;
+      const placeholder = 'https://via.placeholder.com/140x140.png?text=%20';
+      return `<div class='love-item love-item--square'>
+        <img id='${id}' src='${placeholder}' alt='${item}' style='border-radius:50%;'>
+        <div class='love-caption' title='${item}'>${item}</div>
+      </div>`;
+    }).join('');
+    // After render, fetch thumbnails asynchronously
+    setTimeout(() => {
+      items.forEach(async (item) => {
+        const id = `music-img-${slugify(item)}`;
+        const el = document.getElementById(id);
+        if(!el) return;
+        const title = wikiTitleOverrides[item] || item;
+        let url = await fetchWikiThumb(title);
+        // Fallback: try with "(musician)" if a solo artist with no image
+        if(!url && !/(band\)|band$)/i.test(title)){
+          url = await fetchWikiThumb(`${title} (musician)`);
+        }
+        if(url){ el.src = url; el.style.background = '#fff'; }
+      });
+    }, 0);
   }
   images.innerHTML=imgHtml;
 };
