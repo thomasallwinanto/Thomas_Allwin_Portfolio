@@ -1,6 +1,6 @@
 /* ====== Base / Reset ====== */
 * { box-sizing: border-box; }
-body { margin:0; font-family: 'Segoe UI','Roboto','Arial',sans-serif; background:#f6f8fa; color:#111; line-height:1.55; padding-bottom:4.5px; }
+body { margin:0; font-family: 'Segoe UI','Roboto','Arial',sans-serif; background:#f6f8fa; color:#111; line-height:1.55; }
 img { max-width:100%; display:block; }
 a { color:#00bcd4; text-decoration:underline; }
 a:hover { color:#0097a7; }
@@ -79,6 +79,9 @@ h2 { font-size:2.2rem; text-align:center; border-bottom:2.5px solid #0097a7; pad
 #viewer-controls { margin-bottom:1rem; display:flex; flex-direction:column; align-items:center; gap:0.7rem; width:100%; }
 #main-model-viewer { width:100%; height:400px; background:none; border:none; }
 @media (max-width:600px){ #main-model-viewer { width:98vw !important; height:220px !important; } }
+
+/* Academic Projects spacing */
+#academic-projects .academic-intro { margin-bottom: 1rem; }
 
 /* CV (About) */
 .cv-section { margin:1.2rem 0 1.4rem; }
@@ -536,23 +539,7 @@ body.dark-mode .music-controls {
 }
 body.dark-mode .music-btn { color: #56d9e9; }
 
-.site-footer {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  padding: 0.0625rem 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  background: #fafafa;
-  z-index: 900;
-}
-body.dark-mode .site-footer {
-  background: #121212;
-  border-top-color: rgba(255, 255, 255, 0.12);
-}
-.site-footer small, .site-footer a { color: #333; }
-body.dark-mode .site-footer small, body.dark-mode .site-footer a { color: #fff; }
+/* Footer removed */
 
 /* Hide embedded YouTube player visually while allowing audio */
 #yt-player { position: fixed; width: 0; height: 0; left: -9999px; top: -9999px; }
