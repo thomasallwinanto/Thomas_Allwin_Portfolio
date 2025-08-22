@@ -5,7 +5,14 @@
   const host = document.getElementById('yt-player');
   if (!toggleBtn || !host) return;
 
-  let player; let ready = false;
+  let player; let ready = false; let inFlight = false; let fallbackTimer;
+
+  // Initial loading state for better mobile UX
+  toggleBtn.disabled = true;
+  toggleBtn.textContent = 'Loading…';
+  toggleBtn.title = 'Loading…';
+  toggleBtn.setAttribute('aria-label', 'Loading…');
+  toggleBtn.setAttribute('aria-busy', 'true');
 
   // Load YouTube IFrame API
   function loadYT() {
@@ -29,9 +36,10 @@
   function onReady() {
     ready = true;
     try { player.pauseVideo(); player.setVolume(60); player.unMute(); } catch(_) {}
+    clearBusy();
     updateUi();
   }
-  function onStateChange() { updateUi(); }
+  function onStateChange() { clearBusy(); updateUi(); }
   function onError() { updateUi(); }
 
   function isPlaying() {
@@ -49,8 +57,21 @@
     toggleBtn.setAttribute('aria-label', label);
   }
 
+  function setBusy(b) {
+    toggleBtn.disabled = b;
+    toggleBtn.setAttribute('aria-busy', b ? 'true' : 'false');
+  }
+
+  function clearBusy() {
+    inFlight = false;
+    setBusy(false);
+    if (fallbackTimer) { clearTimeout(fallbackTimer); fallbackTimer = null; }
+  }
+
   function userToggle() {
-    if (!ready) return;
+    if (!ready || inFlight) return;
+    inFlight = true;
+    setBusy(true);
     try {
       if (!isPlaying()) {
         player.unMute();
@@ -60,6 +81,8 @@
         player.pauseVideo();
       }
     } finally {
+      // Fallback to clear busy if state change is delayed on mobile
+      fallbackTimer = setTimeout(() => { if (inFlight) { clearBusy(); updateUi(); } }, 900);
       updateUi();
     }
   }

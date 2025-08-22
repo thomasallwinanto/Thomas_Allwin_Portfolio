@@ -526,11 +526,14 @@ body.dark-mode .hero h1 { color: #fff !important; }
   border: 1px solid #111;
   font-size: 1rem;
   line-height: 1.2;
-  padding: 0.6rem 1.2rem;
+  padding: 0.8rem 1.4rem; /* larger touch target */
   cursor: pointer;
   border-radius: 0; /* square corners */
   box-shadow: 0 2px 8px rgba(0,0,0,.10);
   transition: background .2s, color .2s, box-shadow .18s, border .18s;
+  -webkit-tap-highlight-color: transparent; /* remove tap flash on mobile */
+  touch-action: manipulation; /* hint to browser for quicker taps */
+  user-select: none;
 }
 .music-btn:hover { background:#00bcd4; color:#fff; border:1px solid #111; box-shadow:0 4px 16px rgba(0,0,0,.18); }
 .music-btn[disabled] {
