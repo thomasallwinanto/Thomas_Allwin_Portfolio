@@ -120,6 +120,7 @@ h2 { font-size:2.2rem; text-align:center; border-bottom:2.5px solid #0097a7; pad
 
 /* Justify descriptions under Profile, Professional Experience, and Organisations */
 #about .cv-section p { text-align: justify; }
+#cv-experience .cv-bullets { list-style-position: outside; margin: 0.4rem 0 0 0; padding-left: 0.6rem; }
 #cv-experience .cv-bullets li { text-align: justify; }
 #cv-organisations .cv-note { text-align: justify; }
 
