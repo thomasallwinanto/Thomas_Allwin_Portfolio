@@ -68,9 +68,7 @@ window.initCvExperience = function(){
       header.addEventListener('click', toggle);
       header.addEventListener('keypress', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); toggle(); }});
     });
-  // Auto-expand the first item by default
-  const first = section.querySelector('.cv-item');
-  if(first){ first.classList.add('expanded'); const h = first.querySelector('.cv-item-header'); if(h) h.setAttribute('aria-expanded','true'); }
+  // Start with all items collapsed by default (no auto-expand)
   }
 
   // Professional Experience: toggle bullet lists

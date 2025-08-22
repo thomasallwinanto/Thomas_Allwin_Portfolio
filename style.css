@@ -1,6 +1,6 @@
 /* ====== Base / Reset ====== */
 * { box-sizing: border-box; }
-body { margin:0; font-family: 'Segoe UI','Roboto','Arial',sans-serif; background:#f6f8fa; color:#111; line-height:1.55; }
+body { margin:0; font-family: 'Segoe UI','Roboto','Arial',sans-serif; background:#f6f8fa; color:#111; line-height:1.55; padding-bottom:4.5px; }
 img { max-width:100%; display:block; }
 a { color:#00bcd4; text-decoration:underline; }
 a:hover { color:#0097a7; }
@@ -82,7 +82,7 @@ h2 { font-size:2.2rem; text-align:center; border-bottom:2.5px solid #0097a7; pad
 
 /* CV (About) */
 .cv-section { margin:1.2rem 0 1.4rem; }
-.cv-section h3 { margin:0 0 0.6rem; font-size:1.25rem; color:#0097a7; }
+.cv-section h3 { margin:0 0 0.6rem; font-size:1.25rem; color:#0097a7; text-decoration: underline; text-decoration-color:#0097a7; text-underline-offset: 3px; }
 .cv-list { list-style:none; padding:0; margin:0; }
 .cv-item { padding:0.8rem 0.9rem; border:1px solid rgba(0,0,0,.12); background:#fff; margin:0.6rem 0; }
 .cv-item + .cv-item { margin-top:0.6rem; }
@@ -111,9 +111,14 @@ h2 { font-size:2.2rem; text-align:center; border-bottom:2.5px solid #0097a7; pad
   .cv-item-header { flex-direction:column; align-items:flex-start; gap:0.2rem; }
   .cv-meta { white-space:normal; }
 }
-.cv-bullets { margin:0.4rem 0 0 1.2rem; }
+.cv-bullets { margin:0.4rem 0 0 1.2rem; list-style-type: disc; list-style-position: outside; }
 .cv-bullets li { margin:0.25rem 0; }
 .cv-note { margin-top:0.35rem; color:#333; }
+
+/* Justify descriptions under Profile, Professional Experience, and Organisations */
+#about .cv-section p { text-align: justify; }
+#cv-experience .cv-bullets li { text-align: justify; }
+#cv-organisations .cv-note { text-align: justify; }
 
 body.dark-mode .cv-item { border:1px solid rgba(255,255,255,.18); background:#242323; }
 body.dark-mode .cv-dates { color:#bbb; }
@@ -150,6 +155,8 @@ body.dark-mode .cv-note { color:#eee; }
 /* Dark Mode */
 body.dark-mode { background:#2b2a2a; color:#eee; }
 body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 { color:#eee; }
+/* Make About section titles light cyan in dark mode */
+body.dark-mode .cv-section h3 { color:#56d9e9; text-decoration: underline; text-decoration-color:#56d9e9; text-underline-offset: 3px; }
 body.dark-mode h2 { border-color:#00bcd4; }
 body.dark-mode a { color:#56d9e9; }
 body.dark-mode a:hover { color:#8ae9f5; }
@@ -530,10 +537,15 @@ body.dark-mode .music-controls {
 body.dark-mode .music-btn { color: #56d9e9; }
 
 .site-footer {
-  margin-top: 2rem;
-  padding: 1rem 0;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 0.0625rem 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   background: #fafafa;
+  z-index: 900;
 }
 body.dark-mode .site-footer {
   background: #121212;

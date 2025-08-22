@@ -8,7 +8,12 @@ window.blogs = {
 window.showBlog = function(blogKey){
   const blogContent=document.getElementById('blog-content');
   if(!blogContent) return;
-  blogContent.innerHTML=window.blogs[blogKey];
+  const html = window.blogs && window.blogs[blogKey];
+  if (!html) {
+    blogContent.innerHTML = '<p>Post not found.</p>';
+  } else {
+    blogContent.innerHTML = html;
+  }
   blogContent.style.display='block';
   blogContent.scrollIntoView({behavior:'smooth', block:'start'});
 };
