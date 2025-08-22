@@ -59,7 +59,7 @@ window.showLove = function(category){
       'Crime and Punishment':'https://m.media-amazon.com/images/I/41c99G44teL._SY445_SX342_.jpg',
       'Once Upon a Time in Hollywood':'https://m.media-amazon.com/images/I/81b4luHhI6S._SX385_.jpg'
     };
-  imgHtml=items.map(item=>{ const src=bookImages[item]||'https://via.placeholder.com/70x100?text=No+Image'; return `<div class='love-item love-item--portrait'><img src='${src}' alt='${item}'><div class='love-caption' title='${item}'>${item}</div></div>`; }).join('');
+  imgHtml=items.map(item=>{ const src=bookImages[item]||'https://via.placeholder.com/70x100?text=No+Image'; return `<div class='love-item love-item--portrait'><img src='${src}' loading='lazy' decoding='async' alt='${item}'><div class='love-caption' title='${item}'>${item}</div></div>`; }).join('');
   } else if(category==='movies') {
     // Display like books: poster thumbnail + title caption
     const movieTitles = items.map(item => {
@@ -83,7 +83,7 @@ window.showLove = function(category){
       const id = `movie-img-${slugify(title)}`;
       const placeholder = 'https://via.placeholder.com/70x100.png?text=%20';
       return `<div class='love-item love-item--portrait'>
-        <img id='${id}' src='${placeholder}' alt='${title}'>
+  <img id='${id}' src='${placeholder}' loading='lazy' decoding='async' alt='${title}'>
         <div class='love-caption' title='${title}'>${title}</div>
       </div>`;
     }).join('');
@@ -107,7 +107,7 @@ window.showLove = function(category){
       const id = `music-img-${slugify(item)}`;
       const placeholder = 'https://via.placeholder.com/140x140.png?text=%20';
       return `<div class='love-item love-item--square'>
-        <img id='${id}' src='${placeholder}' alt='${item}' style='border-radius:50%;'>
+  <img id='${id}' src='${placeholder}' loading='lazy' decoding='async' alt='${item}' style='border-radius:50%;'>
         <div class='love-caption' title='${item}'>${item}</div>
       </div>`;
     }).join('');

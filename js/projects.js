@@ -66,8 +66,8 @@ window.showProject = function(key){
   const container=document.getElementById('project-details');
   if(!container) return;
   const imgHtml=(details.images||[]).map(img=>{
-    if(key==='guild'||key==='architecture') return `<img src='${img}' alt='' style='max-width:100%; height:auto; margin:0.5rem;'>`;
-    return `<img src='${img}' alt='' style='width:120px; height:auto; margin:0.5rem;'>`;
+    if(key==='guild'||key==='architecture') return `<img src='${img}' loading='lazy' decoding='async' alt='' style='max-width:100%; height:auto; margin:0.5rem;'>`;
+    return `<img src='${img}' loading='lazy' decoding='async' alt='' style='width:120px; height:auto; margin:0.5rem;'>`;
   }).join('');
   let bodyHtml='';
   if(details.points){

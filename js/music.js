@@ -5,9 +5,9 @@
   const host = document.getElementById('yt-player');
   if (!toggleBtn || !host) return;
 
-  let player; let ready = false; let inFlight = false; let fallbackTimer; let queuedPlay = false;
+  let player; let ready = false; let inFlight = false; let fallbackTimer; let queuedPlay = false; let ytRequested = false;
 
-  // Load YouTube IFrame API
+  // Load YouTube IFrame API on demand
   function loadYT() {
     return new Promise((resolve) => {
       if (window.YT && window.YT.Player) return resolve();
@@ -71,8 +71,17 @@
     inFlight = true;
     setBusy(true);
     try {
-      if (!ready) {
-        // Queue the action; will auto-play when ready
+      if (!ytRequested) {
+        // First interaction: queue play and lazy-load YT API + player
+        queuedPlay = true;
+        ytRequested = true;
+        loadYT().then(buildPlayer).catch(()=>{ toggleBtn.disabled = true; }).finally(()=>{
+          // Fallback if events are delayed
+          fallbackTimer = setTimeout(() => { if (inFlight) { clearBusy(); updateUi(); } }, 900);
+        });
+        return;
+      } else if (!ready) {
+        // API requested but player not ready yet; ensure queued action
         queuedPlay = true;
       } else if (!isPlaying()) {
         player.unMute();
@@ -93,7 +102,5 @@
     if (e.key === 'Enter' || e.code === 'Space' || e.keyCode === 32) { e.preventDefault(); userToggle(); }
   });
 
-  loadYT().then(buildPlayer).catch(()=>{
-    toggleBtn.disabled = true;
-  });
+  // Do not load YT on startup; lazy-load on first tap to reduce mobile startup cost
 })();
