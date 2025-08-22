@@ -95,6 +95,8 @@ h2 { font-size:2.2rem; text-align:center; border-bottom:2.5px solid #0097a7; pad
 .cv-entity { font-style:italic; font-weight:400; }
 .cv-link { color:#0097a7; text-decoration:underline; }
 .cv-link:hover { color:#00bcd4; }
+.cv-link-icon { margin-left:0.25rem; color:#0097a7; text-decoration:none; font-style:normal; font-weight:600; }
+.cv-link-icon:hover { color:#00bcd4; text-decoration:underline; }
 .cv-role { color:#0097a7; font-weight:600; }
 .cv-location { color:#666; }
 .cv-item:hover .cv-line { text-decoration:none; }
@@ -120,6 +122,8 @@ body.dark-mode .cv-role { color:#56d9e9; }
 body.dark-mode .cv-hint { color:#bbb; }
 body.dark-mode .cv-link { color:#56d9e9; }
 body.dark-mode .cv-link:hover { color:#8ae9f5; }
+body.dark-mode .cv-link-icon { color:#56d9e9; }
+body.dark-mode .cv-link-icon:hover { color:#8ae9f5; }
 
 /* Collapsible CV items (Professional Experience & Organisations) */
 #cv-experience .cv-item-header,
