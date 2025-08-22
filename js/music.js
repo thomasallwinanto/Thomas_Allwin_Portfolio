@@ -5,14 +5,7 @@
   const host = document.getElementById('yt-player');
   if (!toggleBtn || !host) return;
 
-  let player; let ready = false; let inFlight = false; let fallbackTimer;
-
-  // Initial loading state for better mobile UX
-  toggleBtn.disabled = true;
-  toggleBtn.textContent = 'Loading…';
-  toggleBtn.title = 'Loading…';
-  toggleBtn.setAttribute('aria-label', 'Loading…');
-  toggleBtn.setAttribute('aria-busy', 'true');
+  let player; let ready = false; let inFlight = false; let fallbackTimer; let queuedPlay = false;
 
   // Load YouTube IFrame API
   function loadYT() {
@@ -36,6 +29,11 @@
   function onReady() {
     ready = true;
     try { player.pauseVideo(); player.setVolume(60); player.unMute(); } catch(_) {}
+    // If user tapped before readiness, start playback now
+    if (queuedPlay) {
+      try { player.unMute(); player.setVolume(60); player.playVideo(); } catch(_) {}
+      queuedPlay = false;
+    }
     clearBusy();
     updateUi();
   }
@@ -69,11 +67,14 @@
   }
 
   function userToggle() {
-    if (!ready || inFlight) return;
+    if (inFlight) return;
     inFlight = true;
     setBusy(true);
     try {
-      if (!isPlaying()) {
+      if (!ready) {
+        // Queue the action; will auto-play when ready
+        queuedPlay = true;
+      } else if (!isPlaying()) {
         player.unMute();
         player.setVolume(60);
         player.playVideo();
