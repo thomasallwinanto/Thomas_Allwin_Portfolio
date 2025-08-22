@@ -21,14 +21,14 @@
   function buildPlayer() {
     player = new YT.Player('yt-player', {
       height: '0', width: '0', videoId: VIDEO_ID,
-      playerVars: { autoplay: 1, controls: 0, disablekb: 1, playsinline: 1, modestbranding: 1, rel: 0, fs: 0, iv_load_policy: 3 },
+      playerVars: { autoplay: 0, controls: 0, disablekb: 1, playsinline: 1, modestbranding: 1, rel: 0, fs: 0, iv_load_policy: 3 },
       events: { onReady, onStateChange, onError }
     });
   }
 
   function onReady() {
     ready = true;
-    try { player.mute(); player.playVideo(); } catch(_) {}
+    try { player.pauseVideo(); player.setVolume(60); player.unMute(); } catch(_) {}
     updateUi();
   }
   function onStateChange() { updateUi(); }
@@ -42,9 +42,8 @@
   function isMuted() { return !player || !ready ? true : player.isMuted(); }
 
   function updateUi() {
-    // Text labels: Play music (stopped/paused), Unmute music (playing muted), Mute music (playing unmuted)
-    let label = 'Play music';
-    if (isPlaying()) label = isMuted() ? 'Unmute music' : 'Mute music';
+    // Only two states: Play music or Pause music
+    const label = isPlaying() ? 'Pause music' : 'Play music';
     toggleBtn.textContent = label;
     toggleBtn.title = label;
     toggleBtn.setAttribute('aria-label', label);
@@ -54,14 +53,11 @@
     if (!ready) return;
     try {
       if (!isPlaying()) {
-        // Start audible playback on first click
         player.unMute();
         player.setVolume(60);
         player.playVideo();
       } else {
-        // If playing: toggle mute/unmute
-        if (isMuted()) { player.unMute(); player.setVolume(60); }
-        else { player.mute(); }
+        player.pauseVideo();
       }
     } finally {
       updateUi();
