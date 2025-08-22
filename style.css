@@ -80,6 +80,66 @@ h2 { font-size:2.2rem; text-align:center; border-bottom:2.5px solid #0097a7; pad
 #main-model-viewer { width:100%; height:400px; background:none; border:none; }
 @media (max-width:600px){ #main-model-viewer { width:98vw !important; height:220px !important; } }
 
+/* CV (About) */
+.cv-section { margin:1.2rem 0 1.4rem; }
+.cv-section h3 { margin:0 0 0.6rem; font-size:1.25rem; color:#0097a7; }
+.cv-list { list-style:none; padding:0; margin:0; }
+.cv-item { padding:0.8rem 0.9rem; border:1px solid rgba(0,0,0,.12); background:#fff; margin:0.6rem 0; }
+.cv-item + .cv-item { margin-top:0.6rem; }
+.cv-item:last-child { margin-bottom:0; }
+.cv-item-header { display:block; }
+.cv-line { display:flex; align-items:center; gap:0.35rem; flex-wrap:wrap; }
+.cv-title { font-weight:600; display:flex; align-items:center; gap:0.4rem; }
+.cv-meta { font-size:0.95rem; color:#555; white-space:nowrap; }
+.cv-dates { font-size:0.95rem; color:#555; font-weight:600; }
+.cv-entity { font-style:italic; font-weight:400; }
+.cv-link { color:#0097a7; text-decoration:underline; }
+.cv-link:hover { color:#00bcd4; }
+.cv-role { color:#0097a7; font-weight:600; }
+.cv-location { color:#666; }
+.cv-item:hover .cv-line { text-decoration:none; }
+/* Two-line header layout helpers */
+.cv-line-1 { margin-bottom:0.12rem; }
+.cv-line-2 { color:#333; }
+@media (max-width:600px){
+  .cv-line { gap:0.25rem; }
+  .cv-meta { white-space:normal; }
+}
+@media (max-width:600px){
+  .cv-item-header { flex-direction:column; align-items:flex-start; gap:0.2rem; }
+  .cv-meta { white-space:normal; }
+}
+.cv-bullets { margin:0.4rem 0 0 1.2rem; }
+.cv-bullets li { margin:0.25rem 0; }
+.cv-note { margin-top:0.35rem; color:#333; }
+
+body.dark-mode .cv-item { border:1px solid rgba(255,255,255,.18); background:#242323; }
+body.dark-mode .cv-dates { color:#bbb; }
+body.dark-mode .cv-entity, body.dark-mode .cv-line, body.dark-mode .cv-location { color:#eee; }
+body.dark-mode .cv-role { color:#56d9e9; }
+body.dark-mode .cv-hint { color:#bbb; }
+body.dark-mode .cv-link { color:#56d9e9; }
+body.dark-mode .cv-link:hover { color:#8ae9f5; }
+
+/* Collapsible CV items (Professional Experience & Organisations) */
+#cv-experience .cv-item-header,
+#cv-organisations .cv-item-header { cursor:pointer; position:relative; padding-right:1.2rem; }
+#cv-experience .cv-item-header::after,
+#cv-organisations .cv-item-header::after { content:'▸'; position:absolute; right:0.4rem; top:50%; transform:translateY(-50%) rotate(0deg); color:#0097a7; transition:transform .18s; }
+#cv-experience .cv-item.expanded .cv-item-header::after,
+#cv-organisations .cv-item.expanded .cv-item-header::after { transform:translateY(-50%) rotate(90deg); }
+body.dark-mode #cv-experience .cv-item-header::after,
+body.dark-mode #cv-organisations .cv-item-header::after { color:#56d9e9; }
+#cv-experience .cv-item:hover, #cv-organisations .cv-item:hover { background:#f9fdfe; border-color:#00bcd4; }
+body.dark-mode #cv-experience .cv-item:hover, body.dark-mode #cv-organisations .cv-item:hover { background:#2e2d2d; border-color:#56d9e9; }
+#cv-experience .cv-bullets { display:none; }
+#cv-experience .cv-item.expanded .cv-bullets { display:block; }
+#cv-organisations .cv-note { display:none; }
+#cv-organisations .cv-item.expanded .cv-note { display:block; }
+.cv-hint { font-size:0.9rem; color:#666; margin:0.2rem 0 0.4rem; text-align:left; }
+body.dark-mode .cv-hint { color:#aaa; }
+body.dark-mode .cv-note { color:#eee; }
+
 /* Contact */
 #contact p { font-size:1rem; line-height:1.5; }
 
@@ -430,3 +490,53 @@ body.dark-mode .hero { border-bottom: 3px solid #111; }
 /* Keep the hero welcome text white in both themes */
 .hero h1 { color: #fff !important; }
 body.dark-mode .hero h1 { color: #fff !important; }
+
+/* === Music controls & Footer additions === */
+.music-controls {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  display: inline-flex;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 6px 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(4px);
+}
+.music-btn {
+  background: none;
+  border: none;
+  color: #0097a7;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.music-btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+body.dark-mode .music-controls {
+  background: rgba(34, 34, 34, 0.85);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+body.dark-mode .music-btn { color: #56d9e9; }
+
+.site-footer {
+  margin-top: 2rem;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background: #fafafa;
+}
+body.dark-mode .site-footer {
+  background: #121212;
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+.site-footer small, .site-footer a { color: #333; }
+body.dark-mode .site-footer small, body.dark-mode .site-footer a { color: #fff; }
+
+/* Hide embedded YouTube player visually while allowing audio */
+#yt-player { position: fixed; width: 0; height: 0; left: -9999px; top: -9999px; }

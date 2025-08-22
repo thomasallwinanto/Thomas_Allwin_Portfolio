@@ -44,3 +44,37 @@ window.initAbout = function(){
   aboutBack.addEventListener('click',()=>{ let y=parseInt(yearSlider.value); y = y<2025? y+1:1999; yearSlider.value=y; update(y); });
   update(yearSlider.value);
 };
+
+// Initialize collapsible behavior for Professional Experience
+window.initCvExperience = function(){
+  function wireSection(sectionId, contentSelector){
+    const section = document.getElementById(sectionId);
+    if(!section) return;
+    const items = section.querySelectorAll('.cv-item');
+    items.forEach(item => {
+      const header = item.querySelector('.cv-item-header');
+      const content = item.querySelector(contentSelector);
+      if(!header || !content) return;
+      // Start collapsed
+      item.classList.remove('expanded');
+      // Toggle on click/keyboard
+      header.setAttribute('role','button');
+      header.setAttribute('tabindex','0');
+      header.setAttribute('aria-expanded','false');
+      const toggle = () => {
+        const expanded = item.classList.toggle('expanded');
+        header.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      };
+      header.addEventListener('click', toggle);
+      header.addEventListener('keypress', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); toggle(); }});
+    });
+  // Auto-expand the first item by default
+  const first = section.querySelector('.cv-item');
+  if(first){ first.classList.add('expanded'); const h = first.querySelector('.cv-item-header'); if(h) h.setAttribute('aria-expanded','true'); }
+  }
+
+  // Professional Experience: toggle bullet lists
+  wireSection('cv-experience', '.cv-bullets');
+  // Organisations: toggle note
+  wireSection('cv-organisations', '.cv-note');
+};
