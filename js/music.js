@@ -42,15 +42,12 @@
   function isMuted() { return !player || !ready ? true : player.isMuted(); }
 
   function updateUi() {
-    // Cycle icons: ▶ (stopped/paused), 🔇 (playing muted), 🔊 (playing unmuted)
-    let icon = '▶';
-    if (isPlaying()) icon = isMuted() ? '🔇' : '🔊';
-    toggleBtn.textContent = icon;
-
-    let title = 'Play music';
-    if (isPlaying()) title = isMuted() ? 'Unmute' : 'Mute';
-    toggleBtn.title = title;
-    toggleBtn.setAttribute('aria-label', title);
+    // Text labels: Play music (stopped/paused), Unmute music (playing muted), Mute music (playing unmuted)
+    let label = 'Play music';
+    if (isPlaying()) label = isMuted() ? 'Unmute music' : 'Mute music';
+    toggleBtn.textContent = label;
+    toggleBtn.title = label;
+    toggleBtn.setAttribute('aria-label', label);
   }
 
   function userToggle() {
