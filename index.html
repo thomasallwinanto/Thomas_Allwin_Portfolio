@@ -32,9 +32,12 @@
       </ul>
     </div>
   </nav>
-  <!-- Removed navbar hide/unhide arrow -->
-  <!-- Music controls below navbar, above Home section -->
-  <!-- Removed music controls -->
+  <!-- Music bar below navbar so control is available across sections -->
+  <div class="music-bar">
+    <div class="container" style="display:flex; justify-content:center;">
+      <button id="music-toggle" class="music-btn" aria-label="Play music" title="Play music" type="button">Play music</button>
+    </div>
+  </div>
 
   <section id="home" class="hero">
     <div class="container">
@@ -42,9 +45,6 @@
         <img id="profile-pic" src="assets/profile.jpg" alt="Profile Picture" />
       </div>
       <h1 style="margin-top:0.5rem; text-align:center;">Hello, I'm Tom and welcome to my site :)</h1>
-      <div style="display:flex; justify-content:center; margin-top:0.6rem;">
-        <button id="music-toggle" class="music-btn" aria-label="Play music" title="Play music" type="button">Play music</button>
-      </div>
     </div>
   </section>
 

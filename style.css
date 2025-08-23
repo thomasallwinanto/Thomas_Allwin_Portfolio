@@ -24,7 +24,7 @@ h2 { font-size:2.2rem; text-align:center; border-bottom:2.5px solid #0097a7; pad
 @media (max-width:600px){ .hero h1 { font-size:1.5rem !important; } }
 
 /* Navbar */
-.navbar { background:#00bcd4; padding:0.5rem 0; border:1px solid #111; border-left:0; border-right:0; }
+.navbar { background:#00bcd4; padding:0.5rem 0; border:1px solid #111; border-left:0; border-right:0; border-bottom:0; }
 .nav-links { display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:1.2rem; list-style:none; padding:0; margin:0; }
 @media (max-width:600px){ .nav-links { gap:0.4rem; } }
 .nav-btn { font-size:1rem; padding:0.6rem 1.8rem; min-width:170px; background:#fff; color:#111; border:1px solid #111; cursor:pointer; transition:background .2s,color .2s,box-shadow .18s,border .18s; box-shadow:0 2px 8px rgba(0,0,0,.10); }
@@ -379,7 +379,7 @@ table td, table th { padding:0.4rem 0.6rem; border:1px solid #ccc; }
 .navbar {
   background: #00bcd4;
   color: #111;
-  border-bottom: 20px solid #fff; /* light mode: white divider */
+  border-bottom: 0; /* strip removed; replaced by music bar */
   padding: 0.5rem 0;
   box-shadow: none;
 }
@@ -410,7 +410,7 @@ table td, table th { padding:0.4rem 0.6rem; border:1px solid #ccc; }
 }
 
 /* Dark mode: navbar divider becomes dark */
-body.dark-mode .navbar { border-bottom-color: #111; }
+body.dark-mode .navbar { border-bottom: 0; }
 
 .hero {
   background: linear-gradient(90deg, #00bcd4 0%, #2196f3 100%);
@@ -549,6 +549,11 @@ body.dark-mode .hero h1 { color: #fff !important; }
   opacity: 0.6;
   cursor: not-allowed;
 }
+/* Global music bar under navbar */
+.music-bar { background: #f0fdff; border-bottom: 1px solid #00bcd4; height: 20px; display:flex; align-items:center; }
+body.dark-mode .music-bar { background: #222; border-bottom-color: #56d9e9; }
+/* Fit button within bar height while keeping click area */
+.music-bar .music-btn { padding: 0.05rem 0.9rem; font-size: 0.95rem; line-height: 1; }
 body.dark-mode .music-controls {
   background: rgba(34, 34, 34, 0.85);
   border-color: rgba(255, 255, 255, 0.12);
