@@ -48,11 +48,13 @@
   function isMuted() { return !player || !ready ? true : player.isMuted(); }
 
   function updateUi() {
-    // Only two states: Play music or Pause music
-    const label = isPlaying() ? 'Pause music' : 'Play music';
-    toggleBtn.textContent = label;
-    toggleBtn.title = label;
-    toggleBtn.setAttribute('aria-label', label);
+  // Two states: show icon but keep accessible labels
+  const playing = isPlaying();
+  const label = playing ? 'Pause music' : 'Play music';
+  const icon = playing ? '⏸' : '▶';
+  toggleBtn.textContent = icon;
+  toggleBtn.title = label;
+  toggleBtn.setAttribute('aria-label', label);
   }
 
   function setBusy(b) {
@@ -96,6 +98,11 @@
       updateUi();
     }
   }
+
+  // Set initial icon on load
+  toggleBtn.textContent = '▶';
+  toggleBtn.title = 'Play music';
+  toggleBtn.setAttribute('aria-label', 'Play music');
 
   toggleBtn.addEventListener('click', userToggle);
   toggleBtn.addEventListener('keydown', (e)=>{

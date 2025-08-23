@@ -27,7 +27,7 @@ h2 { font-size:2.2rem; text-align:center; border-bottom:2.5px solid #0097a7; pad
 .navbar { background:#00bcd4; padding:0.5rem 0; border:1px solid #111; border-left:0; border-right:0; border-bottom:0; }
 .nav-links { display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:1.2rem; list-style:none; padding:0; margin:0; }
 @media (max-width:600px){ .nav-links { gap:0.4rem; } }
-.nav-btn { font-size:1rem; padding:0.6rem 1.8rem; min-width:170px; background:#fff; color:#111; border:1px solid #111; cursor:pointer; transition:background .2s,color .2s,box-shadow .18s,border .18s; box-shadow:0 2px 8px rgba(0,0,0,.10); }
+.nav-btn { font-size:1rem; padding:0.6rem 1.8rem; min-width:170px; background:#fff; color:#111; border:1px solid #111; cursor:pointer; transition:background .2s,color .2s,box-shadow .18s,border .18s; box-shadow:0 2px 8px rgba(0,0,0,.10); border-radius:8px; }
 .nav-btn:hover { background:#00bcd4; color:#fff; border:1px solid #111; box-shadow:0 4px 16px rgba(0,0,0,.18); }
 .nav-btn.active { background:#00bcd4; color:#fff; border:1px solid #111; box-shadow:0 4px 16px rgba(0,0,0,.22); }
 @media (max-width:600px){ .nav-btn { font-size:.95rem; padding:0.5rem 1.2rem; min-width:120px; } }
@@ -38,13 +38,13 @@ h2 { font-size:2.2rem; text-align:center; border-bottom:2.5px solid #0097a7; pad
 }
 
 /* Theme toggle */
-.theme-toggle-btn { position:fixed; top:10px; right:10px; z-index:1000; background:#fff; color:#111; border:2px solid #00bcd4; width:42px; height:42px; display:flex; align-items:center; justify-content:center; font-size:1.15rem; cursor:pointer; border-radius:6px; box-shadow:0 2px 8px rgba(0,188,212,.12); transition:background .2s,color .2s, box-shadow .2s; }
+.theme-toggle-btn { position:fixed; top:10px; right:10px; z-index:1000; background:#fff; color:#111; border:2px solid #00bcd4; width:42px; height:42px; display:flex; align-items:center; justify-content:center; font-size:1.15rem; cursor:pointer; border-radius:8px; box-shadow:0 2px 8px rgba(0,188,212,.12); transition:background .2s,color .2s, box-shadow .2s; }
 .theme-toggle-btn:hover { background:#00bcd4; color:#fff; }
 
 /* Project Blocks */
 .project-blocks { display:flex; flex-wrap:wrap; gap:0.96rem; }
 @media (max-width:600px){ .project-blocks { gap:0.6rem !important; } }
-.project-block { border:2px solid #00bcd4; padding:0.6rem 0.9rem; cursor:pointer; transition:background .18s,color .18s, box-shadow .18s; flex:1 1 200px; }
+.project-block { border:2px solid #00bcd4; padding:0.6rem 0.9rem; cursor:pointer; transition:background .18s,color .18s, box-shadow .18s; flex:1 1 200px; border-radius:8px; }
 .project-block { margin:0.3rem 0; }
 .project-block:hover { background:#00bcd4; color:#fff; }
 .project-block.active { background:#00bcd4 !important; color:#fff !important; border:2px solid #00bcd4; box-shadow:0 4px 16px rgba(0,188,212,.18); }
@@ -85,6 +85,7 @@ h2 { font-size:2.2rem; text-align:center; border-bottom:2.5px solid #0097a7; pad
 
 /* 3D Viewer */
 #viewer-controls { margin-bottom:1rem; display:flex; flex-direction:column; align-items:center; gap:0.7rem; width:100%; }
+#viewer-controls button { border-radius:8px; border:1px solid #00bcd4; background:#fff; color:#00bcd4; }
 #main-model-viewer { width:100%; height:400px; background:none; border:none; }
 @media (max-width:600px){ #main-model-viewer { width:98vw !important; height:220px !important; } }
 
@@ -308,10 +309,10 @@ table td, table th { padding:0.4rem 0.6rem; border:1px solid #ccc; }
   color: #00bcd4;
   border: 2px solid #00bcd4;
   padding: 0.6rem 1.2rem;
-  border-radius: 0;
+  border-radius: 8px;
   font-size: 1.3rem;
   cursor: pointer;
-  margin-top: 1rem;
+  border-radius: 8px;
   width: 40px;
   height: 40px;
   display: flex;
@@ -343,7 +344,7 @@ table td, table th { padding:0.4rem 0.6rem; border:1px solid #ccc; }
   text-decoration: underline;
   font-size: 1rem;
   background: #fff;
-  border-radius: 0;
+  border-radius: 8px;
   padding: 2px 8px;
   transition: background 0.2s, color 0.2s;
 }
@@ -553,7 +554,7 @@ body.dark-mode .hero h1 { color: #fff !important; }
 .music-bar { background: #f0fdff; border-bottom: 1px solid #00bcd4; height: 20px; display:flex; align-items:center; }
 body.dark-mode .music-bar { background: #222; border-bottom-color: #56d9e9; }
 /* Fit button within bar height while keeping click area */
-.music-bar .music-btn { padding: 0.05rem 0.9rem; font-size: 0.95rem; line-height: 1; }
+.music-bar .music-btn { padding: 0.05rem 0.6rem; font-size: 1rem; line-height: 1; min-width: 36px; }
 body.dark-mode .music-controls {
   background: rgba(34, 34, 34, 0.85);
   border-color: rgba(255, 255, 255, 0.12);
