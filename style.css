@@ -555,6 +555,7 @@ body.dark-mode .hero h1 { color: #fff !important; }
 body.dark-mode .music-bar { background: #222; border-bottom-color: #56d9e9; }
 /* Fit button within bar height while keeping click area */
 .music-bar .music-btn { padding: 0.05rem 0.6rem; font-size: 1rem; line-height: 1; min-width: 36px; }
+/* (music-icon removed) */
 body.dark-mode .music-controls {
   background: rgba(34, 34, 34, 0.85);
   border-color: rgba(255, 255, 255, 0.12);
