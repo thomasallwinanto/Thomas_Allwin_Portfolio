@@ -500,6 +500,92 @@ h2 {
 }
 /* (Extra body style removed) */
 
+/* =========================
+   Windows 98 Theme Overrides
+   ========================= */
+/* Base */
+body { background:#c0c0c0 !important; color:#000 !important; font-family: Tahoma, "MS Sans Serif", "Segoe UI", Arial, sans-serif !important; }
+a { color:#000080 !important; text-decoration: underline !important; }
+a:hover { color:#000 !important; }
+
+/* Headings */
+h1, h2, h3 { color:#000 !important; text-shadow:none !important; }
+/* Remove modern underline on section headers */
+section h2 { border:none !important; padding-bottom:0 !important; display:block !important; margin:0 0 0.8rem 0 !important; }
+
+/* Title bar (navbar) */
+.navbar { background: linear-gradient(#000080, #1084d0) !important; color:#fff !important; border:1px solid #000 !important; border-left:0 !important; border-right:0 !important; border-bottom:0 !important; }
+.nav-links { gap:0.6rem !important; }
+
+/* Status bar (music bar) */
+.music-bar { background:#c0c0c0 !important; border-bottom:1px solid #808080 !important; border-top:1px solid #fff !important; height:20px !important; }
+
+/* 3D Buttons */
+.nav-btn, .music-btn, .theme-toggle-btn, #viewer-controls button, .arrow-btn, .blog-list a, #love-list li {
+  background:#c0c0c0 !important;
+  color:#000 !important;
+  border:2px solid #808080 !important; /* base border */
+  border-top-color:#fff !important; border-left-color:#fff !important; /* highlight */
+  border-right-color:#808080 !important; border-bottom-color:#808080 !important; /* shadow */
+  box-shadow: inset 1px 1px #dfdfdf !important;
+  border-radius:0 !important;
+}
+.nav-btn:hover, .music-btn:hover, .theme-toggle-btn:hover, #viewer-controls button:hover, .arrow-btn:hover, .blog-list a:hover, #love-list li:hover {
+  background:#d9d9d9 !important;
+}
+.nav-btn:active, .music-btn:active, .theme-toggle-btn:active, #viewer-controls button:active, .arrow-btn:active, .blog-list a:active, #love-list li:active {
+  border-top-color:#808080 !important; border-left-color:#808080 !important;
+  border-right-color:#fff !important; border-bottom-color:#fff !important;
+  box-shadow: inset -1px -1px #dfdfdf !important;
+}
+
+/* Hero area becomes plain window background */
+.hero { background:#c0c0c0 !important; color:#000 !important; border-bottom:0 !important; padding:2rem 0 !important; }
+.hero h1 { color:#000 !important; }
+
+/* Cards/blocks as 3D panels */
+.project-block, .cv-item, .fact-box, #project-details, #academic-project-details, #blog-content {
+  background:#c0c0c0 !important;
+  border:2px solid #808080 !important;
+  border-top-color:#fff !important; border-left-color:#fff !important;
+  border-right-color:#808080 !important; border-bottom-color:#808080 !important;
+  box-shadow:none !important;
+}
+.project-block.active { background:#d9d9d9 !important; color:#000 !important; border-color:#808080 !important; }
+
+/* Model viewer arrows override inline styles */
+#viewer-controls button { color:#000 !important; background:#c0c0c0 !important; }
+
+/* Section containers feel like classic panes */
+.container { background: transparent !important; }
+
+/* CV links and icons */
+.cv-link, .cv-link-icon { color:#000080 !important; text-decoration: underline !important; }
+.cv-link:hover, .cv-link-icon:hover { color:#000 !important; }
+
+/* Win98-style Dark mode: distinct dark palette with readable text */
+body.dark-mode { background:#2b2b2b !important; color:#e6e6e6 !important; }
+body.dark-mode a { color:#9ecbff !important; }
+body.dark-mode a:hover { color:#ffffff !important; }
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 { color:#e6e6e6 !important; }
+body.dark-mode .navbar { background: linear-gradient(#001a33, #003a66) !important; color:#fff !important; border-color:#000 !important; }
+body.dark-mode .music-bar { background:#2b2b2b !important; border-top:1px solid #444 !important; border-bottom:1px solid #111 !important; }
+body.dark-mode .nav-btn, body.dark-mode .project-block, body.dark-mode .music-btn, body.dark-mode #viewer-controls button, body.dark-mode .theme-toggle-btn, body.dark-mode .cv-item, body.dark-mode .fact-box, body.dark-mode #project-details, body.dark-mode #academic-project-details, body.dark-mode #blog-content {
+  background:#3a3a3a !important; color:#e6e6e6 !important;
+  border:2px solid #444 !important; border-top-color:#666 !important; border-left-color:#666 !important;
+  border-right-color:#111 !important; border-bottom-color:#111 !important;
+}
+body.dark-mode .project-block.active { background:#4a4a4a !important; color:#e6e6e6 !important; }
+body.dark-mode #viewer-controls button { color:#e6e6e6 !important; background:#3a3a3a !important; }
+body.dark-mode .cv-link, body.dark-mode .cv-link-icon { color:#9ecbff !important; }
+body.dark-mode .cv-link:hover, body.dark-mode .cv-link-icon:hover { color:#ffffff !important; }
+
+/* Misc cleanups of modern accents */
+h2 { color:#000 !important; }
+.project-block:hover { color:#000 !important; }
+/* Profile pic keeps circular shape but we can add a 3D frame */
+#profile-pic { border-color:#808080 !important; background:#c0c0c0 !important; }
+
 /* (Old header/section/h2 styling removed) */
 
 /* === Final normalization overrides === */
