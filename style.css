@@ -49,6 +49,10 @@ h2 { font-size:2.2rem; text-align:center; border-bottom:2.5px solid #0097a7; pad
 .project-block { margin:0; }
 .project-block:hover { background:#00bcd4; color:#fff; }
 .project-block.active { background:#00bcd4 !important; color:#fff !important; border:2px solid #00bcd4; box-shadow:0 4px 16px rgba(0,188,212,.18); }
+/* De-emphasize unselected project blocks slightly so active blocks pop */
+.project-block { background: #ffffff; color: #111; }
+.project-block:not(.active) { opacity: 0.9; filter: saturate(0.94); }
+.project-block:not(.active):hover { opacity:1; filter:none; }
 
 /* Detail areas */
 #project-details, #academic-project-details, #blog-content { margin-top:1.2rem; line-height:1.58; font-size:1.02rem; padding:0.8rem 0.2rem 0.2rem 0.2rem; }

@@ -60,8 +60,15 @@ window.showAcademicProject = function(key){
     container.innerHTML = '';
     container.style.display = 'none';
     delete container.dataset.open;
+    // remove active state from academic project blocks
+    document.querySelectorAll('#academic-projects .project-block').forEach(b => b.classList.remove('active'));
     return;
   }
+  // mark active project block in the Academic Projects section
+  document.querySelectorAll('#academic-projects .project-block').forEach(block => {
+    const onclick = block.getAttribute('onclick') || '';
+    block.classList.toggle('active', onclick.includes(`'${key}'`));
+  });
   container.dataset.open = key;
   const list=data.points.map(p=>`<li>${p}</li>`).join('');
   container.innerHTML=`<h3 style='margin:0 0 0.4rem 0;'>${data.title}</h3><ul class='project-detail-desc' style='margin:0 0 0.6rem 1.1rem; padding:0; list-style:disc; line-height:1.45;'>${list}</ul>`;
@@ -78,8 +85,15 @@ window.showProject = function(key){
     container.innerHTML = '';
     container.style.display = 'none';
     delete container.dataset.open;
+    // remove active state from personal project blocks
+    document.querySelectorAll('#personal-projects .project-block').forEach(b => b.classList.remove('active'));
     return;
   }
+  // mark active project block in the Personal Projects section
+  document.querySelectorAll('#personal-projects .project-block').forEach(block => {
+    const onclick = block.getAttribute('onclick') || '';
+    block.classList.toggle('active', onclick.includes(`'${key}'`));
+  });
   container.dataset.open = key;
   const imgHtml=(details.images||[]).map(img=>{
     if(key==='guild'||key==='architecture') return `<img src='${img}' loading='lazy' decoding='async' alt='' style='max-width:100%; height:auto; margin:0.5rem;'>`;

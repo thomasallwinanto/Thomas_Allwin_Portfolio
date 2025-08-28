@@ -23,6 +23,8 @@ window.showBlog = function(blogKey){
     blogContent.innerHTML = '';
     blogContent.style.display = 'none';
     delete blogContent.dataset.open;
+  // remove active state from blog project blocks
+  document.querySelectorAll('#blog .project-block').forEach(b => b.classList.remove('active'));
     return;
   }
 
@@ -36,6 +38,11 @@ window.showBlog = function(blogKey){
 
   // Open the requested blog and mark it as open
   blogContent.dataset.open = blogKey;
+  // set active state on the selected blog block
+  document.querySelectorAll('#blog .project-block').forEach(block=>{
+    const onclick = block.getAttribute('onclick') || '';
+    block.classList.toggle('active', onclick.includes(`'${blogKey}'`));
+  });
   blogContent.innerHTML = '';
   const h3 = document.createElement('h3');
   h3.textContent = post.title;
