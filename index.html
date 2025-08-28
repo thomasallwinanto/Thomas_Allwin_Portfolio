@@ -26,7 +26,7 @@
         <li><button class="nav-btn" onclick="showSection('academic-projects')">Academic Projects</button></li>
         <li><button class="nav-btn" onclick="showSection('personal-projects')">Personal Projects</button></li>
         <li><button class="nav-btn" onclick="showSection('art-3d')">Art Projects</button></li>
-        <li><button class="nav-btn" onclick="showSection('blog')">Blog</button></li>
+  <li><button class="nav-btn" onclick="showSection('blog')">Blogs/Reviews</button></li>
         <li><button class="nav-btn" onclick="showSection('stuff-i-love')">Stuff I Love</button></li>
         <li><button class="nav-btn" onclick="showSection('contact')">Contact</button></li>
       </ul>
@@ -221,7 +221,7 @@
   </section>
   <section id="blog" style="display:none;">
     <div class="container">
-      <h2>Blog</h2>
+  <h2>Blogs/Reviews</h2>
       <div class="project-blocks">
         <div class="project-block" role="button" tabindex="0" onclick="showBlog('blog1')" onkeypress="if(event.key==='Enter'){showBlog('blog1')}">How I started coding</div>
         <div class="project-block" role="button" tabindex="0" onclick="showBlog('blog2')" onkeypress="if(event.key==='Enter'){showBlog('blog2')}">Lessons from my first project</div>
@@ -235,10 +235,11 @@
     <div class="container">
       <h2>Stuff I Love</h2>
           <p>There is more and I will update it soon.</p>
-      <div class="love-categories project-blocks" style="gap:0.6rem;">
-        <div class="project-block" role="button" tabindex="0" data-category="books" onclick="showLove('books')" onkeypress="if(event.key==='Enter'){showLove('books')}">Books</div>
-        <div class="project-block" role="button" tabindex="0" data-category="movies" onclick="showLove('movies')" onkeypress="if(event.key==='Enter'){showLove('movies')}">Movies</div>
-        <div class="project-block" role="button" tabindex="0" data-category="music" onclick="showLove('music')" onkeypress="if(event.key==='Enter'){showLove('music')}">Music</div>
+  <div class="love-categories project-blocks">
+  <div class="project-block" role="button" tabindex="0" data-category="books" onclick="showLove('books')" onkeypress="if(event.key==='Enter'){showLove('books')}">Books</div>
+  <div class="project-block" role="button" tabindex="0" data-category="movies" onclick="showLove('movies')" onkeypress="if(event.key==='Enter'){showLove('movies')}">Movies</div>
+  <div class="project-block" role="button" tabindex="0" data-category="music" onclick="showLove('music')" onkeypress="if(event.key==='Enter'){showLove('music')}">Music</div>
+  <div class="project-block" role="button" tabindex="0" data-category="cooking" onclick="showLove('cooking')" onkeypress="if(event.key==='Enter'){showLove('cooking')}">Cooking</div>
       </div>
       <ul id="love-list" style="display:none;"></ul>
       <div id="love-images"></div>

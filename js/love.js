@@ -9,6 +9,16 @@ window.loveStuff = {
   music: [
     "Stevie Ray Vaughan","Eric Clapton","Jimi Hendrix","JJ Cale","Radiohead","Thom Yorke","John Mayer","Kurt Cobain","Chris Cornell","Nirvana","Hans Zimmer","Derek and the Dominos","Cream","Agam","Lucky Ali"
   ]
+  ,
+  cooking: [
+    "Sourdough Starter & Bread",
+    "Ratatouille (vegetable techniques)",
+    "Beef Wellington",
+    "Pasta Carbonara",
+    "Sushi Rolling",
+    "Fermentation: Kombucha & Sauerkraut",
+    "Chocolate Tempering"
+  ]
 };
 
 // Helper: slugify a string for element IDs
@@ -100,6 +110,10 @@ window.showLove = function(category){
         if(url){ el.src = url; el.style.background = '#fff'; }
       });
     }, 0);
+  // Place Letterboxd heading above thumbnails; username is a clickable link
+  const header = `<p class='love-desc'>More movies on my letterboxd <a href='https://letterboxd.com/thomasallwin/' target='_blank' rel='noopener'>thomasallwin</a></p>`;
+  imgHtml = header + `<div style='display:flex; gap:0.96rem; flex-wrap:wrap; justify-content:center; margin-top:0.6rem;'>${imgHtml}</div>`;
+  if(list){ list.innerHTML = ''; list.style.display = 'none'; }
 
   } else if(category==='music') {
     // Build placeholders first, then hydrate with fetched thumbnails
@@ -126,6 +140,49 @@ window.showLove = function(category){
         if(url){ el.src = url; el.style.background = '#fff'; }
       });
     }, 0);
+  } else if(category==='cooking') {
+    // Very simple: directly render the photos from assets/cooking/ so they appear without any server or manifest.
+    const files = [
+      'assets/cooking/IMG-20250828-WA0006.jpg',
+      'assets/cooking/IMG-20250828-WA0008.jpg',
+      'assets/cooking/IMG-20250828-WA0011.jpg',
+      'assets/cooking/IMG-20250828-WA0012.jpg',
+      'assets/cooking/IMG-20250828-WA0013.jpg',
+      'assets/cooking/IMG-20250828-WA0014.jpg',
+      'assets/cooking/IMG-20250828-WA0015.jpg',
+      'assets/cooking/IMG-20250828-WA0018.jpg',
+      'assets/cooking/IMG-20250828-WA0019.jpg',
+      'assets/cooking/IMG-20250828-WA0021.jpg',
+      'assets/cooking/IMG-20250828-WA0023.jpg',
+      'assets/cooking/IMG-20250828-WA0024.jpg',
+      'assets/cooking/IMG-20250828-WA0025.jpg',
+      'assets/cooking/IMG-20250828-WA0028.jpg',
+      'assets/cooking/IMG-20250828-WA0032.jpg',
+      'assets/cooking/IMG-20250828-WA0033.jpg',
+      'assets/cooking/IMG-20250828-WA0034.jpg',
+      'assets/cooking/IMG-20250828-WA0035.jpg',
+      'assets/cooking/IMG-20250828-WA0036.jpg',
+      'assets/cooking/IMG-20250828-WA0037.jpg',
+      'assets/cooking/IMG-20250828-WA0038.jpg',
+      'assets/cooking/IMG-20250828-WA0039.jpg',
+      'assets/cooking/IMG-20250828-WA0042.jpg',
+      'assets/cooking/IMG-20250828-WA0043.jpg',
+      'assets/cooking/IMG-20250828-WA0044.jpg',
+      'assets/cooking/IMG-20250828-WA0045.jpg',
+      'assets/cooking/IMG-20250828-WA0047.jpg',
+      'assets/cooking/IMG-20250828-WA0049.jpg',
+      'assets/cooking/IMG-20250828-WA0052.jpg',
+      'assets/cooking/IMG-20250828-WA0054.jpg',
+      'assets/cooking/IMG-20250828-WA0057.jpg',
+      'assets/cooking/IMG-20250828-WA0063.jpg',
+      'assets/cooking/IMG-20250828-WA0064.jpg',
+      'assets/cooking/IMG-20250828-WA0065.jpg',
+      'assets/cooking/IMG-20250828-WA0067.jpg',
+      'assets/cooking/IMG-20250828-WA0068.jpg'
+    ];
+  const html = files.map(src => `<div class='cooking-tile'><img src='${src}' loading='lazy' decoding='async' alt=''></div>`).join('');
+  const quote = `<p class='cooking-quote'>&ldquo;Cooking is a craft, I like to think, and a good cook is a craftsman - not an artist.&rdquo;<br>&ndash; Anthony Bourdain</p>`;
+  imgHtml = quote + `<div class='cooking-grid'>${html}</div>`;
   }
   images.innerHTML=imgHtml;
 };
