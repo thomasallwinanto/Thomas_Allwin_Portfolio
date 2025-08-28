@@ -223,6 +223,8 @@ body.dark-mode [style*='color:#111'] { color:#eee !important; }
 
 /* Blog overrides */
 #blog #blog-content { background:transparent !important; border:none; padding:0.8rem 1.15rem 0.9rem; }
+/* Justify paragraphs inside the blog content area only */
+#blog #blog-content p { text-align: justify; }
 
 /* About year nav gap */
 .about-year-nav { gap:3rem !important; }

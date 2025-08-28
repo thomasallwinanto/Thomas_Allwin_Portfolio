@@ -49,6 +49,17 @@ window.showLove = function(category){
   const list=document.getElementById('love-list');
   const images=document.getElementById('love-images');
   if(!list||!images) return;
+  // Toggle: if same category is open, close it
+  if(images.dataset.open === category){
+    images.innerHTML = '';
+    list.innerHTML = '';
+    images.style.display = 'none';
+    list.style.display = 'none';
+    delete images.dataset.open;
+    document.querySelectorAll('.love-categories .project-block').forEach(block=> block.classList.remove('active'));
+    return;
+  }
+  images.dataset.open = category;
   document.querySelectorAll('.love-categories .project-block').forEach(block=>{
     const cat=block.getAttribute('data-category');
     block.classList.toggle('active', cat===category);
@@ -57,19 +68,31 @@ window.showLove = function(category){
   list.innerHTML='';
   let imgHtml='';
   if(category==='books'){
-    const bookImages={
-      'The Da Vinci Code':'https://m.media-amazon.com/images/I/4182WHOHqUL._SY445_SX342_.jpg',
-      'The Name of the Rose':'https://m.media-amazon.com/images/I/51kkGmOoqQL._SY445_SX342_.jpg',
-      'Industrial Society and Its Future':'https://m.media-amazon.com/images/I/41ySrRF+tXL._SY445_SX342_.jpg',
-      'Dune':'https://m.media-amazon.com/images/I/41qSPS2EDdL._SY445_SX342_.jpg',
-      'Dune Messiah':'https://m.media-amazon.com/images/I/41NUm1sYjLL._SY445_SX342_.jpg',
-      'Children of Dune':'https://m.media-amazon.com/images/I/41GzZqH3cjL._SY445_SX342_.jpg',
-      'God Emperor of Dune':'https://m.media-amazon.com/images/I/41i-YhzQ0tL._SY445_SX342_.jpg',
-      'Fahrenheit 451':'https://m.media-amazon.com/images/I/71OFqSRFDgL.jpg',
-      'Crime and Punishment':'https://m.media-amazon.com/images/I/41c99G44teL._SY445_SX342_.jpg',
-      'Once Upon a Time in Hollywood':'https://m.media-amazon.com/images/I/81b4luHhI6S._SX385_.jpg'
-    };
-  imgHtml=items.map(item=>{ const src=bookImages[item]||'https://via.placeholder.com/70x100?text=No+Image'; return `<div class='love-item love-item--portrait'><img src='${src}' loading='lazy' decoding='async' alt='${item}'><div class='love-caption' title='${item}'>${item}</div></div>`; }).join('');
+    // Render like movies: placeholder poster thumbnails + captions, then hydrate via Wikipedia
+    const bookTitles = items.map(i => i.trim());
+    imgHtml = bookTitles.map(title => {
+      const id = `book-img-${slugify(title)}`;
+      const placeholder = 'https://via.placeholder.com/70x100.png?text=%20';
+      return `<div class='love-item love-item--portrait'>\n  <img id='${id}' src='${placeholder}' loading='lazy' decoding='async' alt='${title}'>\n        <div class='love-caption' title='${title}'>${title}</div>\n      </div>`;
+    }).join('');
+
+    // Hydrate thumbnails asynchronously with likely book covers from Wikipedia
+    setTimeout(() => {
+      bookTitles.forEach(async (title) => {
+        const el = document.getElementById(`book-img-${slugify(title)}`);
+        if(!el) return;
+        let url = await fetchWikiThumb(title);
+        // Try common disambiguations for books
+        if(!url) url = await fetchWikiThumb(`${title} (novel)`);
+        if(!url) url = await fetchWikiThumb(`${title} (book)`);
+        if(url){ el.src = url; el.style.background = '#fff'; }
+      });
+    }, 0);
+
+    // Place thumbnails inside the same flexible wrapper used for movies
+    const header = '';
+    imgHtml = header + `<div style='display:flex; gap:0.96rem; flex-wrap:wrap; justify-content:center; margin-top:0.6rem;'>${imgHtml}</div>`;
+    if(list){ list.innerHTML = ''; list.style.display = 'none'; }
   } else if(category==='movies') {
     // Display like books: poster thumbnail + title caption
     const movieTitles = items.map(item => {
@@ -116,30 +139,35 @@ window.showLove = function(category){
   if(list){ list.innerHTML = ''; list.style.display = 'none'; }
 
   } else if(category==='music') {
-    // Build placeholders first, then hydrate with fetched thumbnails
-    imgHtml = items.map(item => {
-      const id = `music-img-${slugify(item)}`;
-      const placeholder = 'https://via.placeholder.com/140x140.png?text=%20';
-      return `<div class='love-item love-item--square'>
-  <img id='${id}' src='${placeholder}' loading='lazy' decoding='async' alt='${item}' style='border-radius:50%;'>
-        <div class='love-caption' title='${item}'>${item}</div>
-      </div>`;
+    // Render like movies: poster-style thumbnails with captions, then hydrate from Wikipedia
+    const musicTitles = items.map(i => i.trim());
+    imgHtml = musicTitles.map(title => {
+      const id = `music-img-${slugify(title)}`;
+      const placeholder = 'https://via.placeholder.com/70x100.png?text=%20';
+      return `<div class='love-item love-item--portrait'>\n  <img id='${id}' src='${placeholder}' loading='lazy' decoding='async' alt='${title}'>\n        <div class='love-caption' title='${title}'>${title}</div>\n      </div>`;
     }).join('');
-    // After render, fetch thumbnails asynchronously
+
+    // Hydrate thumbnails asynchronously
     setTimeout(() => {
-      items.forEach(async (item) => {
-        const id = `music-img-${slugify(item)}`;
-        const el = document.getElementById(id);
+      musicTitles.forEach(async (title) => {
+        const el = document.getElementById(`music-img-${slugify(title)}`);
         if(!el) return;
-        const title = wikiTitleOverrides[item] || item;
-        let url = await fetchWikiThumb(title);
-        // Fallback: try with "(musician)" if a solo artist with no image
-        if(!url && !/(band\)|band$)/i.test(title)){
-          url = await fetchWikiThumb(`${title} (musician)`);
+        const query = wikiTitleOverrides[title] || title;
+        let url = await fetchWikiThumb(query);
+        // Fallbacks for musicians/bands
+        if(!url && !/(band\)|band$)/i.test(query)){
+          url = await fetchWikiThumb(`${query} (musician)`);
+        }
+        if(!url && /(band\)|band$)/i.test(query)){
+          url = await fetchWikiThumb(`${query} (band)`);
         }
         if(url){ el.src = url; el.style.background = '#fff'; }
       });
     }, 0);
+
+    const header = '';
+    imgHtml = header + `<div style='display:flex; gap:0.96rem; flex-wrap:wrap; justify-content:center; margin-top:0.6rem;'>${imgHtml}</div>`;
+    if(list){ list.innerHTML = ''; list.style.display = 'none'; }
   } else if(category==='cooking') {
     // Very simple: directly render the photos from assets/cooking/ so they appear without any server or manifest.
     const files = [
@@ -185,4 +213,5 @@ window.showLove = function(category){
   imgHtml = quote + `<div class='cooking-grid'>${html}</div>`;
   }
   images.innerHTML=imgHtml;
+  images.style.display = 'block';
 };

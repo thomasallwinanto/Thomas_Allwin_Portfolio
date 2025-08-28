@@ -55,6 +55,14 @@ window.showAcademicProject = function(key){
   if(!data) return;
   const container=document.getElementById('academic-project-details');
   if(!container) return;
+  // Toggle: close if the same project is already open
+  if(container.dataset.open === key){
+    container.innerHTML = '';
+    container.style.display = 'none';
+    delete container.dataset.open;
+    return;
+  }
+  container.dataset.open = key;
   const list=data.points.map(p=>`<li>${p}</li>`).join('');
   container.innerHTML=`<h3 style='margin:0 0 0.4rem 0;'>${data.title}</h3><ul class='project-detail-desc' style='margin:0 0 0.6rem 1.1rem; padding:0; list-style:disc; line-height:1.45;'>${list}</ul>`;
   container.style.display='block';
@@ -65,6 +73,14 @@ window.showProject = function(key){
   if(!details) return;
   const container=document.getElementById('project-details');
   if(!container) return;
+  // Toggle: close if the same project is already open
+  if(container.dataset.open === key){
+    container.innerHTML = '';
+    container.style.display = 'none';
+    delete container.dataset.open;
+    return;
+  }
+  container.dataset.open = key;
   const imgHtml=(details.images||[]).map(img=>{
     if(key==='guild'||key==='architecture') return `<img src='${img}' loading='lazy' decoding='async' alt='' style='max-width:100%; height:auto; margin:0.5rem;'>`;
     return `<img src='${img}' loading='lazy' decoding='async' alt='' style='width:120px; height:auto; margin:0.5rem;'>`;
