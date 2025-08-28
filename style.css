@@ -81,6 +81,11 @@ h2 { font-size:2.2rem; text-align:center; border-bottom:2.5px solid #0097a7; pad
 @media (max-width:800px){ .cooking-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width:480px){ .cooking-grid { grid-template-columns: repeat(2, 1fr); } }
 
+/* Mobile-only override: make cooking grid denser on phones (4 columns) */
+@media (max-width:600px){
+  .cooking-grid { grid-template-columns: repeat(4, 1fr); gap:0.4rem; }
+}
+
 /* Consistent alignment for Love section items */
 #love-images .love-item { width: 90px; display:flex; flex-direction:column; align-items:center; text-align:center; }
 #love-images .love-item { width: 120px; display:flex; flex-direction:column; align-items:center; text-align:center; }
