@@ -4,7 +4,7 @@ window.initModelViewer = function(){
   if(!modelViewer) return;
   const prevBtn=document.getElementById('prev-model');
   const nextBtn=document.getElementById('next-model');
-  const modelFiles=["BAC.glb","DEBRIS.glb","Death_Stranding.glb","PYRAMID.glb","Project_frame.glb","THE SHIP.glb","VFP.glb","For_Anna"];
+  const modelFiles=["BAC.glb","DEBRIS.glb","Death_Stranding.glb","PYRAMID.glb","Project_frame.glb","THE SHIP.glb","VFP.glb","For_Anna.glb"];
   const githubBase="https://raw.githubusercontent.com/thomasallwinanto/Imaginary_Axis_files/main/";
   let currentModelIdx=0; let scriptLoaded=false; let modelInitialized=false;
   function ensureScript(){
