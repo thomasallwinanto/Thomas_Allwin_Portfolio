@@ -32,7 +32,7 @@ window.blogs = {
   }
   ,
   blog6: {
-    title: 'The Forgotten Crime in High Plains Drifter',
+    title: 'Moral Blindness in High Plains Drifter',
     body: `
       <p>I love westerns; I love watching westerns and I love the simplicity, the stoicism, and the mysteriousness in these westerns. After a hiatus from the said genre, I recently watched Clint Eastwood’s 1973 classic, High Plains Drifter. The story and script are quite similar to most of the classic western films. To name a few, Pale Rider and Unforgiven are similar to this. Seven Samurai, Shane and Django (The 1966 film. Not to be confused with Tarantino’s Django Unchained).</p>
 
