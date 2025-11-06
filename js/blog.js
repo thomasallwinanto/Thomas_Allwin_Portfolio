@@ -56,6 +56,40 @@ window.blogs = {
   }
 };
 
+// Map human-friendly slugs to blog keys so we can support /blogs/slug URLs
+window.blogSlugs = {
+  'true-detective': 'blog5',
+  'high-plains-drifter': 'blog6',
+  'dune': 'blog3'
+};
+
+// On load, open a blog if specified via ?post=blog5, #blog5, or /blogs/slug (with Netlify redirect)
+(function openFromUrl(){
+  try{
+    const url = new URL(window.location.href);
+    const params = url.searchParams;
+    const postParam = params.get('post');
+    if(postParam && window.blogs && window.blogs[postParam]){ showBlog(postParam); return; }
+  }catch(e){}
+
+  // hash support: #blog5 or #/blog5 or #/true-detective
+  const rawHash = (location.hash || '').replace(/^#\/?/, '');
+  if(rawHash){
+    const byKey = rawHash;
+    if(window.blogs && window.blogs[byKey]){ showBlog(byKey); return; }
+    const mapped = window.blogSlugs && window.blogSlugs[byKey];
+    if(mapped && window.blogs && window.blogs[mapped]){ showBlog(mapped); return; }
+  }
+
+  // pathname support (e.g., /blogs/true-detective) — requires Netlify redirect to index.html
+  const parts = (location.pathname || '').split('/').filter(Boolean);
+  if(parts.length >= 2 && parts[0] === 'blogs'){
+    const slug = parts.slice(1).join('-');
+    const mapped = (window.blogSlugs && window.blogSlugs[slug]) || slug;
+    if(window.blogs && window.blogs[mapped]){ showBlog(mapped); }
+  }
+})();
+
 window.showBlog = function(blogKey){
   const blogContent = document.getElementById('blog-content');
   if(!blogContent) return;
