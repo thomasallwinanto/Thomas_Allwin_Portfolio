@@ -10,10 +10,10 @@ window.blogs = {
     title: 'True Detective',
     body: `
       <p>I recently rewatched True Detective S1. It follows two detectives Rust Cohle, played by Matthew McConaughey, and Marty Hart, played by Woody Harrelson. Right after I finished S1, I went on to watch the latest season. S4, named True Detective: Night Country, starring Jodie Foster as Detective Danvers and Kali Reis as Officer Navarro.</p>
-      <div style="text-align:center; margin:0.6rem 0;">
-        <img src="assets/true-detective.jpg" alt="True Detective still" style="max-width:100%; height:auto; border-radius:4px;" />
-        <div style="font-size:0.85rem; color:#666; margin-top:0.25rem;">
-          <a href="https://www.escapistmagazine.com/all-major-actors-cast-list-for-true-detective-season-4/" target="_blank" rel="noopener" style="color:inherit;">Source: escapistmagazine.com</a>
+      <div class="blog-figure">
+        <img class="blog-image" src="assets/true-detective.jpg" alt="True Detective still" onerror="this.onerror=null;this.src='assets/profile.jpg';this.style.opacity=0.7;" />
+        <div class="blog-image-credit">
+          <a href="https://www.escapistmagazine.com/all-major-actors-cast-list-for-true-detective-season-4/" target="_blank" rel="noopener">Source: escapistmagazine.com</a>
         </div>
       </div>
 
@@ -32,14 +32,14 @@ window.blogs = {
   }
   ,
   blog6: {
-    title: 'Forgotten Crime in High Plains Drifter.',
+    title: 'The Forgotten Crime in High Plains Drifter',
     body: `
       <p>I love westerns; I love watching westerns and I love the simplicity, the stoicism, and the mysteriousness in these westerns. After a hiatus from the said genre, I recently watched Clint Eastwood’s 1973 classic, High Plains Drifter. The story and script are quite similar to most of the classic western films. To name a few, Pale Rider and Unforgiven are similar to this. Seven Samurai, Shane and Django (The 1966 film. Not to be confused with Tarantino’s Django Unchained).</p>
 
-      <div style="text-align:center; margin:0.6rem 0;">
-        <img src="assets/high-plains-drifter.jpg" alt="High Plains Drifter still" style="max-width:100%; height:auto; border-radius:4px;" />
-        <div style="font-size:0.85rem; color:#666; margin-top:0.25rem;">
-          <a href="https://onceuponatimeinawestern.com/high-plains-drifter-1973/" target="_blank" rel="noopener" style="color:inherit;">Source: onceuponatimeinawestern.com</a>
+      <div class="blog-figure">
+        <img class="blog-image" src="assets/high-plains-drifter.jpg" alt="High Plains Drifter still" onerror="this.onerror=null;this.src='assets/profile.jpg';this.style.opacity=0.7;" />
+        <div class="blog-image-credit">
+          <a href="https://onceuponatimeinawestern.com/high-plains-drifter-1973/" target="_blank" rel="noopener">Source: onceuponatimeinawestern.com</a>
         </div>
       </div>
 

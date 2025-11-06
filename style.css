@@ -230,6 +230,24 @@ body.dark-mode [style*='color:#111'] { color:#eee !important; }
 /* Justify paragraphs inside the blog content area only */
 #blog #blog-content p { text-align: justify; }
 
+/* Blog image sizing and credits: keep blog images consistent */
+.blog-figure{ text-align:center; margin:0.6rem 0; }
+.blog-image{
+  width:100%;
+  max-width:720px;
+  height:360px; /* fixed display height to keep images visually consistent */
+  object-fit:cover; /* crop to fill while preserving aspect ratio */
+  border-radius:4px;
+  display:block;
+  margin:0 auto;
+}
+.blog-image-credit{ font-size:0.85rem; color:#666; margin-top:0.25rem; }
+.blog-image-credit a{ color:inherit; text-decoration:underline; }
+
+@media (max-width:600px){
+  .blog-image{ height:220px; }
+}
+
 /* About year nav gap */
 .about-year-nav { gap:3rem !important; }
 
