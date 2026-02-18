@@ -7,7 +7,7 @@ window.blogs = {
   },
   
   blog5: {
-    title: 'True Detective',
+    title: 'Rust, Dust and Snow : True Detective',
     body: `
       <p>I recently rewatched True Detective S1. It follows two detectives Rust Cohle, played by Matthew McConaughey, and Marty Hart, played by Woody Harrelson. Right after I finished S1, I went on to watch the latest season. S4, named True Detective: Night Country, starring Jodie Foster as Detective Danvers and Kali Reis as Officer Navarro.</p>
       <div class="blog-figure">
