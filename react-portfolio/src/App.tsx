@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -23,6 +23,8 @@ function App() {
         <Route path="stuff-i-love" element={<StuffILove />} />
         <Route path="stuff-i-love/:category" element={<StuffILove />} />
         <Route path="contact" element={<Contact />} />
+        {/* Catch-all redirect to home */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
   )

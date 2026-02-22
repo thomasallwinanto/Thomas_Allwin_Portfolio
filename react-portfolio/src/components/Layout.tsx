@@ -12,7 +12,7 @@ function Layout() {
       <nav className="navbar">
         <div className="container">
           <ul className="nav-links">
-            <li><NavLink to="/" className={({ isActive }) => `nav-btn ${isActive ? 'active' : ''}`}>Home</NavLink></li>
+            <li><NavLink to="/" end className={({ isActive }) => `nav-btn ${isActive ? 'active' : ''}`}>Home</NavLink></li>
             <li><NavLink to="/about" className={({ isActive }) => `nav-btn ${isActive ? 'active' : ''}`}>About Me</NavLink></li>
             <li><NavLink to="/academic-projects" className={({ isActive }) => `nav-btn ${isActive ? 'active' : ''}`}>Academic Projects</NavLink></li>
             <li><NavLink to="/personal-projects" className={({ isActive }) => `nav-btn ${isActive ? 'active' : ''}`}>Personal Projects</NavLink></li>
