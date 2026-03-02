@@ -2,8 +2,28 @@
 (function(){
   // Valid section IDs for routing
   const validSections = ['home', 'about', 'academic-projects', 'personal-projects', 'art-3d', 'blog', 'stuff-i-love', 'contact'];
+  
+  // Map paths to section IDs (path without leading slash)
+  const pathToSection = {
+    '': 'home',
+    'home': 'home',
+    'about': 'about',
+    'academic-projects': 'academic-projects',
+    'personal-projects': 'personal-projects',
+    'art-3d': 'art-3d',
+    'blog': 'blog',
+    'stuff-i-love': 'stuff-i-love',
+    'contact': 'contact'
+  };
 
-  function showSection(sectionId, updateHash = true){
+  function getBasePath() {
+    // Get the base path for the site (handles deployment in subdirectories)
+    const base = document.querySelector('base');
+    if (base) return base.getAttribute('href').replace(/\/$/, '');
+    return '';
+  }
+
+  function showSection(sectionId, updateUrl = true){
     // Validate section ID, default to 'home' if invalid
     if (!validSections.includes(sectionId)) {
       sectionId = 'home';
@@ -17,34 +37,50 @@
       btn.classList.toggle('active', match && match[1]===sectionId);
     });
     
-    // Update URL hash for routing (unless navigating from popstate)
-    if (updateHash && window.location.hash !== '#' + sectionId) {
-      history.pushState({ section: sectionId }, '', '#' + sectionId);
+    // Update URL for routing (unless navigating from popstate)
+    if (updateUrl) {
+      const basePath = getBasePath();
+      const newPath = sectionId === 'home' ? (basePath || '/') : basePath + '/' + sectionId;
+      if (window.location.pathname !== newPath) {
+        history.pushState({ section: sectionId }, '', newPath);
+      }
     }
     
     // Scroll to top when changing sections
     window.scrollTo(0, 0);
   }
 
-  function getHashSection() {
-    const hash = window.location.hash.slice(1); // Remove '#'
-    return validSections.includes(hash) ? hash : 'home';
+  function getPathSection() {
+    const basePath = getBasePath();
+    let pathname = window.location.pathname;
+    
+    // Remove base path if present
+    if (basePath && pathname.startsWith(basePath)) {
+      pathname = pathname.slice(basePath.length);
+    }
+    
+    // Remove leading/trailing slashes and get the path segment
+    const path = pathname.replace(/^\/|\/$/g, '');
+    
+    return pathToSection[path] || 'home';
   }
 
   function initNavigation(){
-    // Navigate to section based on URL hash, or default to 'home'
-    const initialSection = getHashSection();
+    // Navigate to section based on URL path, or default to 'home'
+    const initialSection = getPathSection();
     showSection(initialSection, false);
     
     // Replace initial state so back button works correctly
-    history.replaceState({ section: initialSection }, '', '#' + initialSection);
+    const basePath = getBasePath();
+    const initialPath = initialSection === 'home' ? (basePath || '/') : basePath + '/' + initialSection;
+    history.replaceState({ section: initialSection }, '', initialPath);
     
     // Handle browser back/forward buttons
     window.addEventListener('popstate', (event) => {
       if (event.state && event.state.section) {
         showSection(event.state.section, false);
       } else {
-        showSection(getHashSection(), false);
+        showSection(getPathSection(), false);
       }
     });
   }
