@@ -2,7 +2,7 @@
 // Store blogs as objects (title + body) and render them cleanly in showBlog.
 window.blogs = {
   blog3: {
-    title: 'Dune',
+    title: 'Dun',
     body: '<p>Might be one of the greatest sci-fi movies of the 21st century. I want to write more. But later</p>'
   },
   
