@@ -117,6 +117,9 @@ window.showBlog = function(blogKey, updateUrl = true){
   blogContent.style.display = 'block';
   blogContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
   
-  // Update URL with sub-route
-  if (updateUrl && window.updateSubRoute) window.updateSubRoute('blog', resolvedKey);
+  // Update URL with sub-route (use human-readable slug)
+  if (updateUrl && window.updateSubRoute) {
+    const urlSlug = (window.blogKeyToSlug && window.blogKeyToSlug[resolvedKey]) || resolvedKey;
+    window.updateSubRoute('blog', urlSlug);
+  }
 };
