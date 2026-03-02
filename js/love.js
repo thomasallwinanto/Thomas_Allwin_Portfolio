@@ -45,7 +45,7 @@ const wikiTitleOverrides = {
   'Agam': 'Agam (band)'
 };
 
-window.showLove = function(category){
+window.showLove = function(category, updateUrl = true){
   const list=document.getElementById('love-list');
   const images=document.getElementById('love-images');
   if(!list||!images) return;
@@ -57,6 +57,8 @@ window.showLove = function(category){
     list.style.display = 'none';
     delete images.dataset.open;
     document.querySelectorAll('.love-categories .project-block').forEach(block=> block.classList.remove('active'));
+    // Update URL to remove sub-route
+    if (updateUrl && window.clearSubRoute) window.clearSubRoute('stuff-i-love');
     return;
   }
   images.dataset.open = category;
@@ -214,4 +216,6 @@ window.showLove = function(category){
   }
   images.innerHTML=imgHtml;
   images.style.display = 'block';
+  // Update URL with sub-route
+  if (updateUrl && window.updateSubRoute) window.updateSubRoute('stuff-i-love', category);
 };

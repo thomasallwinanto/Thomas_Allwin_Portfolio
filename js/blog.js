@@ -56,54 +56,40 @@ window.blogs = {
   }
 };
 
-// Map human-friendly slugs to blog keys so we can support /blogs/slug URLs
+// Map human-friendly slugs to blog keys so we can support /blog/slug URLs
 window.blogSlugs = {
   'true-detective': 'blog5',
   'high-plains-drifter': 'blog6',
   'dune': 'blog3'
 };
 
-// On load, open a blog if specified via ?post=blog5, #blog5, or /blogs/slug (with Netlify redirect)
-(function openFromUrl(){
-  try{
-    const url = new URL(window.location.href);
-    const params = url.searchParams;
-    const postParam = params.get('post');
-    if(postParam && window.blogs && window.blogs[postParam]){ showBlog(postParam); return; }
-  }catch(e){}
+// Reverse map for getting slug from key
+window.blogKeyToSlug = {
+  'blog5': 'true-detective',
+  'blog6': 'high-plains-drifter',
+  'blog3': 'dune'
+};
 
-  // hash support: #blog5 or #/blog5 or #/true-detective
-  const rawHash = (location.hash || '').replace(/^#\/?/, '');
-  if(rawHash){
-    const byKey = rawHash;
-    if(window.blogs && window.blogs[byKey]){ showBlog(byKey); return; }
-    const mapped = window.blogSlugs && window.blogSlugs[byKey];
-    if(mapped && window.blogs && window.blogs[mapped]){ showBlog(mapped); return; }
-  }
-
-  // pathname support (e.g., /blogs/true-detective) — requires Netlify redirect to index.html
-  const parts = (location.pathname || '').split('/').filter(Boolean);
-  if(parts.length >= 2 && parts[0] === 'blogs'){
-    const slug = parts.slice(1).join('-');
-    const mapped = (window.blogSlugs && window.blogSlugs[slug]) || slug;
-    if(window.blogs && window.blogs[mapped]){ showBlog(mapped); }
-  }
-})();
-
-window.showBlog = function(blogKey){
+window.showBlog = function(blogKey, updateUrl = true){
   const blogContent = document.getElementById('blog-content');
   if(!blogContent) return;
+  
+  // Resolve slug to blog key if needed
+  const resolvedKey = (window.blogSlugs && window.blogSlugs[blogKey]) || blogKey;
+  
   // Toggle: if the same blog is already open, close it
-  if (blogContent.dataset.open === blogKey) {
+  if (blogContent.dataset.open === resolvedKey) {
     blogContent.innerHTML = '';
     blogContent.style.display = 'none';
     delete blogContent.dataset.open;
-  // remove active state from blog project blocks
-  document.querySelectorAll('#blog .project-block').forEach(b => b.classList.remove('active'));
+    // remove active state from blog project blocks
+    document.querySelectorAll('#blog .project-block').forEach(b => b.classList.remove('active'));
+    // Update URL to remove sub-route
+    if (updateUrl && window.clearSubRoute) window.clearSubRoute('blog');
     return;
   }
 
-  const post = window.blogs && window.blogs[blogKey];
+  const post = window.blogs && window.blogs[resolvedKey];
   if(!post){
     blogContent.innerHTML = '<p>Post not found.</p>';
     blogContent.style.display = 'block';
@@ -112,11 +98,11 @@ window.showBlog = function(blogKey){
   }
 
   // Open the requested blog and mark it as open
-  blogContent.dataset.open = blogKey;
+  blogContent.dataset.open = resolvedKey;
   // set active state on the selected blog block
   document.querySelectorAll('#blog .project-block').forEach(block=>{
     const onclick = block.getAttribute('onclick') || '';
-    block.classList.toggle('active', onclick.includes(`'${blogKey}'`));
+    block.classList.toggle('active', onclick.includes(`'${resolvedKey}'`));
   });
   blogContent.innerHTML = '';
   const h3 = document.createElement('h3');
@@ -130,4 +116,7 @@ window.showBlog = function(blogKey){
 
   blogContent.style.display = 'block';
   blogContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  
+  // Update URL with sub-route
+  if (updateUrl && window.updateSubRoute) window.updateSubRoute('blog', resolvedKey);
 };

@@ -50,7 +50,7 @@ window.personalProjects = {
   }
 };
 
-window.showAcademicProject = function(key){
+window.showAcademicProject = function(key, updateUrl = true){
   const data=window.academicProjects[key];
   if(!data) return;
   const container=document.getElementById('academic-project-details');
@@ -62,6 +62,8 @@ window.showAcademicProject = function(key){
     delete container.dataset.open;
     // remove active state from academic project blocks
     document.querySelectorAll('#academic-projects .project-block').forEach(b => b.classList.remove('active'));
+    // Update URL to remove sub-route
+    if (updateUrl && window.clearSubRoute) window.clearSubRoute('academic-projects');
     return;
   }
   // mark active project block in the Academic Projects section
@@ -74,8 +76,10 @@ window.showAcademicProject = function(key){
   container.innerHTML=`<h3 style='margin:0 0 0.4rem 0;'>${data.title}</h3><ul class='project-detail-desc' style='margin:0 0 0.6rem 1.1rem; padding:0; list-style:disc; line-height:1.45;'>${list}</ul>`;
   container.style.display='block';
   container.scrollIntoView({behavior:'smooth', block:'start'});
+  // Update URL with sub-route
+  if (updateUrl && window.updateSubRoute) window.updateSubRoute('academic-projects', key);
 }
-window.showProject = function(key){
+window.showProject = function(key, updateUrl = true){
   const details=window.personalProjects[key];
   if(!details) return;
   const container=document.getElementById('project-details');
@@ -87,6 +91,8 @@ window.showProject = function(key){
     delete container.dataset.open;
     // remove active state from personal project blocks
     document.querySelectorAll('#personal-projects .project-block').forEach(b => b.classList.remove('active'));
+    // Update URL to remove sub-route
+    if (updateUrl && window.clearSubRoute) window.clearSubRoute('personal-projects');
     return;
   }
   // mark active project block in the Personal Projects section
@@ -108,4 +114,6 @@ window.showProject = function(key){
   container.innerHTML=`<h3 style='margin-top:0;'>${details.title}</h3>${bodyHtml}<div style='display:flex; gap:0.8rem; flex-wrap:wrap;'>${imgHtml}</div>`;
   container.style.display='block';
   container.scrollIntoView({behavior:'smooth', block:'start'});
+  // Update URL with sub-route
+  if (updateUrl && window.updateSubRoute) window.updateSubRoute('personal-projects', key);
 }
