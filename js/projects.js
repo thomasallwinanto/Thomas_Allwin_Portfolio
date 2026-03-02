@@ -37,7 +37,7 @@ window.personalProjects = {
   guild: {
     title: 'Guild and Company',
     desc: "I'm part of a collaborative music and creative project in Hamburg where we explore Blues plus 70s and 80s rock. I personally tilt towards the blues, drawing inspiration from Eric Clapton and Stevie Ray Vaughan. I play a Telecaster strung with 10 gauge strings because I find it versatile, simple, and clean, and I'm currently experimenting with wah pedals to play a few tracks and learn more. Follow us on IG: <a href='https://www.instagram.com/theguild_band/' target='_blank' style='color:#00bcd4; text-decoration:underline;'>@theguild_band</a>.",
-    images: ['/assets/tom_guitar.jpg','/assets/guild.jpg']
+    images: ['assets/tom_guitar.jpg','assets/guild.jpg']
   },
   imaginary: {
     title: 'Imaginary Axis',
@@ -46,7 +46,7 @@ window.personalProjects = {
   architecture: {
     title: 'Architecture',
     desc: "Planned, designed and constructed a house in Kerala, India using self‑learned tools (Paint, Unreal Engine & open source). Completed concept + plan set in a month; available on request. It's not much but it's honest work.",
-    images: ['/assets/House_1.jpg','/assets/House_2.jpg','/assets/House_3.jpg','/assets/House_4.jpg']
+    images: ['assets/House_1.jpg','assets/House_2.jpg','assets/House_3.jpg','assets/House_4.jpg']
   }
 };
 

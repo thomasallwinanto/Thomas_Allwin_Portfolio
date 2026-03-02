@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Base URL for resolving all relative paths -->
+  <base href="/" />
   <!-- (Large inline styles removed; now consolidated in style.css) -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,10 +11,10 @@
   <title>Tom's Site</title>
   
   <!-- Preload critical resources -->
-  <link rel="preload" href="/style.css" as="style" />
-  <link rel="preload" href="/assets/profile.jpg" as="image" />
+  <link rel="preload" href="style.css" as="style" />
+  <link rel="preload" href="assets/profile.jpg" as="image" />
   
-  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="style.css" />
   
   <!-- Resource hints to speed up first YouTube interaction on mobile -->
   <link rel="preconnect" href="https://www.youtube.com" crossorigin>
@@ -53,7 +55,7 @@
     <div class="container">
   <p class="home-music-hint">Click the play button to listen to music as you scroll through the page.</p>
   <div style="margin: 1rem 0 0.5rem 0; display: flex; justify-content: center;">
-        <img id="profile-pic" src="/assets/profile.jpg" alt="Profile Picture" width="96" height="96" fetchpriority="high" />
+        <img id="profile-pic" src="assets/profile.jpg" alt="Profile Picture" width="96" height="96" fetchpriority="high" />
       </div>
   <h1 style="margin-top:0.5rem; text-align:center; color:#333;">Hello, I'm Tom and welcome to my site :)</h1>
     </div>
@@ -266,15 +268,15 @@
 
   <!-- Load scripts (order matters: utilities before main initializer) -->
   <!-- Critical navigation script loads normally -->
-  <script src="/js/nav.js"></script>
+  <script src="js/nav.js"></script>
   <!-- Defer non-critical scripts -->
-  <script src="/js/about.js" defer></script>
-  <script src="/js/modelviewer.js" defer></script>
-  <script src="/js/projects.js" defer></script>
-  <script src="/js/blog.js" defer></script>
-  <script src="/js/love.js" defer></script>
-  <script src="/js/music.js" defer></script>
-  <script src="/js/main.js" defer></script>
+  <script src="js/about.js" defer></script>
+  <script src="js/modelviewer.js" defer></script>
+  <script src="js/projects.js" defer></script>
+  <script src="js/blog.js" defer></script>
+  <script src="js/love.js" defer></script>
+  <script src="js/music.js" defer></script>
+  <script src="js/main.js" defer></script>
   
   
 </body>
