@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 
 const modelFiles = [
+  "A4BMBR.glb",
   "BAC.glb",
   "DEBRIS.glb",
   "Death_Stranding.glb",
