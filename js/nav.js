@@ -8,19 +8,74 @@
   const PROTECTED_PASSWORD = '&£IDHJSIJDNIQJSN';
   const SESSION_KEY = 'portfolio_protected_unlocked';
   
+  // Pending section to show after password unlock
+  let pendingSection = null;
+  let pendingSubItem = null;
+  
   function isUnlocked() {
     return sessionStorage.getItem(SESSION_KEY) === 'true';
   }
   
-  function promptPassword() {
-    const password = prompt('This page is protected. Enter password:');
-    if (password === PROTECTED_PASSWORD) {
-      sessionStorage.setItem(SESSION_KEY, 'true');
-      return true;
-    } else if (password !== null) {
-      alert('Incorrect password');
+  function showPasswordModal(sectionId, subItem) {
+    pendingSection = sectionId;
+    pendingSubItem = subItem;
+    const modal = document.getElementById('password-modal');
+    const input = document.getElementById('password-input');
+    const error = document.getElementById('password-error');
+    if (modal) {
+      modal.style.display = 'flex';
+      if (input) {
+        input.value = '';
+        input.focus();
+      }
+      if (error) error.textContent = '';
     }
-    return false;
+  }
+  
+  function hidePasswordModal() {
+    const modal = document.getElementById('password-modal');
+    if (modal) modal.style.display = 'none';
+    pendingSection = null;
+    pendingSubItem = null;
+  }
+  
+  function initPasswordModal() {
+    const form = document.getElementById('password-form');
+    const cancelBtn = document.getElementById('password-cancel');
+    const backdrop = document.querySelector('.password-modal-backdrop');
+    const input = document.getElementById('password-input');
+    const error = document.getElementById('password-error');
+    
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (input && input.value === PROTECTED_PASSWORD) {
+          sessionStorage.setItem(SESSION_KEY, 'true');
+          hidePasswordModal();
+          if (pendingSection) {
+            showSectionInternal(pendingSection, true, pendingSubItem);
+          }
+        } else {
+          if (error) error.textContent = 'Incorrect password';
+          if (input) input.select();
+        }
+      });
+    }
+    
+    if (cancelBtn) {
+      cancelBtn.addEventListener('click', hidePasswordModal);
+    }
+    
+    if (backdrop) {
+      backdrop.addEventListener('click', hidePasswordModal);
+    }
+  }
+  
+  // Initialize modal on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPasswordModal);
+  } else {
+    initPasswordModal();
   }
   
   // Sections that support sub-routes
@@ -50,19 +105,8 @@
     return path;
   }
 
-  function showSection(sectionId, updateUrl = true, subItem = null){
-    // Validate section ID, default to 'home' if invalid
-    if (!validSections.includes(sectionId)) {
-      sectionId = 'home';
-    }
-    
-    // Check password for protected sections
-    if (protectedSections.includes(sectionId) && !isUnlocked()) {
-      if (!promptPassword()) {
-        return; // Don't show section if password is wrong or cancelled
-      }
-    }
-    
+  // Internal function to actually show the section (called after password check)
+  function showSectionInternal(sectionId, updateUrl = true, subItem = null){
     const sections=document.querySelectorAll('section');
     sections.forEach(sec=>sec.style.display='none');
     const target=document.getElementById(sectionId); if(target) target.style.display='';
@@ -83,6 +127,21 @@
     if (!subItem) {
       window.scrollTo(0, 0);
     }
+  }
+
+  function showSection(sectionId, updateUrl = true, subItem = null){
+    // Validate section ID, default to 'home' if invalid
+    if (!validSections.includes(sectionId)) {
+      sectionId = 'home';
+    }
+    
+    // Check password for protected sections
+    if (protectedSections.includes(sectionId) && !isUnlocked()) {
+      showPasswordModal(sectionId, subItem);
+      return; // Don't show section until password is entered
+    }
+    
+    showSectionInternal(sectionId, updateUrl, subItem);
   }
 
   // Update URL for sub-item navigation without changing section

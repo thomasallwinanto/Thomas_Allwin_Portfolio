@@ -272,6 +272,23 @@
   <!-- Defer non-critical scripts -->
   <script src="js/about.js" defer></script>
   <script src="js/modelviewer.js" defer></script>
+  <!-- Password Modal -->
+  <div id="password-modal" class="password-modal" style="display:none;">
+    <div class="password-modal-backdrop"></div>
+    <div class="password-modal-content">
+      <h2>🔒 Protected Content</h2>
+      <p>This page requires a password to view.</p>
+      <form id="password-form">
+        <input type="password" id="password-input" placeholder="Enter password" autocomplete="off" />
+        <p id="password-error" class="password-error"></p>
+        <div class="password-buttons">
+          <button type="button" id="password-cancel" class="password-btn password-btn-cancel">Cancel</button>
+          <button type="submit" class="password-btn password-btn-unlock">Unlock</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script src="js/projects.js" defer></script>
   <script src="js/blog.js" defer></script>
   <script src="js/love.js" defer></script>
