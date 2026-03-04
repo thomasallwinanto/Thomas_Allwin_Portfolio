@@ -3,6 +3,26 @@
   // Valid section IDs for routing
   const validSections = ['home', 'about', 'academic-projects', 'personal-projects', 'art-3d', 'blog', 'stuff-i-love', 'contact'];
   
+  // Password-protected sections
+  const protectedSections = ['about', 'academic-projects'];
+  const PROTECTED_PASSWORD = '&£IDHJSIJDNIQJSN';
+  const SESSION_KEY = 'portfolio_protected_unlocked';
+  
+  function isUnlocked() {
+    return sessionStorage.getItem(SESSION_KEY) === 'true';
+  }
+  
+  function promptPassword() {
+    const password = prompt('This page is protected. Enter password:');
+    if (password === PROTECTED_PASSWORD) {
+      sessionStorage.setItem(SESSION_KEY, 'true');
+      return true;
+    } else if (password !== null) {
+      alert('Incorrect password');
+    }
+    return false;
+  }
+  
   // Sections that support sub-routes
   const sectionsWithSubRoutes = {
     'blog': true,
@@ -34,6 +54,13 @@
     // Validate section ID, default to 'home' if invalid
     if (!validSections.includes(sectionId)) {
       sectionId = 'home';
+    }
+    
+    // Check password for protected sections
+    if (protectedSections.includes(sectionId) && !isUnlocked()) {
+      if (!promptPassword()) {
+        return; // Don't show section if password is wrong or cancelled
+      }
     }
     
     const sections=document.querySelectorAll('section');
