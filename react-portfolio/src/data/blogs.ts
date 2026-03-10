@@ -24,6 +24,24 @@ export const blogs = {
 
       <p>Bei gutem Wetter kann man sie in den nächsten Tagen bestimmt noch einmal live am Klavier am Kran erleben.</p>
 
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--accent);" />
+
+      <h4>English Translation</h4>
+
+      <p>Harburg – Until the end of September, ten artistically designed pianos are available for playing in Harburg. Under the motto "Play the Piano," Harburg-Marketing is bringing the Harburg city center and the inner harbor to life with music for the third time.</p>
+
+      <p>If you think that mainly children are plinking away on the instruments, you'd be very wrong: Many hobby musicians are creating amazed faces and even bigger ears with spontaneous concerts.</p>
+
+      <p>Among them are three passionate blues musicians: Thomas Allwin, Luca Luzi, and Jakob Riediger. The trio regularly comes by in good weather to take advantage of the opportunity for spontaneous jam sessions. They preferably claim the piano at the yellow crane, designed by artist Tabby.</p>
+
+      <p>The two TU students and museum educator Jakob Riediger met in a practice room at TUHH. "Now in summer and autumn, we do our jam sessions outdoors when the weather is good. So we're not a band, but we make use of the opportunities available in Harburg," says Jakob Riediger.</p>
+
+      <p>And right now, the pianos are the first choice: As long as the pianos are still there, we're often at the pianos in the harbor in the afternoon. In winter, you can catch us as a trio or solo at open-stage events in Lämmertwiete.</p>
+
+      <p>"It's just tremendous fun to play a real piano outside. And it's even more fun in a group," the three say, adding: "You also quickly notice what a magnet the pianos are. You quickly meet new people who can also play a piece or two, want to jam with us, or simply enjoy listening to live music on a sunny day."</p>
+
+      <p>In good weather, you can certainly catch them live at the piano by the crane in the coming days.</p>
+
       <p><a href="https://harburg-aktuell.de/news/vermischtes/spontane-jam-sessions-im-binnenhafen-thomas,-luca-und-jakob-begeistern-das-publikum.html" target="_blank" rel="noopener">Original Article: harburg-aktuell.de</a></p>
     `
   },
