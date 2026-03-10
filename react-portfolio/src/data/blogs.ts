@@ -1,4 +1,32 @@
 export const blogs = {
+  blog7: {
+    title: 'Spontane Jam-Sessions am Klavier: Thomas, Luca und Jakob begeistern',
+    slug: 'jam-sessions-harburg',
+    body: `
+      <div class="blog-figure">
+        <img class="blog-image" src="https://harburg-aktuell.de/images/article_new/2025/2025-09/250918Playthepiano.JPG" alt="Thomas Allwin, Luca Luzi und Jakob Riediger bei ihrer Jam-Session am Klavier" onerror="this.onerror=null;this.src='/assets/profile.jpg';this.style.opacity=0.7;" />
+        <div class="blog-image-credit">
+          <a href="https://harburg-aktuell.de/news/vermischtes/spontane-jam-sessions-im-binnenhafen-thomas,-luca-und-jakob-begeistern-das-publikum.html" target="_blank" rel="noopener">Source: harburg-aktuell.de</a>
+        </div>
+      </div>
+
+      <p>Harburg – Noch bis Ende September stehen in Harburg zehn kunstvoll gestaltete Klaviere zum Spielen bereit. Unter dem Motto „Play the Piano" bringt Harburg-Marketing zum dritten Mal die Harburger City und den Binnenhafen zum Klingen.</p>
+
+      <p>Wer jetzt denkt, dass vor allem Kinder auf den Instrumenten herumklimpern, der irrt gewaltig: Viele Hobby-Musiker sorgen mit Spontan-Konzerten für staunende Gesichter und noch größere Ohren.</p>
+
+      <p>So auch die drei passionierten Blues-Musiker Thomas Allwin, Luca Luzi und Jakob Riediger. Das Trio kommt bei gutem Wetter regelmäßig vorbei, um die Möglichkeit für spontane Jam-Sessions zu nutzen. Vorzugsweise nehmen die drei das Klavier am gelben Kran in Beschlag, das der Künstler Tabby gestaltet hat.</p>
+
+      <p>Kennengelernt haben sich die beiden TU-Studenten und der Museumspädagoge Jakob Riediger in einem Proberaum der TUHH. „Jetzt im Sommer und Herbst machen wir unsere Jamsessions bei gutem Wetter draußen. Wir sind also keine Band aber nutzen die Möglichkeiten, die es in Harburg gibt", sagt Jakob Riediger.</p>
+
+      <p>Und da sind derzeit auch die Klaviere erste Wahl: Solange die Klaviere noch stehen, sind wir oft am Nachmittag an den Klavieren im Hafen. Im Winter kann man uns im Trio oder Solo auf Open-Stage Events in der Lämmertwiete antreffen.</p>
+
+      <p>„Es macht einfach riesigen Spaß draußen an einem richtigen Klavier zu spielen. Und gerade in einer Gruppe macht es noch mehr Spaß", sagen die drei und fügen hinzu: „Man merkt auch schnell, was für ein Magnet die Klaviere sind. Man lernt schnell neue Menschen kennen, die auch das eine oder andere Stück spielen können, mit uns zusammen jammen wollen, oder es einfach genießen, an einem sonnigen Tag Livemusik zu hören."</p>
+
+      <p>Bei gutem Wetter kann man sie in den nächsten Tagen bestimmt noch einmal live am Klavier am Kran erleben.</p>
+
+      <p><a href="https://harburg-aktuell.de/news/vermischtes/spontane-jam-sessions-im-binnenhafen-thomas,-luca-und-jakob-begeistern-das-publikum.html" target="_blank" rel="noopener">Original Article: harburg-aktuell.de</a></p>
+    `
+  },
   blog3: {
     title: 'Dune',
     slug: 'dune',
@@ -56,6 +84,7 @@ export const blogs = {
 }
 
 export const blogSlugs: Record<string, string> = {
+  'jam-sessions-harburg': 'blog7',
   'true-detective': 'blog5',
   'high-plains-drifter': 'blog6',
   'dune': 'blog3'
