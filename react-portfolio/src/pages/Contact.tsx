@@ -16,7 +16,6 @@ function Contact() {
             @thomas_allwin
           </a>
         </p>
-        <p>or Send a Raven</p>
         <p>Feel free to reach out for collaborations or just to say hi!</p>
         <p>Also, the song being played is "One step ahead of the blues" by JJ Cale. All rights belong to their respective owners.</p>
       </div>
