@@ -1,11 +1,13 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import ThemeToggle from './ThemeToggle'
 import MusicPlayer from './MusicPlayer'
+import Chatbot from './Chatbot'
 
 function Layout() {
   return (
     <>
       <ThemeToggle />
+      <Chatbot />
       {/* Hidden YouTube player container */}
       <div id="yt-player" aria-hidden="true"></div>
       
