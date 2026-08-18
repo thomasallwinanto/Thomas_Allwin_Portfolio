@@ -4,6 +4,17 @@ import { loveStuff, cookingImages, wikiTitleOverrides, wikiMovieTitleOverrides }
 
 type Category = 'books' | 'movies' | 'music' | 'cooking'
 
+// Inline 70x100 grey placeholder. Replaces via.placeholder.com, which was shut down
+// and left every un-fetched thumbnail as a broken image request.
+const PLACEHOLDER_THUMB =
+  'data:image/svg+xml;utf8,' +
+  encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="100">' +
+      '<rect width="70" height="100" fill="#d4d0c8"/>' +
+      '<rect x="0.5" y="0.5" width="69" height="99" fill="none" stroke="#808080"/>' +
+    '</svg>'
+  )
+
 function slugify(str: string): string {
   return String(str).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
 }
@@ -135,7 +146,7 @@ function StuffILove() {
         <div style={{ display: 'flex', gap: '0.96rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '0.6rem' }}>
           {titles.map((title: string) => {
             const id = `${openCategory}-${slugify(title)}`
-            const thumb = thumbnails[id] || 'https://via.placeholder.com/70x100.png?text=%20'
+            const thumb = thumbnails[id] || PLACEHOLDER_THUMB
             return (
               <div key={id} className="love-item love-item--portrait">
                 <img
@@ -144,7 +155,7 @@ function StuffILove() {
                   loading="lazy"
                   decoding="async"
                   alt={title}
-                  style={thumb !== 'https://via.placeholder.com/70x100.png?text=%20' ? { background: '#fff' } : {}}
+                  style={thumb !== PLACEHOLDER_THUMB ? { background: '#fff' } : {}}
                 />
                 <div className="love-caption" title={title}>{title}</div>
               </div>

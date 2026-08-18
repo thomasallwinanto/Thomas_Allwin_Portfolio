@@ -1,18 +1,30 @@
+# Deploys the React app in react-portfolio/.
+# (The legacy vanilla site at the repo root is no longer published.)
+[build]
+  command = "cd react-portfolio && npm ci && npm run build"
+  publish = "react-portfolio/dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# The chatbot endpoint must be matched before the SPA catch-all below.
+[[redirects]]
+  from = "/api/chat"
+  to = "/.netlify/functions/chat"
+  status = 200
+  force = true
+
+# SPA fallback: every unmatched path serves the React entry point.
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-[[headers]]
-  for = "/*.css"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.js"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
+# Vite emits content-hashed filenames, so these are safe to cache forever.
 [[headers]]
   for = "/assets/*"
   [headers.values]
@@ -22,3 +34,10 @@
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"

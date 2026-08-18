@@ -12,12 +12,12 @@ param(
 )
 
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
-$assetsDir = Join-Path $root '..\assets\cooking' | Resolve-Path -Relative
+$assetsDir = Join-Path $root '..\react-portfolio\public\assets\cooking' | Resolve-Path -Relative
 $manifestPath = Join-Path $root '..\assets\cooking\index.json' | Resolve-Path -Relative
 
 function Write-Manifest {
     try {
-        $files = Get-ChildItem -Path (Join-Path $root '..\assets\cooking') -File -Include *.jpg,*.jpeg,*.png | Sort-Object Name
+        $files = Get-ChildItem -Path (Join-Path $root '..\react-portfolio\public\assets\cooking') -File -Include *.jpg,*.jpeg,*.png | Sort-Object Name
         $names = $files | ForEach-Object { $_.Name }
         $json = $names | ConvertTo-Json -Depth 1
         $outPath = Join-Path $root '..\assets\cooking\index.json'
@@ -33,7 +33,7 @@ Write-Manifest
 if($Watch){
     Write-Host "[watch-cooking] Watching assets/cooking for changes. Press Ctrl+C to stop."
     $fsw = New-Object System.IO.FileSystemWatcher
-    $fsw.Path = (Join-Path $root '..\assets\cooking')
+    $fsw.Path = (Join-Path $root '..\react-portfolio\public\assets\cooking')
     $fsw.Filter = '*.*'
     $fsw.IncludeSubdirectories = $false
     $fsw.EnableRaisingEvents = $true

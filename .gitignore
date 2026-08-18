@@ -1,0 +1,20 @@
+# Dependencies / build output
+node_modules/
+dist/
+.netlify/
+
+# Local env — never commit API keys
+.env
+.env.*
+!.env.example
+
+# Personal documents (keep out of a public repo)
+*.odt
+US_VISA_PHOTO.*
+*_VISA_*
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
