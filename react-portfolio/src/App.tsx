@@ -2,7 +2,6 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import About from './pages/About'
-import Projects from './pages/Projects'
 import PersonalProjects from './pages/PersonalProjects'
 import Art3D from './pages/Art3D'
 import Blog from './pages/Blog'
@@ -15,9 +14,9 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
-        <Route path="projects" element={<Projects />} />
-        {/* Old path, kept so existing links and bookmarks still resolve. */}
-        <Route path="academic-projects" element={<Navigate to="/projects" replace />} />
+        {/* Projects now live inside the About page; old links still resolve. */}
+        <Route path="projects" element={<Navigate to="/about#cv-projects" replace />} />
+        <Route path="academic-projects" element={<Navigate to="/about#cv-projects" replace />} />
         <Route path="personal-projects" element={<PersonalProjects />} />
         <Route path="art" element={<Art3D />} />
         <Route path="blog" element={<Blog />} />

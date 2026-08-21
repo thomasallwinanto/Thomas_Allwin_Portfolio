@@ -17,7 +17,7 @@ function Layout() {
             <li><NavLink to="/" end className={({ isActive }) => `nav-btn ${isActive ? 'active' : ''}`}>Home</NavLink></li>
             <li><NavLink to="/about" className={({ isActive }) => `nav-btn ${isActive ? 'active' : ''}`}>About Me</NavLink></li>
             {/* Nested beneath About Me — rendered as a smaller, indented sub-item. */}
-            <li className="nav-sub"><NavLink to="/projects" className={({ isActive }) => `nav-btn nav-btn--sub ${isActive ? 'active' : ''}`}>Projects</NavLink></li>
+            <li className="nav-sub"><NavLink to="/about#cv-projects" className={({ isActive }) => `nav-btn nav-btn--sub ${isActive ? 'active' : ''}`}>Projects</NavLink></li>
             <li><NavLink to="/personal-projects" className={({ isActive }) => `nav-btn ${isActive ? 'active' : ''}`}>Personal Projects</NavLink></li>
             <li><NavLink to="/art" className={({ isActive }) => `nav-btn ${isActive ? 'active' : ''}`}>Art Projects</NavLink></li>
             <li><NavLink to="/blog" className={({ isActive }) => `nav-btn ${isActive ? 'active' : ''}`}>Blogs/Reviews</NavLink></li>

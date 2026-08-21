@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import ProjectsSection from '../components/ProjectsSection'
 
 interface CvItemProps {
   dates: string
@@ -48,6 +50,15 @@ function CvItem({ dates, role, entity, link, location, bullets, note }: CvItemPr
 }
 
 function About() {
+  const { hash, key } = useLocation()
+
+  // Links such as /about#cv-projects should land on the right section.
+  useEffect(() => {
+    if (!hash) return
+    const target = document.querySelector(hash)
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [hash, key])
+
   return (
     <section id="about">
       <div className="container">
@@ -143,6 +154,8 @@ function About() {
             </li>
           </ul>
         </div>
+
+        <ProjectsSection />
 
       </div>
     </section>
