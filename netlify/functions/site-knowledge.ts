@@ -58,7 +58,15 @@ Bangalore Metro Rail Corporation Limited — Bangalore, India
   (moved to Germany in 2024 to pursue this).
 - Bachelor's in Electrical and Electronics Engineering, India (graduated 2021).
 
-# Academic projects
+# Projects
+
+## 3D Mesh to Particles simulation (February 2026)
+- Developed and documented a Python/C software bridge to convert complex data into
+  binary protocols, ensuring seamless integration between high-level simulations and
+  embedded hardware.
+- Implemented a multi-device tracking system using unique hardware IDs to maintain
+  data integrity and address mapping across the internal process communication
+  architecture.
 
 ## Two Wire AC Distribution System (Jan 2021 – Jul 2021)
 - Designed a low-cost two-wire AC distribution system enabling isolated power
@@ -89,7 +97,7 @@ Bangalore Metro Rail Corporation Limited — Bangalore, India
 This site. Built with GitHub Copilot, VS Code and other tools; now a React + TypeScript
 + Vite app deployed on Netlify. Still being learned and optimised.
 
-## Guild and Company
+## Band
 A collaborative music and creative project in Hamburg exploring blues plus 70s and 80s
 rock. Tom leans towards blues, drawing on Eric Clapton and Stevie Ray Vaughan. He plays
 a Telecaster strung with 10-gauge strings and is experimenting with wah pedals.
@@ -127,9 +135,8 @@ Cooking: there is a photo gallery of Tom's cooking on the "Stuff I Love" page.
 
 # About this website
 
-Sections: Home, About Me, Academic Projects, Personal Projects, Art Projects,
-Blogs/Reviews, Stuff I Love, Contact. There is a light/dark theme toggle and a
-background music player (the track is "One Step Ahead of the Blues" by JJ Cale — all
-rights belong to the respective owners). The About Me and Academic Projects pages are
-password-gated.
+Sections: Home, About Me (with Projects nested beneath it), Personal Projects,
+Art Projects, Blogs/Reviews, Stuff I Love, Contact. There is a light/dark theme toggle
+and a background music player (the track is "One Step Ahead of the Blues" by JJ Cale —
+all rights belong to the respective owners). Every page is open; nothing is gated.
 `.trim()

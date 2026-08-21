@@ -1,4 +1,12 @@
-export const academicProjects = {
+export const projects = {
+  meshToParticles: {
+    title: '3D Mesh to Particles simulation',
+    period: 'February 2026',
+    points: [
+      'Developed and documented a Python/C software bridge to convert complex data into binary protocols, ensuring seamless integration between high-level simulations and embedded hardware.',
+      'Implemented a multi-device tracking system using unique hardware IDs to maintain data integrity and address mapping across the internal process communication architecture.'
+    ]
+  },
   twoWire: {
     title: 'Two Wire AC Distribution System',
     period: '01/2021 – 07/2021',
@@ -34,7 +42,7 @@ export const personalProjects = {
     desc: "This website. I know, the project in a project. I used github copilot, VS code and other softwares to build this site. I am still learning and exploring this domain and figuring out ways to optimise this site, finding cleaner, healthier ways to code. Need to explore react and much more... :)"
   },
   guild: {
-    title: 'Guild and Company',
+    title: 'Band',
     desc: "I'm part of a collaborative music and creative project in Hamburg where we explore Blues plus 70s and 80s rock. I personally tilt towards the blues, drawing inspiration from Eric Clapton and Stevie Ray Vaughan. I play a Telecaster strung with 10 gauge strings because I find it versatile, simple, and clean, and I'm currently experimenting with wah pedals to play a few tracks and learn more. Follow us on IG: <a href='https://www.instagram.com/guildband/' target='_blank' style='color:#00bcd4; text-decoration:underline;'>[@guildband]</a>.",
     images: ['/assets/Tom_Guitar.jpg', '/assets/guild.jpg']
   },
