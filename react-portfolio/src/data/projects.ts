@@ -44,7 +44,7 @@ export const personalProjects = {
   guild: {
     title: 'Band',
     desc: "I'm part of a collaborative music and creative project in Hamburg where we explore Blues plus 70s and 80s rock. I personally tilt towards the blues, drawing inspiration from Eric Clapton and Stevie Ray Vaughan. I used to play a Telecaster strung with 10 gauge strings because I found it versatile, simple, and clean. Now I play a strat with 9 gauge strings. Will be trying on 13 gauge strings later. Follow us on IG: <a href='https://www.instagram.com/guildband/' target='_blank' style='color:#00bcd4; text-decoration:underline;'>[@guildband]</a>.",
-    images: ['/assets/Tom_Guitar.jpg', '/assets/guild.jpg']
+    images: ['/assets/Tom_Guitar.jpg', '/assets/guild-strat.jpg']
   },
   imaginary: {
     title: 'Imaginary Axis',
