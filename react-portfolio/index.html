@@ -4,11 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tom's Site</title>
+    <meta name="description" content="Portfolio of Thomas Allwin — embedded systems engineer: CV, projects, personal projects, 3D art, blogs and reviews." />
+    <meta name="theme-color" content="#00bcd4" />
+    <link rel="icon" href="/vite.svg" type="image/svg+xml" />
+    <!-- Largest element on the landing page; fetch it alongside the JS, not after it. -->
+    <link rel="preload" as="image" href="/assets/profile.jpg" />
     <!-- Resource hints to speed up first YouTube interaction on mobile -->
     <link rel="preconnect" href="https://www.youtube.com" crossorigin>
-    <link rel="preconnect" href="https://www.google.com" crossorigin>
     <link rel="dns-prefetch" href="//www.youtube.com">
-    <link rel="dns-prefetch" href="//www.google.com">
+    <!-- Wikipedia serves the Stuff I Love thumbnails -->
+    <link rel="dns-prefetch" href="//en.wikipedia.org">
+    <link rel="dns-prefetch" href="//upload.wikimedia.org">
   </head>
   <body>
     <div id="root"></div>

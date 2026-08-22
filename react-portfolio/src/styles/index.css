@@ -114,9 +114,6 @@ h2 { font-size:2.2rem; text-align:center; border-bottom:2.5px solid #0097a7; pad
 #main-model-viewer { width:100%; height:400px; background:none; border:none; }
 @media (max-width:600px){ #main-model-viewer { width:98vw !important; height:220px !important; } }
 
-/* Academic Projects spacing */
-#projects .academic-intro { margin-bottom: 1rem; }
-
 /* CV (About) */
 .cv-section { margin:1.2rem 0 1.4rem; }
 .cv-section h3 { margin:0 0 0.6rem; font-size:1.25rem; color:#0097a7; text-decoration: underline; text-decoration-color:#0097a7; text-underline-offset: 3px; }
@@ -154,8 +151,10 @@ h2 { font-size:2.2rem; text-align:center; border-bottom:2.5px solid #0097a7; pad
 
 /* Justify descriptions under Profile, Professional Experience, and Organisations */
 #about .cv-section p { text-align: justify; }
-#cv-experience .cv-bullets { list-style-position: outside; margin: 0.4rem 0 0 0; padding-left: 0.6rem; }
-#cv-experience .cv-bullets li { text-align: justify; }
+#cv-experience .cv-bullets,
+#cv-projects .cv-bullets { list-style-position: outside; margin: 0.4rem 0 0 0; padding-left: 0.6rem; }
+#cv-experience .cv-bullets li,
+#cv-projects .cv-bullets li { text-align: justify; }
 #cv-organisations .cv-note { text-align: justify; }
 
 body.dark-mode .cv-item { border:1px solid rgba(255,255,255,.18); background:#242323; }
@@ -168,19 +167,24 @@ body.dark-mode .cv-link:hover { color:#8ae9f5; }
 body.dark-mode .cv-link-icon { color:#56d9e9; }
 body.dark-mode .cv-link-icon:hover { color:#8ae9f5; }
 
-/* Collapsible CV items (Professional Experience & Organisations) */
+/* Collapsible CV items (Professional Experience, Organisations & Projects) */
 #cv-experience .cv-item-header,
-#cv-organisations .cv-item-header { cursor:pointer; position:relative; padding-right:1.2rem; }
+#cv-organisations .cv-item-header,
+#cv-projects .cv-item-header { cursor:pointer; position:relative; padding-right:1.2rem; }
 #cv-experience .cv-item-header::after,
-#cv-organisations .cv-item-header::after { content:'▸'; position:absolute; right:0.4rem; top:50%; transform:translateY(-50%) rotate(0deg); color:#0097a7; transition:transform .18s; }
+#cv-organisations .cv-item-header::after,
+#cv-projects .cv-item-header::after { content:'▸'; position:absolute; right:0.4rem; top:50%; transform:translateY(-50%) rotate(0deg); color:#0097a7; transition:transform .18s; }
 #cv-experience .cv-item.expanded .cv-item-header::after,
-#cv-organisations .cv-item.expanded .cv-item-header::after { transform:translateY(-50%) rotate(90deg); }
+#cv-organisations .cv-item.expanded .cv-item-header::after,
+#cv-projects .cv-item.expanded .cv-item-header::after { transform:translateY(-50%) rotate(90deg); }
 body.dark-mode #cv-experience .cv-item-header::after,
-body.dark-mode #cv-organisations .cv-item-header::after { color:#56d9e9; }
-#cv-experience .cv-item:hover, #cv-organisations .cv-item:hover { background:#f9fdfe; border-color:#00bcd4; }
-body.dark-mode #cv-experience .cv-item:hover, body.dark-mode #cv-organisations .cv-item:hover { background:#2e2d2d; border-color:#56d9e9; }
-#cv-experience .cv-bullets { display:none; }
-#cv-experience .cv-item.expanded .cv-bullets { display:block; }
+body.dark-mode #cv-organisations .cv-item-header::after,
+body.dark-mode #cv-projects .cv-item-header::after { color:#56d9e9; }
+#cv-experience .cv-item:hover, #cv-organisations .cv-item:hover, #cv-projects .cv-item:hover { background:#f9fdfe; border-color:#00bcd4; }
+body.dark-mode #cv-experience .cv-item:hover, body.dark-mode #cv-organisations .cv-item:hover, body.dark-mode #cv-projects .cv-item:hover { background:#2e2d2d; border-color:#56d9e9; }
+#cv-experience .cv-bullets, #cv-projects .cv-bullets { display:none; }
+#cv-experience .cv-item.expanded .cv-bullets,
+#cv-projects .cv-item.expanded .cv-bullets { display:block; }
 #cv-organisations .cv-note { display:none; }
 #cv-organisations .cv-item.expanded .cv-note { display:block; }
 .cv-hint { font-size:0.9rem; color:#666; margin:0.2rem 0 0.4rem; text-align:left; }

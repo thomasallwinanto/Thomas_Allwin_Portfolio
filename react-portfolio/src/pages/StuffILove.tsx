@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { loveStuff, cookingImages, wikiTitleOverrides, wikiMovieTitleOverrides } from '../data/love'
 
@@ -32,11 +32,31 @@ async function fetchWikiThumb(title: string): Promise<string | null> {
   }
 }
 
+// Thumbnails survive navigation within a tab, so re-opening a category costs no
+// network calls. Storage can throw (private mode, blocked site data) — never fatal.
+const THUMB_CACHE_KEY = 'love-thumbs-v1'
+
+function readThumbCache(): Record<string, string> {
+  try {
+    return JSON.parse(sessionStorage.getItem(THUMB_CACHE_KEY) || '{}')
+  } catch {
+    return {}
+  }
+}
+
+function cacheThumbs(found: Record<string, string>) {
+  try {
+    sessionStorage.setItem(THUMB_CACHE_KEY, JSON.stringify({ ...readThumbCache(), ...found }))
+  } catch {
+    /* cache is a nicety, not a requirement */
+  }
+}
+
 function StuffILove() {
   const { category: urlCategory } = useParams()
   const navigate = useNavigate()
   const [openCategory, setOpenCategory] = useState<Category | null>(null)
-  const [thumbnails, setThumbnails] = useState<Record<string, string>>({})
+  const [thumbnails, setThumbnails] = useState<Record<string, string>>(readThumbCache)
 
   useEffect(() => {
     if (urlCategory && ['books', 'movies', 'music', 'cooking'].includes(urlCategory)) {
@@ -54,6 +74,9 @@ function StuffILove() {
     }
   }
 
+  // Ids already requested this session, so re-renders never refetch the same title.
+  const requestedRef = useRef<Set<string>>(new Set(Object.keys(thumbnails)))
+
   // Fetch thumbnails for books, movies, music
   const fetchThumbnails = useCallback(async (category: Category) => {
     if (category === 'cooking') return
@@ -67,9 +90,14 @@ function StuffILove() {
       return item.trim()
     })
 
-    for (const title of titles) {
+    const pending = titles.filter((title) => !requestedRef.current.has(`${category}-${slugify(title)}`))
+    if (pending.length === 0) return
+    pending.forEach((title) => requestedRef.current.add(`${category}-${slugify(title)}`))
+
+    // Wikipedia lookups run concurrently; the old serial loop made one round trip
+    // per title and restarted itself on every state update.
+    const results = await Promise.all(pending.map(async (title) => {
       const id = `${category}-${slugify(title)}`
-      if (thumbnails[id]) continue
 
       let query = title
       if (category === 'movies' && wikiMovieTitleOverrides[title]) {
@@ -79,7 +107,7 @@ function StuffILove() {
       }
 
       let url = await fetchWikiThumb(query)
-      
+
       // Try fallbacks
       if (!url && category === 'books') {
         url = await fetchWikiThumb(`${title} (novel)`)
@@ -93,11 +121,20 @@ function StuffILove() {
         if (!url) url = await fetchWikiThumb(`${query} (band)`)
       }
 
-      if (url) {
-        setThumbnails(prev => ({ ...prev, [id]: url! }))
-      }
+      // Let a later visit retry anything that came back empty.
+      if (!url) requestedRef.current.delete(id)
+      return [id, url] as const
+    }))
+
+    const found: Record<string, string> = {}
+    for (const [id, url] of results) {
+      if (url) found[id] = url
     }
-  }, [thumbnails])
+    if (Object.keys(found).length > 0) {
+      setThumbnails(prev => ({ ...prev, ...found }))
+      cacheThumbs(found)
+    }
+  }, [])
 
   useEffect(() => {
     if (openCategory && openCategory !== 'cooking') {

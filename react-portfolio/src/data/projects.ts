@@ -1,7 +1,7 @@
 export const projects = {
   meshToParticles: {
     title: '3D Mesh to Particles simulation',
-    period: 'February 2026',
+    period: 'Feb/2026',
     points: [
       'Developed and documented a Python/C software bridge to convert complex data into binary protocols, ensuring seamless integration between high-level simulations and embedded hardware.',
       'Implemented a multi-device tracking system using unique hardware IDs to maintain data integrity and address mapping across the internal process communication architecture.'
@@ -9,7 +9,7 @@ export const projects = {
   },
   twoWire: {
     title: 'Two Wire AC Distribution System',
-    period: '01/2021 – 07/2021',
+    period: 'Jan/2021 – Jul/2021',
     points: [
       'Designed a low-cost two-wire AC distribution system enabling isolated power extension for domestic households.',
       'Addressed excessive energy losses and high billing caused by conventional distribution methods.',
@@ -18,7 +18,7 @@ export const projects = {
   },
   transformer: {
     title: 'Transformer Failure Notifier',
-    period: '01/2020 – 06/2020',
+    period: 'Jan/2020 – Jun/2020',
     points: [
       'Developed a GSM-based wireless notification system using Arduino Uno to alert grid authorities of transformer failures.',
       'Enabled real-time fault location detection with transformer ID tagging, reducing downtime by 30% and manual tracing.',
@@ -27,7 +27,7 @@ export const projects = {
   },
   isolated: {
     title: 'Isolated Extension Supply',
-    period: '01/2019 – 06/2019',
+    period: 'Jan/2019 – Jun/2019',
     points: [
       'Engineered a novel device for safe handling of live AC wires by converting Phase/Neutral to 2-phase input.',
       'Eliminated electrocution risk by isolating ground paths and redesigning current flow through phase-phase methodology.',
@@ -43,7 +43,7 @@ export const personalProjects = {
   },
   guild: {
     title: 'Band',
-    desc: "I'm part of a collaborative music and creative project in Hamburg where we explore Blues plus 70s and 80s rock. I personally tilt towards the blues, drawing inspiration from Eric Clapton and Stevie Ray Vaughan. I play a Telecaster strung with 10 gauge strings because I find it versatile, simple, and clean, and I'm currently experimenting with wah pedals to play a few tracks and learn more. Follow us on IG: <a href='https://www.instagram.com/guildband/' target='_blank' style='color:#00bcd4; text-decoration:underline;'>[@guildband]</a>.",
+    desc: "I'm part of a collaborative music and creative project in Hamburg where we explore Blues plus 70s and 80s rock. I personally tilt towards the blues, drawing inspiration from Eric Clapton and Stevie Ray Vaughan. I used to play a Telecaster strung with 10 gauge strings because I found it versatile, simple, and clean. Now I play a strat with 9 gauge strings. Will be trying on 13 gauge strings later. Follow us on IG: <a href='https://www.instagram.com/guildband/' target='_blank' style='color:#00bcd4; text-decoration:underline;'>[@guildband]</a>.",
     images: ['/assets/Tom_Guitar.jpg', '/assets/guild.jpg']
   },
   imaginary: {

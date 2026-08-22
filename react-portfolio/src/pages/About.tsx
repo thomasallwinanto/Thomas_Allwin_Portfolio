@@ -1,53 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import CvItem from '../components/CvItem'
 import ProjectsSection from '../components/ProjectsSection'
-
-interface CvItemProps {
-  dates: string
-  role: string
-  entity: string
-  link?: string
-  location: string
-  bullets?: string[]
-  note?: string
-}
-
-function CvItem({ dates, role, entity, link, location, bullets, note }: CvItemProps) {
-  const [expanded, setExpanded] = useState(false)
-  const hasExpandable = bullets || note
-
-  return (
-    <li>
-      <div className={`cv-item ${expanded ? 'expanded' : ''}`}>
-        <div 
-          className="cv-item-header"
-          role={hasExpandable ? "button" : undefined}
-          tabIndex={hasExpandable ? 0 : undefined}
-          aria-expanded={hasExpandable ? expanded : undefined}
-          onClick={() => hasExpandable && setExpanded(!expanded)}
-          onKeyPress={(e) => { if ((e.key === 'Enter' || e.key === ' ') && hasExpandable) { e.preventDefault(); setExpanded(!expanded); }}}
-        >
-          <div className="cv-line cv-line-1">
-            <span className="cv-dates">{dates}:</span> <span className="cv-role">{role}</span>
-          </div>
-          <div className="cv-line cv-line-2">
-            <span className="cv-entity">{entity}</span>
-            {link && <a className="cv-link-icon" href={link} target="_blank" rel="noopener" aria-label={`Open ${entity} in new tab`}>↗</a>}
-            <span className="cv-location">| {location}</span>
-          </div>
-        </div>
-        {bullets && expanded && (
-          <ul className="cv-bullets">
-            {bullets.map((b, i) => <li key={i}>{b}</li>)}
-          </ul>
-        )}
-        {note && expanded && (
-          <div className="cv-note">{note}</div>
-        )}
-      </div>
-    </li>
-  )
-}
 
 function About() {
   const { hash, key } = useLocation()
