@@ -20,11 +20,7 @@ Contact:
 
 # Profile
 
-Master's student and Embedded Systems Engineer with expertise in ECU development,
-CAN communication, and AUTOSAR integration. Skilled in SDLC, V-Model, and
-ASPICE/MISRA-compliant workflows, with hands-on experience in automotive tools and
-physical systems. Passionate about innovation, sustainability, and next-generation
-technologies.
+Embedded software engineer and M.Sc. student in Microelectronics & Microsystems (Embedded Systems) at TU Hamburg, with a B.E. in Electrical and Electronics Engineering and 3 years at Bosch Global Software Technologies (Powertrain Solutions). At Bosch I developed and validated 20+ ECU communication and diagnostic functions (AUTOSAR Classic, CAN, LIN, UDS) in embedded C, tested them on HiL benches with 95%+ code coverage, kept 200+ requirements traceable in IBM DOORS/DNG, kept the team’s Jenkins CI builds green, and delivered MISRA-compliant software under V-Model, ASPICE and ISO 26262 with every customer audit passed. As a research assistant at TU Hamburg I build Python data tools: 3D VOX Studio turns CAD models into simulation datasets of up to 11.3 M points in under 60 s. I also work on navigation, LiDAR data and Bayesian optimisation for the LEO Rover. With TUHH and AStA colleagues I developed a RAG chatbot that answers students in minutes instead of about two days. I build software end to end with AI coding assistants (Claude, GitHub Copilot), check results against ground truth, and explain technical work clearly: my 10+ training manuals and videos cut onboarding time by 35%. Certified in wind energy, power systems, battery management, IoT and project management.
 
 # Professional experience
 
