@@ -78,7 +78,8 @@ export const personalProjects = {
   },
   imaginary: {
     title: 'Imaginary Axis',
-    desc: "My 3D art project created during lockdown using Paint 3D. See more in the Art Projects section."
+    desc: "My 3D art project created during lockdown using Paint 3D. See more in the Art Projects section.",
+    images: ['/assets/imaginary_axis_workspace.jpg']
   },
   architecture: {
     title: 'Architecture',

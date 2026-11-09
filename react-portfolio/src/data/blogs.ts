@@ -4,7 +4,7 @@ export const blogs = {
     slug: 'jam-sessions-harburg',
     body: `
       <div class="blog-figure">
-        <img class="blog-image" src="https://harburg-aktuell.de/images/article_new/2025/2025-09/250918Playthepiano.JPG" alt="Thomas Allwin, Luca Luzi und Jakob Riediger bei ihrer Jam-Session am Klavier" onerror="this.onerror=null;this.src='/assets/profile.jpg';this.style.opacity=0.7;" />
+        <img class="blog-image" src="/assets/jam_session_harburg.jpg" alt="Thomas Allwin, Luca Luzi und Jakob Riediger bei ihrer Jam-Session am Klavier im Harburger Binnenhafen" loading="lazy" decoding="async" />
         <div class="blog-image-credit">
           <a href="https://harburg-aktuell.de/news/vermischtes/spontane-jam-sessions-im-binnenhafen-thomas,-luca-und-jakob-begeistern-das-publikum.html" target="_blank" rel="noopener">Source: harburg-aktuell.de</a>
         </div>
@@ -46,9 +46,9 @@ export const blogs = {
     `
   },
   blog3: {
-    title: 'Dune',
+    title: 'Dune: Thinking Machines, Complex Politics and Spice ',
     slug: 'dune',
-    body: '<p>Might be one of the greatest sci-fi movies of the 21st century. I want to write more. But later</p>'
+    body: '<p>This is a review of the books Dune, Dune Messiah and the fourth book in the series, God Emperor of Dune. I have been trying to forumulate and write about these complex boxes and the way it connects to our modern day, 21st centrury activites and events. The present keeps surprising me, the past keeps taunting me and the future keeps challenging me. Just like the books, it is too hard and exhausting to write about it. But it is on the way and I want to make it perfect. Maybe I will write the whole thing after I watch Dune 3 in the theateres. Till then, good bye.</p>'
   },
   blog5: {
     title: 'Rust, Dust and Snow : True Detective',

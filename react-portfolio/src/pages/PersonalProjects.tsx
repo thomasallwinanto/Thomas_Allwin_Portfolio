@@ -13,7 +13,9 @@ function PersonalProjects() {
 
   const renderProjectContent = (key: ProjectKey) => {
     const project = personalProjects[key]
-    const isLargeImages = key === 'guild' || key === 'architecture' || key === 'vox' || key === 'nfcSimulator'
+    const isLargeImages = key === 'guild' || key === 'architecture' || key === 'vox' || key === 'nfcSimulator' || key === 'imaginary'
+    // Portrait shots would fill the whole screen at full width, so cap them.
+    const largeImageMaxWidth = key === 'imaginary' ? 'min(100%, 520px)' : '100%'
     
     return (
       <div id="project-details" style={{ display: 'block' }}>
@@ -79,7 +81,7 @@ function PersonalProjects() {
                 loading="lazy" 
                 decoding="async" 
                 alt="" 
-                style={isLargeImages ? { maxWidth: '100%', height: 'auto', margin: '0.5rem' } : { width: '120px', height: 'auto', margin: '0.5rem' }}
+                style={isLargeImages ? { maxWidth: largeImageMaxWidth, height: 'auto', margin: '0.5rem' } : { width: '120px', height: 'auto', margin: '0.5rem' }}
               />
             ))}
           </div>
