@@ -47,6 +47,29 @@ function PersonalProjects() {
             </a>
           </p>
         )}
+        {'apps' in project && project.apps && (
+          <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap', margin: '0.4rem 0 0.8rem' }}>
+            {project.apps.map((app) => (
+              <a
+                key={app.url}
+                href={app.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-block',
+                  padding: '0.5rem 1rem',
+                  border: '1px solid #00bcd4',
+                  borderRadius: '6px',
+                  color: '#00bcd4',
+                  textDecoration: 'none',
+                  fontWeight: 600
+                }}
+              >
+                {app.label} ↗
+              </a>
+            ))}
+          </div>
+        )}
         {'images' in project && project.images && (
           <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap' }}>
             {project.images.map((img, i) => (

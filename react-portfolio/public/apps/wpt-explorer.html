@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wireless Power Transfer Explorer</title>
+<style>
+:root{--cy:#00A6BE;--pu:#7300FE;--or:#FF7E15;--dk:#265D71;--red:#FF4F4F;--ink:#1f2a2e;--mut:#6b7b81;--line:#dbe7ea;}
+*{box-sizing:border-box;}
+body{margin:0;font-family:"Segoe UI",Calibri,Arial,sans-serif;color:var(--ink);background:#f5f9fa;padding:18px;}
+header{max-width:1120px;margin-bottom:14px;}
+header h1{font-size:22px;margin:0 0 2px;color:var(--dk);font-weight:700;}
+header p{font-size:13px;color:var(--mut);margin:0 0 12px;}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:1120px;}
+.tab{padding:10px 12px;border:2px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;text-align:left;font:inherit;color:var(--dk);}
+.tab b{display:block;font-size:15px;}
+.tab small{display:block;font-size:11px;color:var(--mut);margin-top:2px;}
+.tab.active{border-color:var(--cy);background:#e6f7fa;}
+.tab:focus-visible{outline:2px solid var(--pu);outline-offset:2px;}
+section{display:none;max-width:1120px;}
+section.active{display:block;}
+h2{font-size:18px;margin:16px 0 2px;color:var(--dk);font-weight:600;}
+.sub{font-size:13px;color:var(--mut);margin:0 0 14px;}
+.wrap{display:grid;grid-template-columns:310px 1fr;gap:16px;}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0;}
+.btns{display:grid;gap:8px;margin-bottom:14px;}
+.btns.c2{grid-template-columns:1fr 1fr;}
+.btns.c3{grid-template-columns:1fr 1fr 1fr;gap:6px;}
+.bt{padding:10px;border:2px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;font-weight:600;color:var(--dk);font-size:15px;}
+.btns.c3 .bt{padding:8px 4px;font-size:12px;}
+.bt.active{border-color:var(--cy);background:#e6f7fa;}
+.bt small{display:block;font-weight:400;font-size:10.5px;color:var(--mut);margin-top:2px;}
+.ctrl{margin-bottom:14px;}
+.ctrl label{display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:var(--dk);margin-bottom:5px;}
+.ctrl label span{color:var(--pu);font-variant-numeric:tabular-nums;}
+input[type=range]{width:100%;accent-color:var(--cy);}
+.hint{font-size:11px;color:var(--mut);margin-top:2px;}
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;}
+.stat{background:#f2fafb;border-radius:10px;padding:9px 11px;}
+.stat .lbl{font-size:11px;color:var(--mut);}
+.stat .val{font-size:20px;font-weight:600;color:var(--dk);font-variant-numeric:tabular-nums;}
+.stat .val small{font-size:11px;color:var(--mut);font-weight:400;}
+.badge{display:inline-block;font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:20px;margin-bottom:10px;}
+canvas{width:100%;border-radius:8px;display:block;}
+.cap{font-size:11px;color:var(--mut);margin:4px 0 12px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.note{font-size:11px;color:var(--mut);line-height:1.55;border-top:1px solid var(--line);padding-top:9px;margin-top:4px;}
+.note b{color:var(--dk);}
+@media(max-width:860px){body{padding:16px;}.wrap,.row2{grid-template-columns:1fr;}.tabs{grid-template-columns:1fr;}.stats{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Wireless Power Transfer Explorer</h1>
+  <p>Pick what to check: coil coupling and efficiency, compensation topology, or the VNA S-parameter view of the link.</p>
+  <nav class="tabs" role="tablist">
+    <button class="tab" role="tab" data-tab="coupling"><b>Coupling &amp; Efficiency</b><small>gap, offset, tilt &#8594; k, &#951;, frequency split</small></button>
+    <button class="tab" role="tab" data-tab="compensation"><b>Compensation Topology</b><small>SS / SP / PS / PP output behaviour</small></button>
+    <button class="tab" role="tab" data-tab="vna"><b>VNA S-Parameters</b><small>S&#8321;&#8321; / S&#8322;&#8321; trace, extract k from the split</small></button>
+  </nav>
+</header>
+
+<!-- ================= COUPLING ================= -->
+<section id="coupling" role="tabpanel">
+  <h2>Coupling &amp; Efficiency Simulator</h2>
+  <p class="sub">Two circular coils (Tx R=15&nbsp;cm, Rx R=10&nbsp;cm) · coupling k from the Neumann mutual-inductance integral · efficiency from the figure of merit k·Q · response |S₂₁| from the coupled-circuit model, f₀ = 85&nbsp;kHz</p>
+  <div class="wrap">
+    <div class="card">
+      <div class="ctrl"><label>Air gap (vertical) <span id="cu-vGap">120 mm</span></label>
+        <input id="cu-gap" type="range" min="50" max="300" value="120" step="2"><div class="hint">distance between the pads</div></div>
+      <div class="ctrl"><label>Lateral offset <span id="cu-vOff">0 mm</span></label>
+        <input id="cu-off" type="range" min="0" max="200" value="0" step="2"><div class="hint">horizontal parking error</div></div>
+      <div class="ctrl"><label>Angular tilt <span id="cu-vAng">0°</span></label>
+        <input id="cu-ang" type="range" min="0" max="45" value="0" step="1"><div class="hint">receiver pad rotation</div></div>
+      <div class="ctrl"><label>Coil quality factor Q <span id="cu-vQ">200</span></label>
+        <input id="cu-q" type="range" min="50" max="400" value="200" step="5"><div class="hint">higher Q = lower loss, sharper resonance</div></div>
+      <div class="note"><b>How it works:</b> k = M/√(L₁L₂). Maximum efficiency η = U²/(1+√(1+U²))² with U = k·Q. Critical coupling k_crit ≈ 1/Q.</div>
+    </div>
+    <div class="card">
+      <div class="stats">
+        <div class="stat"><div class="lbl">Coupling k</div><div class="val" id="cu-oK">–</div></div>
+        <div class="stat"><div class="lbl">Figure of merit k·Q</div><div class="val" id="cu-oU">–</div></div>
+        <div class="stat"><div class="lbl">Max efficiency η</div><div class="val" id="cu-oEff">–</div></div>
+        <div class="stat"><div class="lbl">Mutual inductance M</div><div class="val" id="cu-oM">–</div></div>
+        <div class="stat"><div class="lbl">Split f₋ / f₊</div><div class="val" id="cu-oF" style="font-size:15px">–</div></div>
+        <div class="stat"><div class="lbl">Regime</div><div class="val" id="cu-oReg" style="font-size:14px">–</div></div>
+      </div>
+      <div id="cu-badge" class="badge"></div>
+      <div class="row2">
+        <div><canvas id="cu-geo" width="440" height="300"></canvas>
+          <div class="cap">Side view: transmitter (bottom) and receiver (top). Flux-line density hints at coupling strength.</div></div>
+        <div><canvas id="cu-resp" width="440" height="300"></canvas>
+          <div class="cap">Frequency response |S₂₁| (circuit model). Orange line = fixed 85 kHz drive. Peak splits only past critical coupling.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPENSATION ================= -->
+<section id="compensation" role="tabpanel">
+  <h2>Compensation Topology Explorer</h2>
+  <p class="sub">See how the capacitor arrangement (SS / SP / PS / PP) changes the output. S = capacitor in series with the coil, P = in parallel. 1st letter = primary, 2nd = secondary.</p>
+  <div class="wrap">
+    <div class="card">
+      <div class="btns c2" id="cp-topo">
+        <div class="bt active" data-t="SS">SS<small>series · series</small></div>
+        <div class="bt" data-t="SP">SP<small>series · parallel</small></div>
+        <div class="bt" data-t="PS">PS<small>parallel · series</small></div>
+        <div class="bt" data-t="PP">PP<small>parallel · parallel</small></div>
+      </div>
+      <div class="ctrl"><label>Coupling k (misalignment) <span id="cp-vK">0.20</span></label>
+        <input id="cp-k" type="range" min="0.05" max="0.40" step="0.01" value="0.20"><div class="hint">lower k = more misaligned</div></div>
+      <div class="ctrl"><label>Load resistance R_L <span id="cp-vRL">20 &#937;</span></label>
+        <input id="cp-rl" type="range" min="2" max="50" step="1" value="20"><div class="hint">the battery/load</div></div>
+      <div class="ctrl"><label>Frequency f <span id="cp-vF">85.0 kHz</span></label>
+        <input id="cp-f" type="range" min="70" max="100" step="0.5" value="85"><div class="hint">85 kHz = tuned</div></div>
+      <div class="note">Fixed: L1=L2=100 &#181;H &#183; R1=R2=0.3 &#937; &#183; Vin=100 V &#183; f0=85 kHz. Cp, Cs auto-tuned to resonance for the chosen topology.</div>
+    </div>
+    <div class="card">
+      <div id="cp-badge" class="badge"></div>
+      <div class="stats">
+        <div class="stat"><div class="lbl">Output voltage</div><div class="val" id="cp-oV">&#8211;</div></div>
+        <div class="stat"><div class="lbl">Output current</div><div class="val" id="cp-oI">&#8211;</div></div>
+        <div class="stat"><div class="lbl">Output power</div><div class="val" id="cp-oP">&#8211;</div></div>
+        <div class="stat"><div class="lbl">Efficiency</div><div class="val" id="cp-oE">&#8211;</div></div>
+        <div class="stat"><div class="lbl">Input phase</div><div class="val" id="cp-oPh">&#8211;</div></div>
+        <div class="stat"><div class="lbl">Primary tuning</div><div class="val" id="cp-oT" style="font-size:13px">&#8211;</div></div>
+      </div>
+      <div class="row2">
+        <div><canvas id="cp-load" width="440" height="280"></canvas>
+          <div class="cap">Sweep the load: a flat CURRENT line = constant-current source; a flat VOLTAGE line = constant-voltage source.</div></div>
+        <div><canvas id="cp-freq" width="440" height="280"></canvas>
+          <div class="cap">Output power vs frequency. Orange line = 85 kHz drive. Watch it detune as k changes.</div></div>
+      </div>
+      <div class="note" id="cp-note"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VNA ================= -->
+<section id="vna" role="tabpanel">
+  <h2>VNA S-Parameter Explorer: measuring a Wireless Power Transfer link</h2>
+  <p class="sub">What a Vector Network Analyzer sees when its two ports drive the Tx coil and listen on the Rx coil. S&#8321;&#8321; = reflection (port 1), S&#8322;&#8321; = transmission (1&#8594;2). Split peaks f_m / f_e let you MEASURE the coupling k.</p>
+  <div class="wrap">
+    <div class="card">
+      <div class="btns c3" id="vn-presets">
+        <div class="bt active" data-k="0.06" data-q="150">Aligned<br>far pad</div>
+        <div class="bt" data-k="0.20" data-q="150">Typical<br>EV gap</div>
+        <div class="bt" data-k="0.35" data-q="150">Very close<br>pads</div>
+      </div>
+      <div class="ctrl"><label>Coupling k <span id="vn-vK">0.06</span></label>
+        <input id="vn-k" type="range" min="0.01" max="0.40" step="0.005" value="0.06"><div class="hint">set by gap / alignment of the two coils</div></div>
+      <div class="ctrl"><label>Unloaded Q <span id="vn-vQ">150</span></label>
+        <input id="vn-q" type="range" min="30" max="400" step="5" value="150"><div class="hint">coil quality factor (loss)</div></div>
+      <div class="ctrl"><label>Port loading Z_p <span id="vn-vZp">5 &#937;</span></label>
+        <input id="vn-zp" type="range" min="1" max="50" step="1" value="5">
+        <div class="hint">small = weakly-coupled probe loops (sharp peaks) &#183; 50 &#937; = direct VNA connection (broad peaks)</div></div>
+      <div class="note">
+        <b>Model:</b> two series-resonant loops (L = 100 &#181;H, C tuned to 85 kHz, R = &#969;&#8320;L/Q) with mutual M = k&#8730;(L&#8321;L&#8322;), each port of impedance Z_p.
+        Mesh solve gives S&#8322;&#8321; = 2j&#969;M&#183;Z_p / (Z&#8321;Z&#8322;+&#969;&#178;M&#178;) and S&#8321;&#8321; from Z_in.
+        <br><b>k from the split:</b> k &#8776; (f_e&#178; &#8722; f_m&#178;)/(f_e&#178; + f_m&#178;). This is how you get k out of a VNA trace.
+      </div>
+    </div>
+    <div class="card">
+      <div id="vn-badge" class="badge"></div>
+      <div class="stats">
+        <div class="stat"><div class="lbl">f_m (lower peak)</div><div class="val" id="vn-oFm">&#8211;</div></div>
+        <div class="stat"><div class="lbl">f_e (upper peak)</div><div class="val" id="vn-oFe">&#8211;</div></div>
+        <div class="stat"><div class="lbl">k extracted from split</div><div class="val" id="vn-oKx">&#8211;</div></div>
+        <div class="stat"><div class="lbl">|S&#8322;&#8321;| peak</div><div class="val" id="vn-oPk">&#8211;</div></div>
+        <div class="stat"><div class="lbl">|S&#8322;&#8321;| at 85 kHz</div><div class="val" id="vn-oIl">&#8211;</div></div>
+        <div class="stat"><div class="lbl">Loaded Q</div><div class="val" id="vn-oQl">&#8211;</div></div>
+      </div>
+      <canvas id="vn-plot" width="880" height="330"></canvas>
+      <div class="cap">Purple = |S&#8322;&#8321;| (transmission, "how much gets through"). Cyan = |S&#8321;&#8321;| (reflection, "how much bounces back"). Orange dashed = 85 kHz drive. Grey dots mark detected peaks f_m, f_e.</div>
+      <div class="note">
+        <b>Read the trace like a metrologist:</b> one peak = under/critically coupled; two peaks = over-coupled (splitting).
+        Deep S&#8321;&#8321; dip = good match, power enters the link instead of reflecting.
+        Increase k and watch the single resonance tear into f_m and f_e; the extracted k tracks the slider. That is the whole point of VNA characterisation.
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+function setBadge(el,text,bg,fg){el.textContent=text;el.style.background=bg;el.style.color=fg;}
+function selectGroup(container,onPick){
+  container.addEventListener('click',e=>{const b=e.target.closest('.bt');if(!b)return;
+    container.querySelectorAll('.bt').forEach(t=>t.classList.remove('active'));b.classList.add('active');onPick(b);});
+}
+
+/* ---------- Coupling & Efficiency ---------- */
+(()=>{
+  const mu0=4*Math.PI*1e-7,R1=0.15,R2=0.10,aWire=0.003,F0=85e3,N=80;
+  const L1=mu0*R1*(Math.log(8*R1/aWire)-2),L2=mu0*R2*(Math.log(8*R2/aWire)-2);
+  const sqrtL=Math.sqrt(L1*L2),W0=2*Math.PI*F0;
+  const DPH=2*Math.PI/N;
+  const P1X=new Float64Array(N),P1Y=new Float64Array(N),D1X=new Float64Array(N),D1Y=new Float64Array(N);
+  for(let i=0;i<N;i++){const ph=i*DPH;
+    P1X[i]=R1*Math.cos(ph);P1Y[i]=R1*Math.sin(ph);
+    D1X[i]=-R1*Math.sin(ph)*DPH;D1Y[i]=R1*Math.cos(ph)*DPH;}
+
+  function computeM(d,off,ang){
+    const c=Math.cos(ang),s=Math.sin(ang);
+    const p2x=new Float64Array(N),p2y=new Float64Array(N),p2z=new Float64Array(N),d2x=new Float64Array(N),d2y=new Float64Array(N);
+    for(let j=0;j<N;j++){const ph=j*DPH,lx=R2*Math.cos(ph);
+      p2x[j]=lx*c+off;p2y[j]=R2*Math.sin(ph);p2z[j]=-lx*s+d;
+      d2x[j]=-R2*Math.sin(ph)*c*DPH;d2y[j]=R2*Math.cos(ph)*DPH;}
+    let tot=0;
+    for(let i=0;i<N;i++){const P0=P1X[i],P1=P1Y[i],D0=D1X[i],D1=D1Y[i];
+      for(let j=0;j<N;j++){const rx=p2x[j]-P0,ry=p2y[j]-P1,rz=p2z[j];
+        const dist=Math.sqrt(rx*rx+ry*ry+rz*rz)+1e-9;
+        tot+=(d2x[j]*D0+d2y[j]*D1)/dist;}}
+    return mu0/(4*Math.PI)*tot;
+  }
+  // two-mesh coupled resonators, both series-tuned at f0, R = w0*L/Q
+  function respMag(f,k,Q){
+    const w=2*Math.PI*f,Ra=W0*L1/Q,Rb=W0*L2/Q;
+    const X1=w*L1-(W0*W0*L1)/w,X2=w*L2-(W0*W0*L2)/w,wM=w*k*sqrtL;
+    const Dr=Ra*Rb-X1*X2+wM*wM,Di=Ra*X2+Rb*X1;
+    return wM/Math.hypot(Dr,Di);
+  }
+  function draw(){
+    const gapV=$('cu-gap').value,offV=$('cu-off').value,angV=$('cu-ang').value,Q=+$('cu-q').value;
+    const gap=gapV/1000,off=offV/1000,ang=angV*Math.PI/180;
+    $('cu-vGap').textContent=gapV+" mm";$('cu-vOff').textContent=offV+" mm";$('cu-vAng').textContent=angV+"°";$('cu-vQ').textContent=Q;
+    const M=Math.abs(computeM(gap,off,ang));
+    let k=M/sqrtL;if(k>0.999)k=0.999;
+    const U=k*Q,eff=100*U*U/Math.pow(1+Math.sqrt(1+U*U),2);
+    const over=k>1/Q,fLow=F0/Math.sqrt(1+k),fHigh=F0/Math.sqrt(1-k);
+    $('cu-oK').textContent=k.toFixed(3);
+    $('cu-oU').textContent=U.toFixed(1);
+    $('cu-oEff').innerHTML=eff.toFixed(1)+"<small>%</small>";
+    $('cu-oM').innerHTML=(M*1e6).toFixed(2)+"<small> µH</small>";
+    $('cu-oF').textContent=over?(fLow/1e3).toFixed(1)+" / "+(fHigh/1e3).toFixed(1)+" kHz":"no split";
+    $('cu-oReg').textContent=over?"over-coupled":"under/critical";
+    if(over)setBadge($('cu-badge'),"Over-coupled → resonance split (k > 1/Q). 85 kHz sits in the dip.","#ffe9e9","#c0392b");
+    else setBadge($('cu-badge'),"Single resonance near 85 kHz (k ≤ 1/Q). Well-tuned operation.","#e6f7f2","#0a8f6a");
+    drawGeo(gap,off,ang,k);drawResp(k,Q);
+  }
+  function drawGeo(gap,off,ang,k){
+    const cv=$('cu-geo'),x=cv.getContext('2d'),W=cv.width,H=cv.height;
+    x.clearRect(0,0,W,H);
+    const X=v=>W/2+v*(W*0.9)/0.7,Z=v=>H-30-v*(H-60)/0.34;
+    x.strokeStyle="#00A6BE";x.lineWidth=5;x.lineCap="round";
+    x.beginPath();x.moveTo(X(-R1),Z(0));x.lineTo(X(R1),Z(0));x.stroke();
+    x.fillStyle="#00A6BE";x.font="12px Segoe UI";x.fillText("Tx",X(R1)+6,Z(0)+4);
+    const c=Math.cos(ang),s=Math.sin(ang);
+    const ex=off+R2*c,ez=gap-R2*s,wx=off-R2*c,wz=gap+R2*s;
+    x.strokeStyle="#7300FE";x.beginPath();x.moveTo(X(wx),Z(wz));x.lineTo(X(ex),Z(ez));x.stroke();
+    x.fillStyle="#7300FE";x.fillText("Rx",X(ex)+6,Z(ez)+4);
+    const nfl=7,alpha=Math.min(1,k*3.2);
+    x.strokeStyle="rgba(255,126,21,"+alpha.toFixed(2)+")";x.lineWidth=1.4;
+    for(let i=1;i<nfl;i++){
+      const t=i/nfl,sx=-R1+2*R1*t,u=-R2+2*R2*t,tx=off+u*c,tz=gap-u*s;
+      x.beginPath();x.moveTo(X(sx),Z(0));
+      x.quadraticCurveTo(X((sx+tx)/2+0.03),Z(gap*0.6+0.02),X(tx),Z(tz));x.stroke();
+    }
+    x.strokeStyle="#bbb";x.lineWidth=1;x.setLineDash([3,3]);
+    x.beginPath();x.moveTo(X(-0.3),Z(0));x.lineTo(X(-0.3),Z(gap));x.stroke();x.setLineDash([]);
+    x.fillStyle="#6b7b81";x.fillText((gap*1000).toFixed(0)+" mm gap",X(-0.33),Z(gap/2));
+  }
+  function drawResp(k,Q){
+    const cv=$('cu-resp'),x=cv.getContext('2d'),W=cv.width,H=cv.height;
+    x.clearRect(0,0,W,H);
+    const fMin=60e3,fMax=120e3,step=200;
+    const px=f=>30+(f-fMin)/(fMax-fMin)*(W-45),py=v=>H-28-v*(H-50);
+    const fs=[],vals=[];let mx=0;
+    for(let f=fMin;f<=fMax;f+=step){const v=respMag(f,k,Q);fs.push(f);vals.push(v);if(v>mx)mx=v;}
+    mx=mx||1;
+    x.strokeStyle="#cfd9dc";x.lineWidth=1;
+    x.beginPath();x.moveTo(30,py(0));x.lineTo(W-15,py(0));x.stroke();
+    x.beginPath();x.moveTo(30,py(0));x.lineTo(30,py(1));x.stroke();
+    x.fillStyle="#6b7b81";x.font="11px Segoe UI";
+    x.fillText("60",26,py(0)+14);x.fillText("85",px(85e3)-6,py(0)+14);x.fillText("120 kHz",W-55,py(0)+14);
+    x.save();x.translate(12,py(0.5));x.rotate(-Math.PI/2);x.fillText("|S₂₁|",0,0);x.restore();
+    x.strokeStyle="#7300FE";x.lineWidth=2.6;x.beginPath();
+    vals.forEach((v,i)=>{const cx=px(fs[i]),cy=py(v/mx);i?x.lineTo(cx,cy):x.moveTo(cx,cy);});x.stroke();
+    x.strokeStyle="#FF7E15";x.lineWidth=2;x.setLineDash([5,4]);
+    x.beginPath();x.moveTo(px(85e3),py(0));x.lineTo(px(85e3),py(1));x.stroke();x.setLineDash([]);
+    x.fillStyle=(k>1/Q)?"#FF4F4F":"#00A6BE";
+    x.beginPath();x.arc(px(85e3),py(respMag(85e3,k,Q)/mx),5,0,7);x.fill();
+  }
+  ['cu-gap','cu-off','cu-ang','cu-q'].forEach(id=>$(id).addEventListener('input',draw));
+  draw();
+})();
+
+/* ---------- Compensation Topology ---------- */
+(()=>{
+  const C=(re,im=0)=>({re,im});
+  const add=(a,b)=>C(a.re+b.re,a.im+b.im);
+  const mul=(a,b)=>C(a.re*b.re-a.im*b.im,a.re*b.im+a.im*b.re);
+  const div=(a,b)=>{const d=b.re*b.re+b.im*b.im;return C((a.re*b.re+a.im*b.im)/d,(a.im*b.re-a.re*b.im)/d);};
+  const abs=a=>Math.hypot(a.re,a.im);
+  const par=(a,b)=>div(mul(a,b),add(a,b));
+  const L1=100e-6,L2=100e-6,R1=0.3,R2=0.3,VIN=100,F0=85e3;
+
+  function solve(topo,k,RL,f){
+    const w0=2*Math.PI*F0,w=2*Math.PI*f,M=k*Math.sqrt(L1*L2);
+    const pP=topo[0]==="P",sP=topo[1]==="P";
+    const Cs=1/(w0*w0*L2),L1eff=sP?(L1-M*M/L2):L1,Cp=1/(w0*w0*L1eff);
+    const ZL1=C(0,w*L1),ZL2=C(0,w*L2),Zcp=C(0,-1/(w*Cp)),Zcs=C(0,-1/(w*Cs)),wM=C(0,w*M),Vin=C(VIN,0);
+    let Z2,loadNet;
+    if(!sP){loadNet=C(RL,0);Z2=add(add(add(C(R2,0),ZL2),Zcs),C(RL,0));}
+    else{loadNet=par(Zcs,C(RL,0));Z2=add(add(C(R2,0),ZL2),loadNet);}
+    const Zref=div(C((w*M)*(w*M),0),Z2);
+    let I1,Iin,Zin;
+    if(!pP){Zin=add(add(add(C(R1,0),ZL1),Zcp),Zref);I1=div(Vin,Zin);Iin=I1;}
+    else{const Zbr=add(add(C(R1,0),ZL1),Zref);Zin=par(Zcp,Zbr);I1=div(Vin,Zbr);Iin=div(Vin,Zin);}
+    const I2=div(mul(wM,I1),Z2);
+    let Vout,Iout,Pout;
+    if(!sP){Iout=abs(I2);Vout=abs(mul(I2,C(RL,0)));Pout=Iout*Iout*RL;}
+    else{Vout=abs(mul(I2,loadNet));Iout=Vout/RL;Pout=Vout*Vout/RL;}
+    const Pin=VIN*Iin.re,eff=Pin>0?Math.min(100,Math.max(0,Pout/Pin*100)):0;
+    return {Vout,Iout,Pout,eff,phase:Math.atan2(Zin.im,Zin.re)*180/Math.PI};
+  }
+
+  let topo="SS",sweepCache=null;
+  function loadSweep(k){
+    if(sweepCache&&sweepCache.k===k&&sweepCache.topo===topo)return sweepCache;
+    const RLs=[],I=[],V=[];
+    for(let r=2;r<=50;r+=1){const s=solve(topo,k,r,F0);RLs.push(r);I.push(s.Iout);V.push(s.Vout);}
+    return sweepCache={k,topo,RLs,I,V};
+  }
+  function classify(k){
+    const {I,V}=loadSweep(k);
+    const cov=a=>{const m=a.reduce((x,y)=>x+y,0)/a.length;const s=Math.sqrt(a.reduce((x,y)=>x+(y-m)**2,0)/a.length);return m>1e-9?s/m:9;};
+    const ci=cov(I),cv=cov(V);
+    if(ci<0.12&&ci<cv)return ["Constant-current output (≈ flat current)","#e6f7f2","#0a8f6a"];
+    if(cv<0.12&&cv<ci)return ["Constant-voltage output (≈ flat voltage)","#efe9ff","#5b21b6"];
+    return ["Load-dependent output","#fff1e6","#c0530f"];
+  }
+  const notes={
+    SS:"Series–Series: primary tuning independent of coupling and load; near-zero input phase (ZVS-friendly); constant-current output. The workhorse of EV WPT.",
+    SP:"Series–Parallel: primary must be tuned using M, so it needs re-tuning if coupling changes; voltage-leaning but load-sensitive.",
+    PS:"Parallel–Series: a parallel primary prefers a current-source drive. From a plain voltage source it transfers little power and shows input phase. Voltage-like output.",
+    PP:"Parallel–Parallel: also wants a current-source drive; poor power transfer from a voltage source here. This mismatch is exactly why practical designs add a series inductor → LCC."
+  };
+  function draw(){
+    const k=+$('cp-k').value,RL=+$('cp-rl').value,f=+$('cp-f').value*1000;
+    $('cp-vK').textContent=k.toFixed(2);$('cp-vRL').textContent=RL+" Ω";$('cp-vF').textContent=(f/1000).toFixed(1)+" kHz";
+    const r=solve(topo,k,RL,f);
+    $('cp-oV').innerHTML=r.Vout.toFixed(0)+"<small> V</small>";
+    $('cp-oI').innerHTML=r.Iout.toFixed(1)+"<small> A</small>";
+    $('cp-oP').innerHTML=r.Pout.toFixed(0)+"<small> W</small>";
+    $('cp-oE').innerHTML=r.eff.toFixed(1)+"<small> %</small>";
+    $('cp-oPh').innerHTML=r.phase.toFixed(1)+"<small> °</small>";
+    $('cp-oT').textContent=(topo[1]==="P"?"M-dependent":"independent of k");
+    const cl=classify(k);setBadge($('cp-badge'),topo+": "+cl[0],cl[1],cl[2]);
+    drawLoad(k,RL);drawFreq(k,RL);
+    $('cp-note').innerHTML="<b>"+topo+".</b> "+notes[topo]+"<br><b>LCC-LCC:</b> adds an extra inductor + capacitor each side to get a load- and coupling-independent constant-current output while keeping ZVS. It is the modern high-tolerance choice.";
+  }
+  function axes(x,W,H,pad){x.strokeStyle="#cfd9dc";x.lineWidth=1;x.beginPath();x.moveTo(pad,H-24);x.lineTo(W-8,H-24);x.moveTo(pad,10);x.lineTo(pad,H-24);x.stroke();}
+  function drawLoad(k,RL){
+    const cv=$('cp-load'),x=cv.getContext('2d'),W=cv.width,H=cv.height,pad=34;
+    x.clearRect(0,0,W,H);x.fillStyle="#1f2a2e";x.font="12px Segoe UI";x.fillText("Output vs load (normalised)",pad,16);
+    const {RLs,I,V}=loadSweep(k);
+    const nI=Math.max(...I)||1,nV=Math.max(...V)||1;
+    const px=r=>pad+(r-2)/48*(W-pad-10),py=v=>H-24-v*(H-44);
+    axes(x,W,H,pad);
+    x.fillStyle="#6b7b81";x.font="10px Segoe UI";x.fillText("2",pad-2,H-10);x.fillText("50 Ω (load)",W-72,H-10);
+    const plot=(arr,n,col)=>{x.strokeStyle=col;x.lineWidth=2.6;x.beginPath();arr.forEach((v,i)=>{const cx=px(RLs[i]),cy=py(v/n);i?x.lineTo(cx,cy):x.moveTo(cx,cy);});x.stroke();};
+    plot(I,nI,"#00A6BE");plot(V,nV,"#7300FE");
+    x.fillStyle="#00A6BE";x.fillText("output current",pad+6,30);x.fillStyle="#7300FE";x.fillText("output voltage",pad+6,44);
+    x.strokeStyle="#FF4F4F";x.setLineDash([4,3]);x.beginPath();x.moveTo(px(RL),10);x.lineTo(px(RL),H-24);x.stroke();x.setLineDash([]);
+  }
+  function drawFreq(k,RL){
+    const cv=$('cp-freq'),x=cv.getContext('2d'),W=cv.width,H=cv.height,pad=40;
+    x.clearRect(0,0,W,H);x.fillStyle="#1f2a2e";x.font="12px Segoe UI";x.fillText("Output power vs frequency (W)",pad,16);
+    const fs=[];for(let ff=70;ff<=100;ff+=0.5)fs.push(ff);
+    const P=fs.map(ff=>solve(topo,k,RL,ff*1000).Pout),mx=Math.max(...P)||1;
+    const px=ff=>pad+(ff-70)/30*(W-pad-10),py=v=>H-24-v/mx*(H-44);
+    axes(x,W,H,pad);
+    x.fillStyle="#6b7b81";x.font="10px Segoe UI";x.fillText("70",pad-4,H-10);x.fillText("85",px(85)-6,H-10);x.fillText("100 kHz",W-52,H-10);
+    x.strokeStyle="#7300FE";x.lineWidth=2.6;x.beginPath();P.forEach((v,i)=>{const cx=px(fs[i]),cy=py(v);i?x.lineTo(cx,cy):x.moveTo(cx,cy);});x.stroke();
+    x.strokeStyle="#FF7E15";x.lineWidth=2;x.setLineDash([5,4]);x.beginPath();x.moveTo(px(85),10);x.lineTo(px(85),H-24);x.stroke();x.setLineDash([]);
+  }
+  selectGroup($('cp-topo'),b=>{topo=b.dataset.t;draw();});
+  ['cp-k','cp-rl','cp-f'].forEach(id=>$(id).addEventListener('input',draw));
+  draw();
+})();
+
+/* ---------- VNA S-Parameters ---------- */
+(()=>{
+  const L=100e-6,W0=2*Math.PI*85e3,hyp=Math.hypot;
+  function sparams(f,k,Q,Zp){
+    const w=2*Math.PI*f,R=W0*L/Q;
+    const X=w*L-1/(w*(1/(W0*W0*L)));
+    const wM=w*k*L;
+    const z1r=R+Zp,z1i=X,z2r=R+Zp,z2i=X;
+    const Dr=z1r*z2r-z1i*z2i+wM*wM,Di=z1r*z2i+z1i*z2r;
+    const s21=2*wM*Zp/hyp(Dr,Di);
+    const z2m2=z2r*z2r+z2i*z2i;
+    const zinR=R+(wM*wM)*z2r/z2m2,zinI=X-(wM*wM)*z2i/z2m2;
+    const s11=hyp(zinR-Zp,zinI)/hyp(zinR+Zp,zinI);
+    return [s21,s11];
+  }
+  function draw(){
+    const k=+$('vn-k').value,Q=+$('vn-q').value,Zp=+$('vn-zp').value;
+    $('vn-vK').textContent=k.toFixed(3);$('vn-vQ').textContent=Q;$('vn-vZp').textContent=Zp+" Ω";
+    const fMin=60e3,fMax=115e3,step=50;
+    const fs=[],S21=[],S11=[];
+    for(let f=fMin;f<=fMax;f+=step){fs.push(f);const s=sparams(f,k,Q,Zp);S21.push(s[0]);S11.push(s[1]);}
+    const peaks=[];
+    for(let i=1;i<S21.length-1;i++)if(S21[i]>S21[i-1]&&S21[i]>=S21[i+1])peaks.push(i);
+    peaks.sort((a,b)=>S21[b]-S21[a]);
+    const top=peaks.slice(0,2).sort((a,b)=>a-b);
+    const split=top.length===2&&S21[top[0]]>0.05&&S21[top[1]]>0.05&&Math.abs(fs[top[0]]-fs[top[1]])>1e3;
+    let fm=null,fe=null,kx=null;
+    if(split){fm=fs[top[0]];fe=fs[top[1]];kx=(fe*fe-fm*fm)/(fe*fe+fm*fm);}
+    const pkIdx=peaks.length?peaks[0]:0;
+    const R=W0*L/Q,Ql=W0*L/(R+Zp),at85=sparams(85e3,k,Q,Zp)[0];
+    $('vn-oFm').innerHTML=split?(fm/1e3).toFixed(1)+"<small> kHz</small>":"&#8211;";
+    $('vn-oFe').innerHTML=split?(fe/1e3).toFixed(1)+"<small> kHz</small>":"&#8211;";
+    $('vn-oKx').innerHTML=split?kx.toFixed(3)+"<small> (set "+k.toFixed(3)+")</small>":"no split";
+    $('vn-oPk').innerHTML=(20*Math.log10(Math.max(S21[pkIdx],1e-6))).toFixed(1)+"<small> dB</small>";
+    $('vn-oIl').innerHTML=(20*Math.log10(Math.max(at85,1e-6))).toFixed(1)+"<small> dB</small>";
+    $('vn-oQl').textContent=Ql.toFixed(1);
+    const kc=1/Ql;
+    if(split)setBadge($('vn-badge'),"Over-coupled: k > 1/Q_loaded ≈ "+kc.toFixed(3)+" → resonance splits into f_m and f_e","#ffe9e9","#c0392b");
+    else setBadge($('vn-badge'),"Single resonance, under/critically coupled (k ≤ 1/Q_loaded ≈ "+kc.toFixed(3)+")","#e6f7f2","#0a8f6a");
+
+    const cv=$('vn-plot'),x=cv.getContext('2d'),W=cv.width,H=cv.height,pad=46;
+    x.clearRect(0,0,W,H);
+    const dbMin=-50,dbMax=0;
+    const px=f=>pad+(f-fMin)/(fMax-fMin)*(W-pad-14),py=db=>14+(dbMax-db)/(dbMax-dbMin)*(H-44);
+    x.strokeStyle="#e6eef0";x.lineWidth=1;x.fillStyle="#6b7b81";x.font="10px Segoe UI";
+    for(let db=0;db>=dbMin;db-=10){x.beginPath();x.moveTo(pad,py(db));x.lineTo(W-14,py(db));x.stroke();x.fillText(db+" dB",6,py(db)+3);}
+    for(let fk=60;fk<=115;fk+=5){const isMaj=fk%10===0;x.strokeStyle=isMaj?"#e0eaec":"#f0f5f6";
+      x.beginPath();x.moveTo(px(fk*1e3),14);x.lineTo(px(fk*1e3),H-30);x.stroke();
+      if(isMaj)x.fillText(fk,px(fk*1e3)-7,H-16);}
+    x.fillText("kHz",W-30,H-16);
+    const curve=(arr,col)=>{x.strokeStyle=col;x.lineWidth=2.4;x.beginPath();
+      arr.forEach((v,i)=>{const db=Math.max(dbMin,20*Math.log10(Math.max(v,1e-6)));const cx=px(fs[i]),cy=py(db);i?x.lineTo(cx,cy):x.moveTo(cx,cy);});x.stroke();};
+    curve(S11,"#00A6BE");curve(S21,"#7300FE");
+    x.strokeStyle="#FF7E15";x.lineWidth=2;x.setLineDash([5,4]);
+    x.beginPath();x.moveTo(px(85e3),14);x.lineTo(px(85e3),H-30);x.stroke();x.setLineDash([]);
+    x.fillStyle="#6b7b81";
+    if(split){[fm,fe].forEach((f,i)=>{const db=20*Math.log10(S21[top[i]]);
+      x.beginPath();x.arc(px(f),py(db),4.5,0,7);x.fill();x.fillText(i?"f_e":"f_m",px(f)-8,py(db)-9);});}
+    x.fillStyle="#7300FE";x.fillText("|S21| transmission",pad+8,24);
+    x.fillStyle="#00A6BE";x.fillText("|S11| reflection",pad+8,38);
+  }
+  selectGroup($('vn-presets'),b=>{$('vn-k').value=b.dataset.k;$('vn-q').value=b.dataset.q;draw();});
+  ['vn-k','vn-q','vn-zp'].forEach(id=>$(id).addEventListener('input',draw));
+  draw();
+})();
+
+/* ---------- Tab switching (remembered in URL hash) ---------- */
+(()=>{
+  const tabs=[...document.querySelectorAll('.tab')];
+  function show(name){
+    if(!document.getElementById(name))name="coupling";
+    tabs.forEach(t=>{const on=t.dataset.tab===name;t.classList.toggle('active',on);t.setAttribute('aria-selected',on);});
+    document.querySelectorAll('section').forEach(s=>s.classList.toggle('active',s.id===name));
+  }
+  tabs.forEach(t=>t.addEventListener('click',()=>{history.replaceState(null,"","#"+t.dataset.tab);show(t.dataset.tab);}));
+  show(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>

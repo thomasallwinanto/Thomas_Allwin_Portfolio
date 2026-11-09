@@ -22,13 +22,19 @@ export const personalProjects = {
     ]
   },
   nfcSimulator: {
-    title: 'NFC Card Field Simulator',
+    title: 'NFC Card Simulator and WPT Explorer',
     period: 'Jul/2026',
     points: [
       'Interactive 3D simulator of the 13.56 MHz magnetic field of an NXP CLRC663 (CLEV6630B) reader antenna and an NFC card moving through it.',
       'Biot–Savart field model calibrated to bench measurements: reproduces the measured 9.0 cm read range at 5 V and ~7.8 cm at 3.3 V.',
       'Adjustable card height, offset, antenna current and ISO/IEC 14443 threshold, with live predicted read range.',
-      'Built for a TUHH wireless power transfer seminar to derive the antenna current indirectly using the card as a calibrated probe.'
+      'Built for a TUHH wireless power transfer seminar to derive the antenna current indirectly using the card as a calibrated probe.',
+      'Companion WPT Explorer: coupling & efficiency, compensation topologies (SS/SP/PS/PP) and VNA S-parameters.'
+    ],
+    link: 'https://github.com/thomasallwinanto/NFC-Card-Simulator-and-WPT-Vehicle-Coupling-webapps',
+    apps: [
+      { label: 'Open Card Simulator', url: '/apps/nfc-card-simulator.html' },
+      { label: 'Open WPT Explorer', url: '/apps/wpt-explorer.html' }
     ],
     images: ['/assets/nfc_simulator.jpg']
   },
