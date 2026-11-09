@@ -15,9 +15,8 @@ function Layout() {
         <div className="container">
           <ul className="nav-links">
             <li><NavLink to="/" end className={({ isActive }) => `nav-btn ${isActive ? 'active' : ''}`}>Home</NavLink></li>
-            {/* Projects live inside the About page (id="cv-projects") — no separate nav entry. */}
             <li><NavLink to="/about" className={({ isActive }) => `nav-btn ${isActive ? 'active' : ''}`}>About Me</NavLink></li>
-            <li><NavLink to="/personal-projects" className={({ isActive }) => `nav-btn ${isActive ? 'active' : ''}`}>Personal Projects</NavLink></li>
+            <li><NavLink to="/personal-projects" className={({ isActive }) => `nav-btn ${isActive ? 'active' : ''}`}>Projects</NavLink></li>
             <li><NavLink to="/art" className={({ isActive }) => `nav-btn ${isActive ? 'active' : ''}`}>Art Projects</NavLink></li>
             <li><NavLink to="/blog" className={({ isActive }) => `nav-btn ${isActive ? 'active' : ''}`}>Blogs/Reviews</NavLink></li>
             <li><NavLink to="/stuff-i-love" className={({ isActive }) => `nav-btn ${isActive ? 'active' : ''}`}>Stuff I Love</NavLink></li>

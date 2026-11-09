@@ -19,9 +19,9 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
-          {/* Projects now live inside the About page; old links still resolve. */}
-          <Route path="projects" element={<Navigate to="/about#cv-projects" replace />} />
-          <Route path="academic-projects" element={<Navigate to="/about#cv-projects" replace />} />
+          {/* Academic projects now live in Projects; old links still resolve. */}
+          <Route path="projects" element={<Navigate to="/personal-projects" replace />} />
+          <Route path="academic-projects" element={<Navigate to="/personal-projects" replace />} />
           <Route path="personal-projects" element={<PersonalProjects />} />
           <Route path="art" element={<Art3D />} />
           <Route path="blog" element={<Blog />} />

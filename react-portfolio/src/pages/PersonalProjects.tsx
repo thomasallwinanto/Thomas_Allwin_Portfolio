@@ -13,12 +13,20 @@ function PersonalProjects() {
 
   const renderProjectContent = (key: ProjectKey) => {
     const project = personalProjects[key]
-    const isLargeImages = key === 'guild' || key === 'architecture'
+    const isLargeImages = key === 'guild' || key === 'architecture' || key === 'vox' || key === 'nfcSimulator'
     
     return (
       <div id="project-details" style={{ display: 'block' }}>
         <h3 style={{ marginTop: 0 }}>{project.title}</h3>
-        {project.desc && (
+        {'period' in project && project.period && (
+          <p style={{ margin: '0.2rem 0 0.6rem', opacity: 0.8 }}>{project.period}</p>
+        )}
+        {'points' in project && project.points && (
+          <ul style={{ fontSize: '1.05rem', lineHeight: 1.5, margin: '0.4rem 0 0.8rem', paddingLeft: '1.2rem' }}>
+            {project.points.map((pt, i) => <li key={i}>{pt}</li>)}
+          </ul>
+        )}
+        {'desc' in project && project.desc && (
           key === 'imaginary' ? (
             <p className="project-detail-desc" style={{ fontSize: '1.05rem', lineHeight: 1.5, margin: '0.4rem 0 0.8rem' }}>
               My 3D art project created during lockdown using Paint 3D. See more in the{' '}
@@ -31,6 +39,13 @@ function PersonalProjects() {
               dangerouslySetInnerHTML={{ __html: project.desc }}
             />
           )
+        )}
+        {'link' in project && project.link && (
+          <p style={{ margin: '0.4rem 0 0.8rem' }}>
+            <a href={project.link} target="_blank" rel="noopener noreferrer" style={{ color: '#00bcd4', textDecoration: 'underline' }}>
+              View on GitHub
+            </a>
+          </p>
         )}
         {'images' in project && project.images && (
           <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap' }}>
@@ -53,7 +68,7 @@ function PersonalProjects() {
   return (
     <section id="personal-projects">
       <div className="container">
-        <h2>Personal Projects</h2>
+        <h2>Projects</h2>
         <div className="project-blocks">
           {(Object.keys(personalProjects) as ProjectKey[]).map((key) => (
             <div

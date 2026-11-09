@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import CvItem from '../components/CvItem'
-import ProjectsSection from '../components/ProjectsSection'
 
 function About() {
   const { hash, key } = useLocation()
@@ -109,7 +108,6 @@ function About() {
           </ul>
         </div>
 
-        <ProjectsSection />
 
       </div>
     </section>

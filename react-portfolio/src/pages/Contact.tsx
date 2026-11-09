@@ -16,6 +16,12 @@ function Contact() {
             @thomas_allwin
           </a>
         </p>
+        <p>
+          GitHub:{' '}
+          <a href="https://github.com/thomasallwinanto" target="_blank" rel="noopener" style={{ color: '#00bcd4', textDecoration: 'underline' }}>
+            @thomasallwinanto
+          </a>
+        </p>
         <p>Feel free to reach out for collaborations or just to say hi!</p>
         <p>Also, the song being played is "One step ahead of the blues" by JJ Cale. All rights belong to their respective owners.</p>
       </div>
