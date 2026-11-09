@@ -7,7 +7,11 @@ const GREETING: Msg = {
   content: 'Hi! Ask me anything about Thomas or this portfolio.',
 }
 
-const GREETING_WORDS = new Set(['hi', 'hello', 'hey', 'hallo'])
+// Shown for every failure (server error, rate limit, no network, empty reply).
+const FALLBACK_REPLY =
+  "Come on!, Just go through the website once like the old days and look for what you want. Sorry about the chatbot, it's still under construction :)"
+
+const GREETING_WORDS =new Set(['hi', 'hello', 'hey', 'hallo'])
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false)
@@ -51,15 +55,10 @@ export default function Chatbot() {
         body: JSON.stringify({ messages: [...history, { role: 'user', content: question }] }),
       })
       const data = await res.json().catch(() => ({}))
-      const reply = res.ok
-        ? data.reply
-        : data.error ?? "Come on!, Just go through the website once like the old days and look for what you want. Sorry about the chatbot, it's still under construction :)"
+      const reply = res.ok && data.reply ? data.reply : FALLBACK_REPLY
       setMessages([...next, { role: 'assistant', content: reply }])
     } catch {
-      setMessages([
-        ...next,
-        { role: 'assistant', content: "I couldn't reach the server — check your connection and try again." },
-      ])
+      setMessages([...next, { role: 'assistant', content: FALLBACK_REPLY }])
     } finally {
       setSending(false)
       inputRef.current?.focus()
