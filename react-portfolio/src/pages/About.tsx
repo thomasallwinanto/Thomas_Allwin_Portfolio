@@ -19,7 +19,7 @@ function About() {
 
         <div className="cv-section">
           <h3>Profile</h3>
-          <p>Master's student and Embedded Systems Engineer with expertise in ECU development, CAN communication, and AUTOSAR integration. Skilled in SDLC, V-Model, and ASPICE/MISRA-compliant workflows, with hands-on experience in automotive tools and physical systems. Passionate about innovation, sustainability, and next-generation technologies.</p>
+          <p>Electrical and electronics engineer and M.Sc. student in Microelectronics & Microsystems (Embedded Systems) at TU Hamburg, with three years of professional experience in automotive embedded software. I combine an understanding of hardware with structured software and testing practice, and I am used to working in regulated, process-driven environments where quality, traceability and clear documentation matter. I learn new domains quickly, from embedded systems and measurement to data analysis, simulation and applied AI, and I enjoy turning complex technical topics into clear results for colleagues, customers and non-experts. I am motivated by technology with real impact, especially the energy transition, and hold certificates in wind energy, power systems, battery management, IoT and project management.</p>
         </div>
 
         <div className="cv-section" id="cv-experience">
