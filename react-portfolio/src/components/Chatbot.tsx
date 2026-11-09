@@ -7,6 +7,8 @@ const GREETING: Msg = {
   content: 'Hi! Ask me anything about Thomas or this portfolio.',
 }
 
+const GREETING_WORDS = new Set(['hi', 'hello', 'hey', 'hallo'])
+
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState<Msg[]>([GREETING])
@@ -32,6 +34,14 @@ export default function Chatbot() {
     const next: Msg[] = [...messages, { role: 'user', content: question }]
     setMessages(next)
     setInput('')
+
+    // Answer plain greetings locally; no need to call the API for them.
+    const normalized = question.toLowerCase().replace(/[^a-z]/g, '')
+    if (GREETING_WORDS.has(normalized)) {
+      setMessages([...next, { role: 'assistant', content: 'Hi there!' }])
+      return
+    }
+
     setSending(true)
 
     try {
@@ -43,7 +53,7 @@ export default function Chatbot() {
       const data = await res.json().catch(() => ({}))
       const reply = res.ok
         ? data.reply
-        : data.error ?? 'Something went wrong on my end. Try again in a moment.'
+        : data.error ?? "Come on!, Just go through the website once like the old days and look for what you want. Sorry about the chatbot, it's still under construction :)"
       setMessages([...next, { role: 'assistant', content: reply }])
     } catch {
       setMessages([
